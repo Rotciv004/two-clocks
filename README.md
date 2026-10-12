@@ -1,159 +1,125 @@
-# Two Clocks — Etapele 1–4
+# Two Clocks
 
-Stare Etapa 4: raportul A4 de **5 pagini**, diagrama PDF/PNG și pachetul portabil sunt livrate. Replay-ul NOU 01→05 din propriile copii a trecut 52 scenarii pozitive, 4 verificări Q0, 67 cazuri dataset și 483 aserțiuni timeline. Principală, structură și query_params sunt identice înainte/după, prin metoda fingerprint originală. ZIP-ul este extras și verificat prin manifest; vezi `verification/phase4_summary.md`. Secțiunile Etapelor 1–3 de mai jos păstrează istoricul. A1/A2 sunt neimplementate; GUI DBeaver și restore nativ de dump sunt netestate.
+Proiect pentru Assignment 1 — „Build a Bitemporal Database”, la disciplina Advanced Database Chapters and Cloud Databases.
 
-Ligă fictivă de fotbal, CABD — Advanced Database Chapters and Cloud Databases. Modelul păstrează când un fapt era valabil (valid time, VT) și când baza îl considera adevărat (transaction time, TT). Întrebarea demonstrativă este cine antrena FC Someș la 2 martie 2026, văzut din trei momente ale cunoașterii.
+Autor: Boar Victor. Motor testat: MariaDB 11.8.8, InnoDB, utf8mb4.
 
-Etapa 1 a livrat structura Part A, protecțiile istoricului, Q0, teste și documentație. Etapa 2 adaugă planul și SQL-ul pentru date/cronologie; **Etapa 2 este executată și verificată**. **Nu reprezintă întregul assignment terminat.** Starea executării și dovezile sunt în [verification/summary.md](verification/summary.md).
+## Domeniu și model
 
-## Mediu și locație — istoric Etapa 1
+Baza descrie o ligă fictivă de fotbal: jucători, cluburi, contracte, împrumuturi, bugete și antrenori. Fiecare fapt temporal păstrează două perioade:
 
-- Director exact: `/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/`.
-- Baza logică principală: `two_clocks_cabd`; utf8mb4 / utf8mb4_unicode_ci, InnoDB.
-- Verificat pe serverul existent `VictorPC`, socket `/var/lib/mysql/mysql.sock`: **11.8.8-MariaDB**, `CURRENT_USER() = root@localhost`.
-- Fedora 44 KDE; pachete: mariadb-server 11.8.8-3.fc44, DBeaver Community 26.2.1, Plasma 6.7.5.
-- Autentificarea efectiv folosită: `pkexec` și autentificarea locală existentă a MariaDB. Conexiunea fără parolă a utilizatorului RotcivRaob a fost respinsă; `sudo -n` a cerut autentificare. Nu s-au creat conturi/parole și nu s-a modificat autentificarea.
-- Inspecția a găsit directorul gol, fără repository Git și fără AGENTS.md aplicabil. Baza principală nu exista. Nu s-a reinstalat nimic și nu s-a mutat datadir-ul.
+- Valid time (VT): când faptul este valabil în realitate, cu tipul `DATE`.
+- Transaction time (TT): când faptul este cunoscut de bază, cu tipul `DATETIME(6)`, în UTC.
 
-Fișierele SQL, documentația și exportul sunt în directorul proiectului. Datele interne ale serverului rămân în stocarea administrată de MariaDB. Sandboxul uneltelor a necesitat escaladare pentru socket; serverul identificat este cel local existent, nu un MariaDB substitut instalat într-un container.
+Intervalele sunt semi-deschise, `[start, end)`. Capetele deschise folosesc `9999-12-31` pentru VT și `9999-12-31 23:59:59.999999` pentru TT. Identitățile sunt separate de versiuni; corecțiile închid versiunea în TT și inserează rânduri noi, fără rescrierea istoricului.
 
-## Fișiere și ordinea de lucru
+Exemplul central este titularul postului de antrenor la FC Someș, la 2 martie 2026:
 
-| Fișier | Rol |
+| Cunoașterea la data UTC | Răspuns |
 |---|---|
-| `00_create_database.sql` | Creează nedistructiv baza dedicată; nu selectează și nu golește baza |
-| `01_schema.sql` | **Recreează obiectele și șterge datele lor** în baza selectată de client; tabele, indexuri, funcție de ceas, trigger-e, Q0, parametru inițial |
-| `scripts/install_main.sh` | Instalare inițială protejată: refuză orice bază principală cu obiecte existente; produce export real |
-| `scripts/verify_schema.sh` | Creează un nume nou de test, rulează schema de două ori, ambele suite, păstrează baza și logurile; exit nenul la eșec |
-| `tests/01_schema_smoke.sql` | Aserțiuni și erori așteptate, metadate, I1–I4, cinci versiuni, rollback atomic |
-| `tests/02_write_examples.sql` | Exemple executabile independente E3/E4/E5/E8/E9, cu verificări și ROLLBACK |
-| `docs/schema_design.md` | Dicționar complet, cardinalități, perioade, indexuri, semantica Q1–Q8 |
-| `docs/write_protocol.md` | Protocol atomic, blocări concurente și SQL complet identic cu exemplele testate |
-| `docs/requirements_matrix.md` | Maparea cerințelor, dovezi și cerințele viitoare |
-| `docs/references/` | PDF-uri nemodificate, extrase text, proveniență și SHA-256 |
-| `er_diagram.dot`, `er_diagram.png` | Sursa Graphviz și diagrama randată, cu PK/FK și crow's-foot |
-| `exports/schema_only.sql` | Export structural real prin mariadb-dump, inclusiv view, funcție și trigger-e |
-| `verification/` | Versiuni, loguri complete, rezultate și rezumat |
-| `scripts/build_schema.py`, `scripts/build_tests.py` | Generatoare locale pentru SQL; nu sunt necesare rulării livrabilelor SQL |
+| 5 martie, 12:00 | H01 — Andrei Ionescu |
+| 12 martie, 12:00 | H02 — Mihai Popescu |
+| 16 martie, 12:00 | H01 — Andrei Ionescu |
 
-02_data.sql și 03_timeline.sql sunt livrabilele Etapei 2, executate și verificate; 04/05 sunt livrate în Etapa 3. Etapa 4 a finalizat raportul și pachetul verificat; bonusurile A1/A2 rămân neimplementate. În Etapa 1 ordinea recomandată era **verificare separată → instalare principală inițială → inspecție/export**. DDL produce commit implicit: nu se anulează prin ROLLBACK.
+Modelul temporal este implementat manual. Bonusurile A1 și A2 nu sunt implementate.
 
-## Comenzi CLI Etapa 1 — istoric și referință
+## Fișiere principale
 
-```bash
-CABD_PROJECT_ROOT='/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks'
-```
+| Fișier | Conținut |
+|---|---|
+| `01_schema.sql` | Tabele, constrângeri, indexuri, funcția ceasului și trigger-e de protecție |
+| `02_data.sql` | Datele inițiale și evenimentul T01 |
+| `03_timeline.sql` | Evenimentele T02–T38 |
+| `04_views.sql` | Q0–Q8 și view-urile auxiliare |
+| `05_tests.sql` | Scenarii, rezultate așteptate și verificări |
+| [report.pdf](report.pdf) | Raportul de cinci pagini |
+| [er_diagram.pdf](er_diagram.pdf) | Diagrama ER; sursele DOT și PNG sunt în același director |
+| `submission/boar_victor/` | Pachetul de predare, cu dependențe și dovezi |
 
-Verificare completă, repetabilă. **Recreează obiecte numai într-o bază de test nouă**, niciodată în baza principală:
+`00_create_database.sql` creează baza locală `two_clocks_cabd`. Pentru o demonstrație separată, folosește un nume nou, ca în exemplul de mai jos.
 
-```bash
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/verify_schema.sh"
-```
+## Instalare într-o bază nouă
 
-Scriptul afișează numele bazei `two_clocks_cabd_verify_<sufix_unic>` și directorul logurilor. Nu șterge baze preexistente. Dacă folosești deja un fișier privat de conexiune MariaDB, alternativa este `bash "$CABD_PROJECT_ROOT/scripts/verify_schema.sh" --defaults-extra-file=/cale/catre/configuratia_existenta.cnf`. Nu introduce valoarea parolei în comandă și nu salva acreditări în proiect. Sunt necesare CREATE/DROP/ALTER/INDEX/REFERENCES, DML, CREATE VIEW/SHOW VIEW, TRIGGER, CREATE ROUTINE/ALTER ROUTINE/EXECUTE și CREATE TEMPORARY TABLES în bazele proiectului; autentificarea locală administrativă a fost suficientă, fără granturi noi.
+Cerințe: MariaDB 11.8.x și clientul `mariadb`. Rulează comenzile din rădăcina proiectului, cu un cont care poate crea baza, tabele, view-uri, trigger-e și rutine. Politica serverului poate cere privilegii suplimentare pentru `CREATE FUNCTION`.
 
-Prima instalare, **doar dacă baza nu are obiecte**:
+`01_schema.sql` recreează obiectele și șterge datele lor. Nu îl rula pe baza populată `two_clocks_cabd`.
 
 ```bash
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/install_main.sh"
+CABD_DB='two_clocks_demo_new'
+(
+  set -e
+  mariadb --batch -e "CREATE DATABASE \`$CABD_DB\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+  for CABD_SQL in 01_schema.sql 02_data.sql 03_timeline.sql 04_views.sql 05_tests.sql; do
+    mariadb --batch --raw --default-character-set=utf8mb4 \
+      --database="$CABD_DB" < "$CABD_SQL"
+  done
+)
 ```
 
-Acum, dacă baza este deja instalată, scriptul se oprește cu exit 2 și o păstrează. `00_create_database.sql` separat este nedistructiv:
+Crearea bazei refuză un nume existent; la eroare, instalarea se oprește. Ordinea este 01 → 02 → 03 → 04 → 05. Clientul MariaDB procesează `DELIMITER` și blocurile `BEGIN NOT ATOMIC`; nu folosi `--force`.
+
+Comenzile presupun autentificarea existentă a utilizatorului. Un fișier privat de conexiune se poate indica prin `--defaults-extra-file=/cale/privata/client.cnf`, ca prim argument al clientului. Pe Fedora, pentru accesul administrativ local se poate folosi `pkexec /usr/bin/mariadb`. Nu salva parole în proiect sau în argumentele comenzilor.
+
+## Verificare automată
+
+Runnerul necesită Python 3 și clientul MariaDB. Citește SQL-urile din pachetul de predare și creează o bază de test cu nume unic. Baza și rezultatele sunt păstrate.
 
 ```bash
-pkexec /usr/bin/mariadb < "$CABD_PROJECT_ROOT/00_create_database.sql"
+CABD_PACKAGE="$(pwd)/submission/boar_victor"
+CABD_EVIDENCE="$(mktemp -d /tmp/two-clocks-verify-XXXXXX)"
+(
+  cd /tmp
+  bash "$CABD_PACKAGE/scripts/verify_submission.sh" \
+    --package-root "$CABD_PACKAGE" --evidence-dir "$CABD_EVIDENCE/replay"
+)
 ```
 
-Inspecție, fără recreare:
+Pentru autentificarea administrativă locală, înlocuiește `bash` cu `pkexec /usr/bin/bash`. Runnerul acceptă și `--defaults-extra-file /cale/privata/client.cnf`.
 
-```bash
-pkexec /usr/bin/mariadb --database=two_clocks_cabd --batch \
-  -e 'SELECT VERSION(), DATABASE(); SHOW FULL TABLES; SELECT * FROM query_params; SELECT * FROM v_integrity_violations;'
+Testele negative Q0 sunt activate numai în baza nouă creată de runner. Fixture-urile sunt anulate prin `ROLLBACK`; parametrii și datele sunt verificate înainte și după teste. Opțiunea `--main-database two_clocks_cabd` adaugă inspecția read-only și comparația fingerprintului bazei principale.
+
+Verificarea din 10 octombrie 2026 a trecut 52 de scenarii pozitive, 4 verificări Q0, 67 de cazuri dataset și 483 de aserțiuni de cronologie. Datele principalei au rămas neschimbate. Rezultatele și limitele testării sunt în [verification/phase4_summary.md](verification/phase4_summary.md).
+
+## Interogare Q6
+
+Exemplu pentru CL01, VT 2 martie și cunoașterea din 12 martie. Se rulează în baza instalată, într-o sesiune fără tranzacție deschisă:
+
+```sql
+SET time_zone = '+00:00';
+START TRANSACTION;
+
+UPDATE query_params
+SET subject_id = (SELECT club_id FROM club WHERE club_code = 'CL01'),
+    valid_at = '2026-03-02',
+    known_at = '2026-03-12 12:00:00.000000'
+WHERE params_id = 1;
+
+SELECT subject_code, subject_name
+FROM v_q6_bitemporal_point
+WHERE fact_kind = 'HEAD_COACH';
+
+ROLLBACK;
 ```
 
-**Comandă distructivă asupra obiectelor selectate:** `mariadb --database=NUME_BAZA < "$CABD_PROJECT_ROOT/01_schema.sql"`. Folosește-o numai pentru o bază de test cunoscută sau o resetare aprobată explicit. `01_schema.sql` nu conține USE fix; runnerul verifică DATABASE() înainte de DDL. Nu rula această comandă asupra bazei principale populate. Pentru date existente, exportă întâi și proiectează o migrare; instalatorul nu presupune că numele bazei îi dovedește proveniența.
+Rezultatul este H02 — Mihai Popescu. `ROLLBACK` restaurează parametrii. Q1 și Q2 folosesc ziua UTC a execuției; celelalte întrebări au parametrii descriși în [catalogul interogărilor](docs/query_catalog.md).
 
-Export structural repetabil, fără modificări în bază:
+Pentru scripturile complete în DBeaver folosește execuția nativă MariaDB, care procesează delimitatorii. CLI este calea testată; interfața DBeaver, restaurarea nativă a dumpurilor și testarea concurentă între sesiuni nu au fost verificate.
 
-```bash
-pkexec /usr/bin/mariadb-dump --no-data --routines --triggers \
-  --default-character-set=utf8mb4 two_clocks_cabd > "$CABD_PROJECT_ROOT/exports/schema_only.sql"
-```
+## Documentație
 
-Exportul fără date **nu include rândul query_params**. Pentru o instalare utilizabilă preferă 00 + 01; la restaurarea exclusivă a dump-ului adaugă separat rândul tehnic exact din 01. Dump-ul păstrează DEFINER-ul contului local care a creat obiectele; restaurarea pe alt server trebuie să țină cont de conturi și permisiuni.
+- [Model și dicționar de date](docs/schema_design.md)
+- [Protocol de scriere](docs/write_protocol.md)
+- [Planul datelor și cronologia](docs/data_plan.md), [timeline.csv](docs/timeline.csv)
+- [Cerințe și starea implementării](docs/requirements_matrix.md)
+- [Exemplele SQL E3, E4 și E8](docs/report_write_examples.sql)
+- [Sursele rezultatelor din raport](docs/report_evidence_map.md)
 
-## DBeaver
+Sursele editabile ale raportului și diagramei sunt `docs/report.md` și `er_diagram.dot`. Generarea raportului folosește `scripts/build_report.py` și dependențele din `docs/report_requirements.txt`.
 
-1. Deschide conexiunea MariaDB locală deja configurată, folosind autentificarea salvată existentă. Nu modifica autentificarea root pentru JDBC. Conexiunea CLI prin socket nu implică automat autentificare root prin JDBC.
-2. Refresh pe conexiune și selectează `two_clocks_cabd` ca schemă activă. În SQL Editor execută `SELECT VERSION(), CURRENT_USER(), DATABASE();` și confirmă schema.
-3. Execută `SHOW FULL TABLES;`, `SELECT * FROM query_params;` și `SELECT * FROM v_integrity_violations;`. Deschide Tables, Views, Triggers și Procedures/Functions pentru structură.
-4. Pentru teste folosește baza nouă al cărei nume este în logul runnerului. Schema se recreează doar acolo. Scripturile cu `DELIMITER` se rulează prin **Execute SQL Script / execuție nativă MariaDB**, cu delimitatorii procesați; nu selecta tot conținutul ca un singur statement JDBC. CLI-ul de mai sus este calea verificată efectiv.
-5. Pentru o intervenție tranzacțională folosește manual commit și protocolul din docs. La eroare execută ROLLBACK. Nu comite fixture-urile: testele au propriile ROLLBACK.
-
-Pașii DBeaver sunt documentați; nu este pretinsă o execuție automată a interfeței grafice sau testarea acreditărilor ei.
-
-## Tabelele și cele două ceasuri
-
-| Grup | Tabel | Rol |
-|---|---|---|
-| Domeniu netemporal | `player`, `coach` | Identități, cod, nume și data nașterii considerate fixe |
-| Domeniu netemporal | `club` | Identitate stabilă; existența temporală rezultă din versiunile curente |
-| Domeniu netemporal | `season` | Definiție fixă a unei perioade de analiză |
-| Domeniu netemporal | `contract` | O singură ancoră pentru perechea player–club, inclusiv revenirile |
-| Domeniu netemporal | `head_coach_role` | O singură poziție de antrenor principal per club |
-| Bitemporal | `club_version` | Nume și buget EUR |
-| Bitemporal | `contract_version` | PERMANENT/LOAN și salariu EUR |
-| Bitemporal | `head_coach_role_version` | Titularul poziției |
-| Tehnic | `tx_registry` | Un tx_id și un timestamp UTC per schimbare, autor și motiv |
-| Tehnic | `tx_event_tag` | Etichete multiple E1–E9 per schimbare |
-| Tehnic | `query_params` | Parametrii viitoarelor view-uri |
-
-Sunt șase entități de domeniu și exact trei tabele bitemporale. Tabelele tehnice nu intră în minimul academic de entități.
-
-VT are granularitate de o zi și santinela `9999-12-31`; TT are microsecunde, UTC și santinela `9999-12-31 23:59:59.999999`. Ambele intervale sunt [from,to). Predicatul de punct este `valid_from <= valid_at AND valid_at < valid_to AND tx_from <= known_at AND known_at < tx_to`. Scrierea este close + insert; E5 încheie realitatea cu un valid_to finit, E8 retrage credința fără înlocuitor. @sim_now invalid sau viitor este respins. `fn_effective_time()` validează/capturează ceasul, fără a fi API-ul bonus A1.
-
-Q0 detectează I1/I2/I3, inclusiv acoperirea I2 prin uniunea perioadelor clubului. Gărzile și testele negative probează I4; Q0 nu dovedește singur istoricul imutabil. Trigger-ele nu sunt o barieră împotriva unui administrator care poate schimba DDL-ul. Concurența presupune protocolul comun de blocare, documentat, fără benchmark sau test de stres pretins.
-
-`query_params` are inițial exact `(1, '2026-03-02', '2026-03-16 12:00:00.000000', '2025-07-01', '2026-07-01', 1)`. PK/CHECK permit **cel mult** un rând; scriptul asigură existența lui. `subject_id` înseamnă player_id sau club_id potrivit view-ului și nu are FK arbitrar. Valoarea 1 nu dovedește existența vreunei entități cu acel ID.
-
-Sezoanele exemplului sunt 2025/2026 `[2025-07-01,2026-07-01)` și 2026/2027 `[2026-07-01,2027-07-01)`. Sunt convenții fictive. Încărcarea lor în `season` aparține 02_data.sql; la finalul verificării Etapei 1, baza principală păstra numai rândul tehnic query_params. Etapa 2 a populat și verificat baza principală; vezi verification/phase2_summary.md.
-
-## Surse și ajustări academice
-
-Documentele au fost citite integral, din:
-
-- `.../CABD/CURS/Course1.pdf`, 44 pagini;
-- `.../CABD/SEMINAR/Assignment1.pdf`, 7 pagini.
-
-Pathurile absolute și hashurile sunt în [docs/references/sources.json](docs/references/sources.json). Copiile nemodificate se află alături. Exemplul minimal din Assignment este ilustrativ; aici se aplică modelul mai precis din prompt cu ancora contract separată. Formularea „three different answers” din checklist este interpretată conform exemplului academic A → B → A, fără a inventa trei nume distincte. Q4 va distinge atât punctul valid din sezon, cât și suprapunerea cu sezonul și acoperirea întregului sezon. Nu s-a inventat o încercare eșuată pentru raport.
-
-Pentru detaliile MariaDB au fost consultate documentațiile oficiale [microsecunde](https://mariadb.com/docs/server/reference/sql-functions/date-time-functions/microseconds-in-mariadb), [funcții window](https://mariadb.com/docs/server/reference/sql-functions/special-functions/window-functions/window-functions-overview), [CREATE VIEW](https://mariadb.com/docs/server/server-usage/views/create-view) și [trigger-e](https://mariadb.com/docs/server/server-usage/triggers-events/triggers/trigger-overview). Sintaxa livrată este verificată pe serverul local; descrierea modelului academic provine din PDF-uri și cerință.
-
-## Etapa 2 — date și cronologie, execuție verificată
-
-[Planul complet](docs/data_plan.md), [timeline.csv](docs/timeline.csv), [planul autorat](docs/timeline_plan.json) și [rezultatele așteptate](docs/expected_results.json) descriu 38 de evenimente: T01 în `02_data.sql`, T02–T38 în `03_timeline.sql`. Sunt așteptate 60 jucători, 8 antrenori, 6 cluburi, 2 sezoane, 69 ancore contract, 131 versiuni totale și 77 fapte contractuale curente în TT. Aceste cifre au fost confirmate prin SQL în cele două replay-uri și în principală.
-
-Etichete așteptate: E1=1, E2=13, E3=18, E4=5, E5=6, E6=4, E7=3, E8=1, E9=2 (53 asocieri). CSV conține `tx_id` reale, rezolvate după auditul principalei și JSON `components` pentru ambele modificări E9. Rezultatele și linkurile Etapei 1 de mai sus sunt istorice și nu certifică datasetul Etapei 2.
-
-### CLI Etapa 2
-
-Comenzi exacte pentru runner-ele existente; execuție **PASS**. Wrapper-ele apelează `scripts/phase2_runner.py` în modul `verify`, respectiv `main`:
-
-```bash
-CABD_PROJECT_ROOT='/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks'
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/verify_dataset.sh"
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/populate_main.sh"
-```
-
-Se rulează întâi `verify_dataset.sh`, apoi, numai după succesul verificării, `populate_main.sh`. Modul `verify` creează două baze noi separate și execută 01→02→03 în fiecare. În a doua bază, testele Etapei 1 cu rollback preced încărcarea și avansează ID-urile; comparația finală normalizează după coduri și perioade. Sunt prevăzute auditul datasetului, testele cronologiei și refuzul încărcărilor duplicate. Acesta este mecanismul de replay verificat de runner; restaurarea dump-ului nativ nu este testată (`restore_tested=false`). Cele două replay-uri au trecut și sunt identice după normalizare.
-
-Modul `main` cere o verificare reușită pentru checksum-urile exacte ale fișierelor urmărite și compară fingerprint-ul schemei principale cu schema verificată. Pentru o bază nepopulată salvează mai întâi un backup prin mariadb-dump, apoi execută direct 02/03, auditul doar în citire și comparația normalizată cu replay-ul. Nu rulează 01 în baza principală. Datele parțiale sau necunoscute sunt păstrate și provoacă refuzul populării. Pentru un dataset deja complet și identic, repetarea face comparația și auditul doar în citire, apoi întoarce `ALREADY POPULATED`, fără DML.
-
-Logurile și manifestele se scriu în `verification/phase2/`; backup-ul anterior populării este `exports/two_clocks_cabd_before_phase2_<stamp>.sql`, iar exportul final este `exports/two_clocks_cabd_phase2.sql`. După popularea reușită runnerul completează tx_id reale în CSV; statusurile documentare se actualizează separat la final. Wrapper-ele necesită Python 3 pentru orchestrare; livrabilele SQL rămân standalone. Autentificarea folosește mecanismul local existent; nu se stochează credențiale. Baza principală a fost populată și auditată efectiv.
-
-02/03 rulează standalone pe schema existentă, prin client MariaDB care procesează DELIMITER, fără generatoare Python la runtime. Blocurile BEGIN NOT ATOMIC au tranzacții explicite și handler ROLLBACK/RESIGNAL. GET_LOCK în namespace-ul bazei serializează replay-urile cooperante; cursoarele blochează toate ancorele în ordine PK, club → player → coach → contract → rol. Timpul local v_time este capturat o dată per eveniment prin fn_effective_time(), apoi reutilizat. Snapshot-urile temporare I4 și Q0 sunt verificate înainte de COMMIT. [Protocolul complet](docs/data_plan.md) explică și gestionarea erorilor; nu se modifică schema și nu se implementează A1.
+Materialele de curs, credențialele, dumpurile administrative și fișierele temporare sunt excluse din Git. Arhiva de predare și checksumurile sale sunt disponibile local în `submission/`; directorul `submission/boar_victor/` este versionat.
 
 ### Story log — 38 de evenimente proiectate
+
 
 Toate momentele TT de mai jos sunt UTC, cu precizie de microsecunde; toate cele 38 de evenimente au fost comise și verificate. Data efectivă descrie schimbarea, inclusiv noul sfârșit la E5 și data corectată la T19. Fereastra de transfer [2025-07-01, 2025-09-01) este fictivă. Prefixele păstrate la E2 nu sunt evenimente E3 noi; Q3 folosește metadatele evenimentelor și istoricul SQL.
 
@@ -198,63 +164,19 @@ Toate momentele TT de mai jos sunt UTC, cu precizie de microsecunde; toate cele 
 | T37 | E2 | 2026-11-01 | 2026-09-10 10:00:00.000000 | CL06 anunță bugetul din noiembrie înainte să devină valabil. |
 | T38 | E2, E6 | 2026-10-01 | 2026-09-20 10:00:00.000000 | Reîncepe împrumutul P006 pe aceeași ancoră, după pauza iulie–octombrie. |
 
-## Livrabile Part C realizate și pașii de predare rămași
 
-- **Implementat și verificat** — `04_views.sql`: Q0 consecvent cu schema și Q1–Q8: fapte actuale, mandate coalescate, clasificare E2/E3/E4 cu valori vechi/noi, intersecție/acoperire sezon, snapshot TT, punct bitemporal A → B → A, calendar lunar cu zero și pauze între relații.
-- **Implementat și verificat** — `05_tests.sql`: parametri și ieșiri pentru toate view-urile, limite [from,to), Q6; EXPLAIN cu/fără index este în scripts/compare_q6_index.sh. Interogările de audit ale Etapei 2 nu reprezintă livrarea view-urilor Q1–Q8.
-- Raport de maximum cinci pagini, diagramă și rulare 01–05 de la zero. Termen: **Seminarul 3**; predare `CABD Team/Assignment1/boar_victor`.
-- Bonus A1: API de proceduri pentru TT; bonus A2: implementare temporală nativă separată. Ambele rămân neimplementate.
+## Livrabile Part C
 
-Execuțiile și tx_id reale sunt confirmate în [rezumatul etapei 2](verification/phase2_summary.md).
+| Întrebare | View | Scop |
+|---|---|---|
+| Q0 | `v_integrity_violations` | Încălcări ale integrității temporale |
+| Q1 | `v_q1_current_contracts` | Contractele active astăzi ale unui jucător |
+| Q2 | `v_q2_coach_tenures` | Mandate de antrenor, cu perioade adiacente reunite |
+| Q3 | `v_q3_event_audit` | Evenimente E2/E3/E4 și valori vechi/noi |
+| Q4 | `v_q4_period_relationships` | Suprapunere sau acoperire a unei perioade |
+| Q5 | `v_q5_contracts_as_known` | Toate faptele contractuale la un moment TT |
+| Q6 | `v_q6_bitemporal_point` | Fapte la o dată VT, dintr-o perspectivă TT |
+| Q7 | `v_q7_monthly_relationships` | Contracte distincte pe lună și club |
+| Q8 | `v_q8_relationship_gaps` | Pauze între perioadele aceleiași relații |
 
-## Dovezi finale Part B
-
-Etapa 2 este completă: [rezumatul verificării](verification/phase2_summary.md), [reconstrucție și export](docs/replay.md). Două replay-uri identice, 67 expected și 483 aserțiuni de cronologie per bază, populare principală verificată și export complet. Repetarea populate_main a confirmat ALREADY POPULATED fără DML.
-
-## Etapa 3 / Part C — Q0–Q8 și dovezi EXPLAIN
-
-**Status: completă, verificată în două baze noi și instalată de două ori în principală fără modificarea datelor de business.** Q0–Q8 PASS; 52 scenarii pozitive și 4 verificări Q0 suplimentare în clone.
-
-Livrabile: `04_views.sql`, `05_tests.sql`, [catalogul interogărilor](docs/query_catalog.md), `docs/query_expected_results.json`, `scripts/verify_queries.sh`, `scripts/install_views_main.sh`, `scripts/compare_q6_index.sh`, exportul `exports/phase3_views.sql` și [rezumatul execuției](verification/phase3_summary.md). Ultimul rezumat și manifestele din `verification/phase3/` stabilesc statusul real.
-
-```bash
-CABD_PROJECT_ROOT='/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks'
-# Reconstruiește numai în DOUĂ baze noi, cu nume unice:
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/verify_queries.sh"
-# Experimentul EXPLAIN creează propria clonă; nu elimină indexuri în principală:
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/compare_q6_index.sh"
-# Backup + instalează NUMAI view-uri; 05 pozitiv; păstrează business data:
-pkexec /usr/bin/bash "$CABD_PROJECT_ROOT/scripts/install_views_main.sh"
-# Inspecție/teste pozitive standalone; restaurează query_params:
-pkexec /usr/bin/mariadb --database=two_clocks_cabd < "$CABD_PROJECT_ROOT/05_tests.sql"
-```
-
-`04_views.sql` poate fi rerulat: CREATE OR REPLACE VIEW, în ordinea dependențelor. Nu recreează tabele și nu elimină indexuri/trigger-e. **01_schema.sql recreează obiecte și șterge date: nu îl executa pe principala populată.** Installerul verifică checksum-urile aceleiași versiuni testate, salvează backup complet și `previous_views.sql`, apoi compară înainte/după toate rândurile de business (inclusiv ID-uri), separat de parametri. DDL-ul view-urilor produce commit implicit; revenirea se face controlat folosind definițiile salvate, nu prin ROLLBACK.
-
-Rerularea `install_views_main.sh` este verificată separat. Runnerul păstrează bazele și logurile de verificare. Schema manuală, funcția ceasului și cele 16 trigger-e rămân active. După adăugarea view-urilor, vechiul `populate_main.sh` din etapa 2 poate refuza fingerprint-ul extins al schemei; acesta este un installer istoric de date, nu comanda pentru etapa 3.
-
-### DBeaver / parametri
-
-Refresh pe conexiunea existentă, selectează `two_clocks_cabd`, deschide SQL Editor și confirmă `SELECT DATABASE();`. Exemple:
-
-```sql
-SET time_zone='+00:00';
-UPDATE query_params SET subject_id=(SELECT club_id FROM club WHERE club_code='CL01'),
- valid_at='2026-03-02',known_at='2026-03-12 12:00:00.000000',
- period_start='2025-07-01',period_end='2026-07-01' WHERE params_id=1;
-SELECT * FROM v_q6_bitemporal_point ORDER BY fact_kind,subject_code,valid_from;
-SELECT * FROM v_q3_event_audit ORDER BY tx_time,fact_family,subject_code;
-SELECT * FROM v_q7_monthly_relationships ORDER BY month_start,club_code;
-SELECT * FROM v_q8_relationship_gaps ORDER BY player_code,club_code,gap_from;
-SELECT COUNT(*) AS violation_count FROM v_integrity_violations;
--- Preset final al demonstrației A -> B -> A:
-UPDATE query_params SET known_at='2026-03-16 12:00:00.000000' WHERE params_id=1;
-```
-
-05 conține `DELIMITER $$` și `BEGIN NOT ATOMIC`; folosește Execute SQL Script cu delimitatorii procesați sau execuția nativă MariaDB. CLI este calea executată efectiv; GUI DBeaver nu este declarat testat. Folosește o sesiune fără tranzacție deschisă. Modul implicit are numai SELECT și UPDATE query_params plus obiecte temporare de aserțiune; nu creează rutine permanente. Parametrii se restaurează și la eroare.
-
-Demonstrațiile Q0 negative sunt activate numai de runner în clonele nou create, prin flag și numele exact al bazei; principală este refuzată explicit. Fiecare fixture este anulat prin ROLLBACK și Q0 redevine zero. Capturile sunt CSV UTF-8 per scenariu, cu fișiere JSON pentru parametrii reali; Q3 include auditul complet. Expected-ul etapei 2 este păstrat nemodificat.
-
-Q1/Q2 consemnează ziua UTC reală; celelalte demonstrații folosesc parametri ficși. Duratele infinite nu sunt afișate ca mii de ani. Q7 numără relații distincte pe fereastră lunară, inclusiv zero, nu versiuni salariale. Q8 unește adiacența înainte de calculul golurilor. Q3 păstrează etichetele multiple și compară toate valorile/datele vechi și noi.
-
-Următorul pas: **Part D**, raportul de maximum cinci pagini, selecția dovezilor și verificarea pachetului de predare. A1/A2 se decid separat. Acest stadiu nu declară raportul ori predarea finalizate.
+Raportul și dovezile includ rezultatele Q0–Q8 și comparația EXPLAIN cu/fără indexul as-of. Pe datasetul testat, optimizerul nu a ales indexul as-of; nu este prezentat un benchmark de performanță.
