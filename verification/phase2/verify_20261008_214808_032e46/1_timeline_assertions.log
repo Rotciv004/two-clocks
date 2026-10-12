@@ -1,0 +1,5 @@
+--------------
+CALL tc_tl_assert('131 exact historical versions with old/new values, VT, TT and originating Tnn', ((SELECT COUNT(*) FROM tc_tl_actual)=131 AND NOT EXISTS(SELECT 1 FROM tc_tl_expected e WHERE (SELECT COUNT(*) FROM tc_tl_actual a WHERE a.kind=e.kind AND BINARY a.business_key=BINARY e.business_key AND BINARY a.val=BINARY e.val AND a.amount=e.amount AND a.valid_from=e.valid_from AND a.valid_to=e.valid_to AND a.tx_from=e.tx_from AND a.tx_to=e.tx_to AND BINARY a.ref=BINARY e.ref)<>1)))
+--------------
+
+ERROR 1267 (HY000) at line 366: Illegal mix of collations (utf8mb4_uca1400_ai_ci,IMPLICIT) and (utf8mb4_unicode_ci,IMPLICIT) for operation '='

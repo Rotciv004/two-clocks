@@ -1,0 +1,1 @@
+SELECT DISTINCT c.club_code,h.coach_code,v.valid_from,v.valid_to FROM head_coach_role_version v JOIN head_coach_role a USING(role_id) JOIN club c USING(club_id) JOIN coach h USING(coach_id) WHERE c.club_code='CL04' AND v.tx_to='9999-12-31 23:59:59.999999' ORDER BY v.valid_from;

@@ -1,0 +1,16 @@
+{
+  "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+  "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+  "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+  "tests/01_schema_smoke.sql": "4bc390ad32f8a9df3ac09cc34a98262b802dafda8b54e6ad73b00204e31d1dc7",
+  "tests/02_write_examples.sql": "45e2a7d7a55010e2ed85a265845f14a105caef33653ad3464bd08d35e4fcc16c",
+  "tests/03_dataset_assertions.sql": "516a4f3cb46230e5d60a12288f629e484287dbf69ce888a817c7a935d8ab5a6a",
+  "tests/04_timeline_assertions.sql": "df2c7687feccceb1e5648643e556689a309802fa9597a365bbeae1c8c2e406f5",
+  "docs/expected_results.json": "8c56d25d7562830288b705014bfca59e4afc3b2d8479534e7b7a4d971740fabc",
+  "er_diagram.dot": "a93ee235ed311dbbd69ff4299a54a33137832fc812758eb241887ec346efce67",
+  "er_diagram.png": "bb72c54cb3263109f97c16bba22f00ee9da2fe18e110e2ad191b6d19ffe0fbcd",
+  "exports/schema_only.sql": "2f6f181753d2786b3dd38a37b40e7fd691b29261d9bde286247a81f119ad462d",
+  "exports/two_clocks_cabd_phase2.sql": "c71e01a0a206a3ea3654e20ba232c0e574e7b6c25199bfefaf878183586eb703",
+  "docs/references/Assignment1.pdf": "791fee459208673646cc6aaf8450ab03aea6a0629d7f849c0353ea48cccf473d",
+  "docs/references/Course1.pdf": "2e89a5899e480d722af53239019ae730528b8acc8738ff0bd0efd1b97f1e8980"
+}

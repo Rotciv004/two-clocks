@@ -1,0 +1,61 @@
+Tables_in_two_clocks_cabd	Table_type
+club	BASE TABLE
+club_version	BASE TABLE
+coach	BASE TABLE
+contract	BASE TABLE
+contract_version	BASE TABLE
+head_coach_role	BASE TABLE
+head_coach_role_version	BASE TABLE
+player	BASE TABLE
+query_params	BASE TABLE
+season	BASE TABLE
+tx_event_tag	BASE TABLE
+tx_registry	BASE TABLE
+v_integrity_violations	VIEW
+v_p3_audit_candidates	VIEW
+v_p3_audit_components	VIEW
+v_p3_audit_dates	VIEW
+v_p3_audit_events	VIEW
+v_p3_audit_facts	VIEW
+v_p3_audit_old	VIEW
+v_p3_contract_facts	VIEW
+v_q1_current_contracts	VIEW
+v_q2_coach_tenures	VIEW
+v_q3_event_audit	VIEW
+v_q4_period_relationships	VIEW
+v_q5_contracts_as_known	VIEW
+v_q6_bitemporal_point	VIEW
+v_q7_monthly_relationships	VIEW
+v_q8_relationship_gaps	VIEW
+Function	sql_mode	Create Function	character_set_client	collation_connection	Database Collation
+fn_effective_time	STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION	CREATE DEFINER=`root`@`localhost` FUNCTION `fn_effective_time`() RETURNS datetime(6)
+    NO SQL
+    SQL SECURITY INVOKER
+BEGIN
+  DECLARE v_text VARCHAR(128);
+  DECLARE v_time DATETIME(6);
+  DECLARE v_day INT;
+  DECLARE EXIT HANDLER FOR SQLWARNING, SQLEXCEPTION
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'TC_CLOCK: invalid or future @sim_now';
+  IF @sim_now IS NULL THEN RETURN UTC_TIMESTAMP(6); END IF;
+  SET v_text = CAST(@sim_now AS CHAR);
+  IF v_text NOT REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}([.][0-9]{1,6})?$'
+  THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'TC_CLOCK'; END IF;
+  SET v_time = CAST(v_text AS DATETIME(6));
+  SET v_day = CAST(SUBSTRING(v_text,9,2) AS UNSIGNED);
+  IF v_time IS NULL OR YEAR(v_time) < 1000 OR MONTH(v_time) = 0
+     OR v_day < 1 OR LAST_DAY(v_time) IS NULL OR v_day > DAY(LAST_DAY(v_time))
+     OR v_time > UTC_TIMESTAMP(6)
+  THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'TC_CLOCK'; END IF;
+  RETURN v_time;
+END	utf8mb4	utf8mb4_uca1400_ai_ci	utf8mb4_unicode_ci
+Table	Non_unique	Key_name	Seq_in_index	Column_name	Collation	Cardinality	Sub_part	Packed	Null	Index_type	Comment	Index_comment	Ignored
+contract_version	0	PRIMARY	1	version_id	A	98	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	1	contract_id	A	98	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	2	tx_to	A	98	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	3	valid_from	A	98	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_tx	1	tx_id	A	32	NULL	NULL		BTREE			NO
+q0
+0
+params_id	valid_at	known_at	period_start	period_end	subject_id
+1	2026-03-02	2026-03-16 12:00:00.000000	2025-07-01	2026-07-01	1

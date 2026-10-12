@@ -1,0 +1,3 @@
+role_id,club_code,coach_code,coach_name,tenure_from,tenure_to,tenure_days,elapsed_days,tenure_status,evaluation_date
+4,CL01,H01,Andrei Ionescu,2025-07-01,2026-03-03,245,245,ENDED,2026-10-09
+4,CL01,H02,Mihai Popescu,2026-03-03,9999-12-31,NULL,220,ACTIVE,2026-10-09

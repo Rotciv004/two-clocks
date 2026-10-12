@@ -1,0 +1,14 @@
+invariant_code	source_table	business_key	version_id	conflicting_version_id	details
+I1	club_version	1	3	4	club_id=1: overlapping current valid periods
+I1	contract_version	1	3	4	contract_id=1: overlapping current valid periods
+I1	head_coach_role_version	1	4	5	role_id=1: overlapping current valid periods
+I3	head_coach_role_version	1	4	5	club_id=1: multiple current head coach assignments
+I2	contract_version	1	10	NULL	contract_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	head_coach_role_version	1	11	NULL	role_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	contract_version	1	11	NULL	contract_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	head_coach_role_version	1	12	NULL	role_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	contract_version	1	12	NULL	contract_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	head_coach_role_version	1	13	NULL	role_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	contract_version	1	13	NULL	contract_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I2	head_coach_role_version	1	14	NULL	role_id=1: club_id=1 does not cover [2026-01-01,2026-04-01)
+I3	head_coach_role_version	1	15	16	club_id=1: multiple current head coach assignments

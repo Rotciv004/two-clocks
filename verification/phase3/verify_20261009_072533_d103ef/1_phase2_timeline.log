@@ -1,0 +1,486 @@
+name	ok
+131 exact historical versions with old/new values, VT, TT and originating Tnn	1
+38 exact registries; 53 exact tags	1
+club CL01 VT boundary 2025-07-01	1
+club CL01 VT boundary 2025-11-01	1
+club CL02 VT boundary 2025-07-01	1
+club CL02 VT boundary 2025-12-01	1
+club CL03 VT boundary 2025-07-01	1
+club CL03 VT boundary 2026-01-01	1
+club CL04 VT boundary 2025-07-01	1
+club CL04 VT boundary 2026-08-01	1
+club CL05 VT boundary 2025-07-01	1
+club CL05 VT boundary 2026-09-01	1
+club CL06 VT boundary 2025-07-01	1
+club CL06 VT boundary 2026-11-01	1
+club_version closed DELETE	1
+club_version closed DELETE unchanged club_version	1
+club_version closed DELETE unchanged contract_version	1
+club_version closed DELETE unchanged head_coach_role_version	1
+club_version closed DELETE unchanged query_params	1
+club_version closed DELETE unchanged tx_event_tag	1
+club_version closed DELETE unchanged tx_registry	1
+club_version closed UPDATE	1
+club_version closed UPDATE unchanged club_version	1
+club_version closed UPDATE unchanged contract_version	1
+club_version closed UPDATE unchanged head_coach_role_version	1
+club_version closed UPDATE unchanged query_params	1
+club_version closed UPDATE unchanged tx_event_tag	1
+club_version closed UPDATE unchanged tx_registry	1
+club_version open DELETE	1
+club_version open DELETE unchanged club_version	1
+club_version open DELETE unchanged contract_version	1
+club_version open DELETE unchanged head_coach_role_version	1
+club_version open DELETE unchanged query_params	1
+club_version open DELETE unchanged tx_event_tag	1
+club_version open DELETE unchanged tx_registry	1
+club_version open UPDATE	1
+club_version open UPDATE unchanged club_version	1
+club_version open UPDATE unchanged contract_version	1
+club_version open UPDATE unchanged head_coach_role_version	1
+club_version open UPDATE unchanged query_params	1
+club_version open UPDATE unchanged tx_event_tag	1
+club_version open UPDATE unchanged tx_registry	1
+contract P001/CL01 VT boundary 2025-07-01	1
+contract P001/CL01 VT boundary 2025-08-31	1
+contract P001/CL06 VT boundary 2025-08-31	1
+contract P002/CL01 VT boundary 2025-07-01	1
+contract P002/CL01 VT boundary 2025-08-30	1
+contract P002/CL02 VT boundary 2025-08-30	1
+contract P003/CL01 VT boundary 2025-07-01	1
+contract P003/CL01 VT boundary 2025-08-29	1
+contract P003/CL03 VT boundary 2025-08-29	1
+contract P004/CL01 VT boundary 2025-07-01	1
+contract P004/CL01 VT boundary 2025-08-28	1
+contract P004/CL04 VT boundary 2025-08-28	1
+contract P005/CL01 VT boundary 2025-07-01	1
+contract P005/CL01 VT boundary 2025-08-27	1
+contract P005/CL05 VT boundary 2025-08-27	1
+contract P006/CL02 VT boundary 2026-06-01	1
+contract P006/CL02 VT boundary 2026-07-01	1
+contract P006/CL02 VT boundary 2026-09-01	1
+contract P006/CL02 VT boundary 2026-10-01	1
+contract P006/CL02 VT boundary 2026-12-01	1
+contract P007/CL03 VT boundary 2026-06-01	1
+contract P007/CL03 VT boundary 2026-09-01	1
+contract P008/CL04 VT boundary 2026-06-01	1
+contract P008/CL04 VT boundary 2026-09-01	1
+contract P013/CL02 VT boundary 2025-07-01	1
+contract P013/CL02 VT boundary 2025-12-01	1
+contract P013/CL02 VT boundary 2026-02-01	1
+contract P014/CL02 VT boundary 2025-07-01	1
+contract P014/CL02 VT boundary 2025-12-15	1
+contract P014/CL02 VT boundary 2026-03-01	1
+contract P015/CL02 VT boundary 2025-07-01	1
+contract P015/CL02 VT boundary 2025-12-20	1
+contract P015/CL02 VT boundary 2026-03-10	1
+contract P016/CL02 VT boundary 2025-07-01	1
+contract P016/CL02 VT boundary 2026-01-01	1
+contract P017/CL02 VT boundary 2025-07-01	1
+contract P017/CL02 VT boundary 2026-01-15	1
+contract P025/CL03 VT boundary 2025-07-01	1
+contract P025/CL03 VT boundary 2026-05-01	1
+contract P026/CL03 VT boundary 2025-07-01	1
+contract P026/CL03 VT boundary 2026-06-01	1
+contract P027/CL03 VT boundary 2025-07-01	1
+contract P027/CL03 VT boundary 2026-07-01	1
+contract P037/CL04 VT boundary 2025-07-01	1
+contract P037/CL04 VT boundary 2026-08-01	1
+contract P049/CL05 VT boundary 2025-07-01	1
+contract P049/CL05 VT boundary 2026-09-01	1
+contract P060/CL06 VT boundary 2026-04-01	1
+contract P060/CL06 VT boundary 2026-05-01	1
+contract_version closed DELETE	1
+contract_version closed DELETE unchanged club_version	1
+contract_version closed DELETE unchanged contract_version	1
+contract_version closed DELETE unchanged head_coach_role_version	1
+contract_version closed DELETE unchanged query_params	1
+contract_version closed DELETE unchanged tx_event_tag	1
+contract_version closed DELETE unchanged tx_registry	1
+contract_version closed UPDATE	1
+contract_version closed UPDATE unchanged club_version	1
+contract_version closed UPDATE unchanged contract_version	1
+contract_version closed UPDATE unchanged head_coach_role_version	1
+contract_version closed UPDATE unchanged query_params	1
+contract_version closed UPDATE unchanged tx_event_tag	1
+contract_version closed UPDATE unchanged tx_registry	1
+contract_version open DELETE	1
+contract_version open DELETE unchanged club_version	1
+contract_version open DELETE unchanged contract_version	1
+contract_version open DELETE unchanged head_coach_role_version	1
+contract_version open DELETE unchanged query_params	1
+contract_version open DELETE unchanged tx_event_tag	1
+contract_version open DELETE unchanged tx_registry	1
+contract_version open UPDATE	1
+contract_version open UPDATE unchanged club_version	1
+contract_version open UPDATE unchanged contract_version	1
+contract_version open UPDATE unchanged head_coach_role_version	1
+contract_version open UPDATE unchanged query_params	1
+contract_version open UPDATE unchanged tx_event_tag	1
+contract_version open UPDATE unchanged tx_registry	1
+E9 both original closures undone	1
+E9 complete rollback unchanged club_version	1
+E9 complete rollback unchanged contract_version	1
+E9 complete rollback unchanged head_coach_role_version	1
+E9 complete rollback unchanged query_params	1
+E9 complete rollback unchanged tx_event_tag	1
+E9 complete rollback unchanged tx_registry	1
+E9 existing dataset fixture selected	1
+E9 first closure reached	1
+E9 first insert reached	1
+E9 inserts removed in both tables	1
+E9 registry and tags removed	1
+E9 second closure reached	1
+E9 second half exact errno and message	1
+every finite tx_to has exactly one closing registry	1
+final Q0	1
+head_coach_role_version closed DELETE	1
+head_coach_role_version closed DELETE unchanged club_version	1
+head_coach_role_version closed DELETE unchanged contract_version	1
+head_coach_role_version closed DELETE unchanged head_coach_role_version	1
+head_coach_role_version closed DELETE unchanged query_params	1
+head_coach_role_version closed DELETE unchanged tx_event_tag	1
+head_coach_role_version closed DELETE unchanged tx_registry	1
+head_coach_role_version closed UPDATE	1
+head_coach_role_version closed UPDATE unchanged club_version	1
+head_coach_role_version closed UPDATE unchanged contract_version	1
+head_coach_role_version closed UPDATE unchanged head_coach_role_version	1
+head_coach_role_version closed UPDATE unchanged query_params	1
+head_coach_role_version closed UPDATE unchanged tx_event_tag	1
+head_coach_role_version closed UPDATE unchanged tx_registry	1
+head_coach_role_version open DELETE	1
+head_coach_role_version open DELETE unchanged club_version	1
+head_coach_role_version open DELETE unchanged contract_version	1
+head_coach_role_version open DELETE unchanged head_coach_role_version	1
+head_coach_role_version open DELETE unchanged query_params	1
+head_coach_role_version open DELETE unchanged tx_event_tag	1
+head_coach_role_version open DELETE unchanged tx_registry	1
+head_coach_role_version open UPDATE	1
+head_coach_role_version open UPDATE unchanged club_version	1
+head_coach_role_version open UPDATE unchanged contract_version	1
+head_coach_role_version open UPDATE unchanged head_coach_role_version	1
+head_coach_role_version open UPDATE unchanged query_params	1
+head_coach_role_version open UPDATE unchanged tx_event_tag	1
+head_coach_role_version open UPDATE unchanged tx_registry	1
+P006/CL02 E6 same anchor gap	1
+P013/CL02 E6 same anchor gap	1
+P014/CL02 E6 same anchor gap	1
+P015/CL02 E6 same anchor gap	1
+role CL01 VT boundary 2025-07-01	1
+role CL01 VT boundary 2026-03-01	1
+role CL01 VT boundary 2026-03-03	1
+role CL02 VT boundary 2025-07-01	1
+role CL02 VT boundary 2026-01-10	1
+role CL03 VT boundary 2025-07-01	1
+role CL03 VT boundary 2026-10-01	1
+T01 exact UTC, reason prefix, author and tag set	1
+T01 historical I1	1
+T01 historical I2	1
+T01 historical I3	1
+T01 TT -1us exact visible version set	1
+T01 TT +0us exact visible version set	1
+T01 TT +1us exact visible version set	1
+T02 exact UTC, reason prefix, author and tag set	1
+T02 historical I1	1
+T02 historical I2	1
+T02 historical I3	1
+T02 semantic effective date E3	1
+T02 TT -1us exact visible version set	1
+T02 TT +0us exact visible version set	1
+T02 TT +1us exact visible version set	1
+T03 exact UTC, reason prefix, author and tag set	1
+T03 historical I1	1
+T03 historical I2	1
+T03 historical I3	1
+T03 semantic effective date E3	1
+T03 TT -1us exact visible version set	1
+T03 TT +0us exact visible version set	1
+T03 TT +1us exact visible version set	1
+T04 exact UTC, reason prefix, author and tag set	1
+T04 historical I1	1
+T04 historical I2	1
+T04 historical I3	1
+T04 semantic effective date E3	1
+T04 TT -1us exact visible version set	1
+T04 TT +0us exact visible version set	1
+T04 TT +1us exact visible version set	1
+T05 exact UTC, reason prefix, author and tag set	1
+T05 historical I1	1
+T05 historical I2	1
+T05 historical I3	1
+T05 semantic effective date E2	1
+T05 TT -1us exact visible version set	1
+T05 TT +0us exact visible version set	1
+T05 TT +1us exact visible version set	1
+T06 exact UTC, reason prefix, author and tag set	1
+T06 historical I1	1
+T06 historical I2	1
+T06 historical I3	1
+T06 semantic effective date E3	1
+T06 TT -1us exact visible version set	1
+T06 TT +0us exact visible version set	1
+T06 TT +1us exact visible version set	1
+T07 exact UTC, reason prefix, author and tag set	1
+T07 historical I1	1
+T07 historical I2	1
+T07 historical I3	1
+T07 semantic effective date E3	1
+T07 TT -1us exact visible version set	1
+T07 TT +0us exact visible version set	1
+T07 TT +1us exact visible version set	1
+T08 exact UTC, reason prefix, author and tag set	1
+T08 historical I1	1
+T08 historical I2	1
+T08 historical I3	1
+T08 semantic effective date E2	1
+T08 TT -1us exact visible version set	1
+T08 TT +0us exact visible version set	1
+T08 TT +1us exact visible version set	1
+T09 exact UTC, reason prefix, author and tag set	1
+T09 historical I1	1
+T09 historical I2	1
+T09 historical I3	1
+T09 semantic effective date E2	1
+T09 TT -1us exact visible version set	1
+T09 TT +0us exact visible version set	1
+T09 TT +1us exact visible version set	1
+T10 exact UTC, reason prefix, author and tag set	1
+T10 historical I1	1
+T10 historical I2	1
+T10 historical I3	1
+T10 TT -1us exact visible version set	1
+T10 TT +0us exact visible version set	1
+T10 TT +1us exact visible version set	1
+T11 exact UTC, reason prefix, author and tag set	1
+T11 historical I1	1
+T11 historical I2	1
+T11 historical I3	1
+T11 TT -1us exact visible version set	1
+T11 TT +0us exact visible version set	1
+T11 TT +1us exact visible version set	1
+T12 exact UTC, reason prefix, author and tag set	1
+T12 historical I1	1
+T12 historical I2	1
+T12 historical I3	1
+T12 TT -1us exact visible version set	1
+T12 TT +0us exact visible version set	1
+T12 TT +1us exact visible version set	1
+T13 exact UTC, reason prefix, author and tag set	1
+T13 historical I1	1
+T13 historical I2	1
+T13 historical I3	1
+T13 semantic effective date E3	1
+T13 TT -1us exact visible version set	1
+T13 TT +0us exact visible version set	1
+T13 TT +1us exact visible version set	1
+T14 exact UTC, reason prefix, author and tag set	1
+T14 historical I1	1
+T14 historical I2	1
+T14 historical I3	1
+T14 TT -1us exact visible version set	1
+T14 TT +0us exact visible version set	1
+T14 TT +1us exact visible version set	1
+T15 exact UTC, reason prefix, author and tag set	1
+T15 historical I1	1
+T15 historical I2	1
+T15 historical I3	1
+T15 semantic effective date E2	1
+T15 TT -1us exact visible version set	1
+T15 TT +0us exact visible version set	1
+T15 TT +1us exact visible version set	1
+T16 E7 old and new holder at effective boundary	1
+T16 exact UTC, reason prefix, author and tag set	1
+T16 historical I1	1
+T16 historical I2	1
+T16 historical I3	1
+T16 semantic effective date E3	1
+T16 TT -1us exact visible version set	1
+T16 TT +0us exact visible version set	1
+T16 TT +1us exact visible version set	1
+T17 exact UTC, reason prefix, author and tag set	1
+T17 historical I1	1
+T17 historical I2	1
+T17 historical I3	1
+T17 semantic effective date E2	1
+T17 TT -1us exact visible version set	1
+T17 TT +0us exact visible version set	1
+T17 TT +1us exact visible version set	1
+T18 E7 old and new holder at effective boundary	1
+T18 exact UTC, reason prefix, author and tag set	1
+T18 historical I1	1
+T18 historical I2	1
+T18 historical I3	1
+T18 semantic effective date E3	1
+T18 TT -1us exact visible version set	1
+T18 TT +0us exact visible version set	1
+T18 TT +1us exact visible version set	1
+T19 E4 exact closed and corrected row counts	1
+T19 exact UTC, reason prefix, author and tag set	1
+T19 historical I1	1
+T19 historical I2	1
+T19 historical I3	1
+T19 semantic effective date E3	1
+T19 TT -1us exact visible version set	1
+T19 TT +0us exact visible version set	1
+T19 TT +1us exact visible version set	1
+T20 exact UTC, reason prefix, author and tag set	1
+T20 historical I1	1
+T20 historical I2	1
+T20 historical I3	1
+T20 semantic effective date E3	1
+T20 TT -1us exact visible version set	1
+T20 TT +0us exact visible version set	1
+T20 TT +1us exact visible version set	1
+T21 exact UTC, reason prefix, author and tag set	1
+T21 historical I1	1
+T21 historical I2	1
+T21 historical I3	1
+T21 semantic effective date E3	1
+T21 TT -1us exact visible version set	1
+T21 TT +0us exact visible version set	1
+T21 TT +1us exact visible version set	1
+T22 exact UTC, reason prefix, author and tag set	1
+T22 historical I1	1
+T22 historical I2	1
+T22 historical I3	1
+T22 semantic effective date E2	1
+T22 TT -1us exact visible version set	1
+T22 TT +0us exact visible version set	1
+T22 TT +1us exact visible version set	1
+T23 E4 exact closed and corrected row counts	1
+T23 exact UTC, reason prefix, author and tag set	1
+T23 historical I1	1
+T23 historical I2	1
+T23 historical I3	1
+T23 semantic effective date E3	1
+T23 TT -1us exact visible version set	1
+T23 TT +0us exact visible version set	1
+T23 TT +1us exact visible version set	1
+T24 E4 exact closed and corrected row counts	1
+T24 exact UTC, reason prefix, author and tag set	1
+T24 historical I1	1
+T24 historical I2	1
+T24 historical I3	1
+T24 semantic effective date E3	1
+T24 TT -1us exact visible version set	1
+T24 TT +0us exact visible version set	1
+T24 TT +1us exact visible version set	1
+T25 E8 no replacement in any table	1
+T25 exact UTC, reason prefix, author and tag set	1
+T25 historical I1	1
+T25 historical I2	1
+T25 historical I3	1
+T25 TT -1us exact visible version set	1
+T25 TT +0us exact visible version set	1
+T25 TT +1us exact visible version set	1
+T26 E4 exact closed and corrected row counts	1
+T26 exact UTC, reason prefix, author and tag set	1
+T26 historical I1	1
+T26 historical I2	1
+T26 historical I3	1
+T26 semantic effective date E3	1
+T26 TT -1us exact visible version set	1
+T26 TT +0us exact visible version set	1
+T26 TT +1us exact visible version set	1
+T27 exact UTC, reason prefix, author and tag set	1
+T27 historical I1	1
+T27 historical I2	1
+T27 historical I3	1
+T27 semantic effective date E2	1
+T27 TT -1us exact visible version set	1
+T27 TT +0us exact visible version set	1
+T27 TT +1us exact visible version set	1
+T28 exact UTC, reason prefix, author and tag set	1
+T28 historical I1	1
+T28 historical I2	1
+T28 historical I3	1
+T28 semantic effective date E3	1
+T28 TT -1us exact visible version set	1
+T28 TT +0us exact visible version set	1
+T28 TT +1us exact visible version set	1
+T29 exact UTC, reason prefix, author and tag set	1
+T29 historical I1	1
+T29 historical I2	1
+T29 historical I3	1
+T29 semantic effective date E3	1
+T29 TT -1us exact visible version set	1
+T29 TT +0us exact visible version set	1
+T29 TT +1us exact visible version set	1
+T30 exact UTC, reason prefix, author and tag set	1
+T30 historical I1	1
+T30 historical I2	1
+T30 historical I3	1
+T30 semantic effective date E3	1
+T30 TT -1us exact visible version set	1
+T30 TT +0us exact visible version set	1
+T30 TT +1us exact visible version set	1
+T31 exact UTC, reason prefix, author and tag set	1
+T31 historical I1	1
+T31 historical I2	1
+T31 historical I3	1
+T31 semantic effective date E2	1
+T31 TT -1us exact visible version set	1
+T31 TT +0us exact visible version set	1
+T31 TT +1us exact visible version set	1
+T32 exact UTC, reason prefix, author and tag set	1
+T32 historical I1	1
+T32 historical I2	1
+T32 historical I3	1
+T32 TT -1us exact visible version set	1
+T32 TT +0us exact visible version set	1
+T32 TT +1us exact visible version set	1
+T33 E4 exact closed and corrected row counts	1
+T33 exact UTC, reason prefix, author and tag set	1
+T33 historical I1	1
+T33 historical I2	1
+T33 historical I3	1
+T33 semantic effective date E3	1
+T33 TT -1us exact visible version set	1
+T33 TT +0us exact visible version set	1
+T33 TT +1us exact visible version set	1
+T34 E9 same registry and time in both tables	1
+T34 exact UTC, reason prefix, author and tag set	1
+T34 historical I1	1
+T34 historical I2	1
+T34 historical I3	1
+T34 semantic effective date E2	1
+T34 TT -1us exact visible version set	1
+T34 TT +0us exact visible version set	1
+T34 TT +1us exact visible version set	1
+T35 E9 same registry and time in both tables	1
+T35 exact UTC, reason prefix, author and tag set	1
+T35 historical I1	1
+T35 historical I2	1
+T35 historical I3	1
+T35 semantic effective date E2	1
+T35 TT -1us exact visible version set	1
+T35 TT +0us exact visible version set	1
+T35 TT +1us exact visible version set	1
+T36 E7 old and new holder at effective boundary	1
+T36 exact UTC, reason prefix, author and tag set	1
+T36 historical I1	1
+T36 historical I2	1
+T36 historical I3	1
+T36 semantic effective date E2	1
+T36 TT -1us exact visible version set	1
+T36 TT +0us exact visible version set	1
+T36 TT +1us exact visible version set	1
+T37 exact UTC, reason prefix, author and tag set	1
+T37 historical I1	1
+T37 historical I2	1
+T37 historical I3	1
+T37 semantic effective date E2	1
+T37 TT -1us exact visible version set	1
+T37 TT +0us exact visible version set	1
+T37 TT +1us exact visible version set	1
+T38 exact UTC, reason prefix, author and tag set	1
+T38 historical I1	1
+T38 historical I2	1
+T38 historical I3	1
+T38 semantic effective date E2	1
+T38 TT -1us exact visible version set	1
+T38 TT +0us exact visible version set	1
+T38 TT +1us exact visible version set	1
+tx_from equals originating registry	1
+timeline_assertions_passed
+483

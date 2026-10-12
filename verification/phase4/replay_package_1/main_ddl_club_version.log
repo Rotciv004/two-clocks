@@ -1,0 +1,20 @@
+Table	Create Table
+club_version	CREATE TABLE `club_version` (
+  `version_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `club_id` bigint(20) unsigned NOT NULL,
+  `club_name` varchar(120) NOT NULL,
+  `budget_eur` decimal(14,2) NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date NOT NULL DEFAULT '9999-12-31',
+  `tx_from` datetime(6) NOT NULL,
+  `tx_to` datetime(6) NOT NULL DEFAULT '9999-12-31 23:59:59.999999',
+  `tx_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`version_id`),
+  KEY `ix_club_version_asof` (`club_id`,`tx_to`,`valid_from`),
+  KEY `ix_club_version_tx` (`tx_id`),
+  CONSTRAINT `fk_club_version_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`),
+  CONSTRAINT `fk_club_version_tx_id` FOREIGN KEY (`tx_id`) REFERENCES `tx_registry` (`tx_id`),
+  CONSTRAINT `ck_club_version_valid` CHECK (`valid_from` < `valid_to`),
+  CONSTRAINT `ck_club_version_tx` CHECK (`tx_from` < `tx_to`),
+  CONSTRAINT `ck_club_version_budget` CHECK (`budget_eur` >= 0)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

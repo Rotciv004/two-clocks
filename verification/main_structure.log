@@ -1,0 +1,30 @@
+VERSION()	CURRENT_USER()	DATABASE()	@@session.time_zone	@@session.sql_mode
+11.8.8-MariaDB	root@localhost	two_clocks_cabd	SYSTEM	STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+Tables_in_two_clocks_cabd	Table_type
+club	BASE TABLE
+club_version	BASE TABLE
+coach	BASE TABLE
+contract	BASE TABLE
+contract_version	BASE TABLE
+head_coach_role	BASE TABLE
+head_coach_role_version	BASE TABLE
+player	BASE TABLE
+query_params	BASE TABLE
+season	BASE TABLE
+tx_event_tag	BASE TABLE
+tx_registry	BASE TABLE
+v_integrity_violations	VIEW
+params_id	valid_at	known_at	period_start	period_end	subject_id
+1	2026-03-02	2026-03-16 12:00:00.000000	2025-07-01	2026-07-01	1
+name	rows_in_main
+player	0
+coach	0
+club	0
+season	0
+contract	0
+head_coach_role	0
+club_version	0
+contract_version	0
+head_coach_role_version	0
+tx_registry	0
+tx_event_tag	0

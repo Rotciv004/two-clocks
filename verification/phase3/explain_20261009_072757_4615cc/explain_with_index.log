@@ -1,0 +1,8 @@
+id	select_type	table	type	possible_keys	key	key_len	ref	rows	Extra
+1	PRIMARY	<derived2>	ALL	NULL	NULL	NULL	NULL	98	Using where; Using filesort
+2	DERIVED	NULL	NULL	NULL	NULL	NULL	NULL	NULL	Impossible WHERE
+3	UNION	p	const	PRIMARY	PRIMARY	1	const	1	
+3	UNION	c	const	PRIMARY	PRIMARY	8	const	1	
+3	UNION	v	ALL	ix_contract_version_asof	NULL	NULL	NULL	98	Using where
+3	UNION	a	eq_ref	PRIMARY,uq_contract_pair,ix_contract_club	PRIMARY	8	two_clocks_cabd_verify_p3_20261009_072757_4615cc_explain.v.contract_id	1	Using where
+3	UNION	p	eq_ref	PRIMARY	PRIMARY	8	two_clocks_cabd_verify_p3_20261009_072757_4615cc_explain.a.player_id	1	

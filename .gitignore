@@ -1,0 +1,80 @@
+# Two Clocks — sursele SQL, docs/, tests/, scripts/, PDF/PNG finale și
+# submission/boar_victor/ (inclusiv evidence/) rămân versionabile.
+# Nu ignora global *.sql, *.pdf, *.png, *.csv, *.json sau *.log:
+# proiectul folosește aceste fișiere drept livrabile și dovezi verificabile.
+
+# Credențiale locale și chei private; exemplele fără secrete pot fi versionate.
+.env
+.env.*
+!.env.example
+!.env.template
+.my.cnf
+mariadb-client.cnf
+client.cnf
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+credentials-config.json
+credentials-config.xml
+
+# Configurații personale ale clienților SQL / IDE.
+.dbeaver/
+.dbeaver4/
+DBeaverData/
+dbeaver-data/
+.dbeaver-data-sources.xml
+.idea/
+.vscode/*.local.json
+
+# Medii Python și cache-uri; cerințele fixate rămân în Git.
+.report-venv/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Dumpuri / exporturi administrative locale, nu SQL-urile sursă 00–05.
+/exports/
+*.dump
+*.sql.gz
+*.sql.xz
+*.sql.zst
+/verification/**/main_business_before.json
+/verification/**/main_business_after.json
+
+# Materialele de curs și extrasele lor nu se redistribuie automat.
+# sources.json rămâne versionabil pentru proveniență și checksum-uri.
+/docs/references/*.pdf
+/docs/references/*.txt
+
+# Arhiva este un rezultat de build; directorul portabil de predare se păstrează.
+/submission/*.zip
+/submission/SHA256SUMS
+
+# Randări de control, machete și backupuri documentare locale.
+/verification/phase4/report_draft*
+/verification/phase4/report_final-*.png
+/verification/phase4/er_diagram_render.png
+/verification/phase4/extracted_report.pdf
+/verification/phase4/extracted_report_build/
+/verification/phase4/prior_report_inputs/
+/verification/phase4/*.before.*
+
+# Fișiere temporare ale editorului / desktopului.
+*~
+*.bak
+*.tmp
+*.temp
+*.swp
+*.swo
+.#*
+.~lock.*#
+.directory
+.DS_Store
+Thumbs.db

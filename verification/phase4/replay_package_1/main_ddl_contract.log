@@ -1,0 +1,11 @@
+Table	Create Table
+contract	CREATE TABLE `contract` (
+  `contract_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `player_id` bigint(20) unsigned NOT NULL,
+  `club_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`contract_id`),
+  UNIQUE KEY `uq_contract_pair` (`player_id`,`club_id`),
+  KEY `ix_contract_club` (`club_id`),
+  CONSTRAINT `fk_contract_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`),
+  CONSTRAINT `fk_contract_player_id` FOREIGN KEY (`player_id`) REFERENCES `player` (`player_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

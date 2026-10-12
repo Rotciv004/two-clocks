@@ -1,0 +1,86 @@
+UTC start: 2026-10-07T13:55:39+00:00
+Database: two_clocks_cabd_verify_20261007_135539_21158_17483
+VERSION()	CURRENT_USER()	DATABASE()	@@session.time_zone	@@session.sql_mode
+11.8.8-MariaDB	root@localhost	NULL	SYSTEM	STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+Schema recreation pass 1 (test database only)
+Schema recreation pass 2 (test database only)
+Running 01_schema_smoke
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_run does not exist
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_expect_error does not exist
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_assert does not exist
+result	assertions
+PASS: schema smoke; all fixtures rolled back	220
+Running 02_write_examples
+club_id
+4
+player_id
+2
+contract_id
+3
+assertion_name	ok
+E3: event tag and registered timestamp	1
+E3: late by ten days and absent before recording	1
+E3: one expected current contract	1
+E3: Q0 final is empty	1
+E3: Q0 fixture is empty	1
+club_id
+5
+player_id
+3
+contract_id
+4
+assertion_name	ok
+E4: event tag and registered timestamp	1
+E4: exactly one old contract closed	1
+E4: old belief preserved exactly	1
+E4: old salary visible before change	1
+E4: one expected current contract	1
+E4: Q0 final is empty	1
+E4: Q0 fixture is empty	1
+club_id
+6
+player_id
+4
+contract_id
+5
+assertion_name	ok
+E5: event tag and registered timestamp	1
+E5: exactly one old contract closed	1
+E5: old belief preserved exactly	1
+E5: old salary visible before change	1
+E5: one expected current contract	1
+E5: Q0 final is empty	1
+E5: Q0 fixture is empty	1
+E5: real tenure remains; departure boundary excluded	1
+club_id
+7
+player_id
+5
+contract_id
+6
+assertion_name	ok
+E8: event tag and registered timestamp	1
+E8: exactly one old contract closed	1
+E8: no replacement; past tenure also retracted	1
+E8: old belief preserved exactly	1
+E8: old salary visible before change	1
+E8: Q0 final is empty	1
+E8: Q0 fixture is empty	1
+club_id
+8
+player_id
+6
+contract_id
+7
+assertion_name	ok
+E9: event tag and registered timestamp	1
+E9: exactly one old club closed	1
+E9: exactly one old contract closed	1
+E9: old belief preserved exactly	1
+E9: old budget preserved	1
+E9: old salary visible before change	1
+E9: one expected current contract	1
+E9: Q0 final is empty	1
+E9: Q0 fixture is empty	1
+E9: same tx_id and timestamp in two tables	1
+PASS: two schema runs, smoke tests and write examples. Test database retained: two_clocks_cabd_verify_20261007_135539_21158_17483

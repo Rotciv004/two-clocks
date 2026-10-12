@@ -1,0 +1,26 @@
+{
+  "purpose": "final audit demonstration, not development history",
+  "actual_naive": [
+    [
+      "CL04",
+      "H05",
+      "2025-07-01",
+      "2026-07-01"
+    ],
+    [
+      "CL04",
+      "H05",
+      "2026-07-01",
+      "9999-12-31"
+    ]
+  ],
+  "expected_independent": [
+    [
+      "CL04",
+      "H05",
+      "2025-07-01",
+      "9999-12-31"
+    ]
+  ],
+  "naive_mismatch_demonstrated": true
+}

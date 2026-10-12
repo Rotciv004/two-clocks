@@ -1,0 +1,7 @@
+failed_event	error_code	error_message	last_committed_event
+T01	1644	P2_ASSERT: T01 requires an unpopulated database; refusing duplicate load	T38
+--------------
+
+--------------
+
+ERROR 1644 (45000) at line 25: P2_ASSERT: T01 requires an unpopulated database; refusing duplicate load

@@ -1,0 +1,1916 @@
+{
+  "description": "Expected literals from phase-2 user plan sections 4, 6, 8 and 9. No actual database results used. All SQL is standalone SELECT/WITH, columns in expected order, batch strings. SQL audit compares exact row multiplicities; JSON runner also checks ORDER BY output.",
+  "params": {
+    "known_at_final": "2026-09-21 12:00:00.000000",
+    "valid_at": "2026-03-02",
+    "known_at": "2026-03-16 12:00:00.000000",
+    "period_start": "2025-07-01",
+    "period_end": "2026-07-01",
+    "subject_code": "CL01",
+    "subject_id_resolution": "SELECT club_id FROM club WHERE club_code='CL01'"
+  },
+  "cases": [
+    {
+      "id": "count_player",
+      "sql": "SELECT COUNT(*) AS c1 FROM player WHERE 1=1",
+      "expected": [
+        [
+          "60"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_coach",
+      "sql": "SELECT COUNT(*) AS c1 FROM coach WHERE 1=1",
+      "expected": [
+        [
+          "8"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_club",
+      "sql": "SELECT COUNT(*) AS c1 FROM club WHERE 1=1",
+      "expected": [
+        [
+          "6"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_season",
+      "sql": "SELECT COUNT(*) AS c1 FROM season WHERE 1=1",
+      "expected": [
+        [
+          "2"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_contract",
+      "sql": "SELECT COUNT(*) AS c1 FROM contract WHERE 1=1",
+      "expected": [
+        [
+          "69"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_head_coach_role",
+      "sql": "SELECT COUNT(*) AS c1 FROM head_coach_role WHERE 1=1",
+      "expected": [
+        [
+          "6"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_tx_registry",
+      "sql": "SELECT COUNT(*) AS c1 FROM tx_registry WHERE 1=1",
+      "expected": [
+        [
+          "38"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_tx_event_tag",
+      "sql": "SELECT COUNT(*) AS c1 FROM tx_event_tag WHERE 1=1",
+      "expected": [
+        [
+          "53"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_club_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM club_version WHERE 1=1",
+      "expected": [
+        [
+          "18"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_contract_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM contract_version WHERE 1=1",
+      "expected": [
+        [
+          "98"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_head_coach_role_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM head_coach_role_version WHERE 1=1",
+      "expected": [
+        [
+          "15"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "count_query_params",
+      "sql": "SELECT COUNT(*) AS c1 FROM query_params WHERE 1=1",
+      "expected": [
+        [
+          "1"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "current_club_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM club_version WHERE tx_to = '9999-12-31 23:59:59.999999'",
+      "expected": [
+        [
+          "12"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "current_contract_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM contract_version WHERE tx_to = '9999-12-31 23:59:59.999999'",
+      "expected": [
+        [
+          "77"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "current_head_coach_role_version",
+      "sql": "SELECT COUNT(*) AS c1 FROM head_coach_role_version WHERE tx_to = '9999-12-31 23:59:59.999999'",
+      "expected": [
+        [
+          "10"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "total_versions",
+      "sql": "SELECT (SELECT COUNT(*) FROM club_version)+(SELECT COUNT(*) FROM contract_version)+(SELECT COUNT(*) FROM head_coach_role_version) AS c1",
+      "expected": [
+        [
+          "131"
+        ]
+      ],
+      "reason": "6+60+7 versions in E1, 58 later assertions: 131.",
+      "params": {}
+    },
+    {
+      "id": "current_contract_anchors",
+      "sql": "SELECT COUNT(DISTINCT contract_id) AS c1 FROM contract_version WHERE tx_to='9999-12-31 23:59:59.999999'",
+      "expected": [
+        [
+          "68"
+        ]
+      ],
+      "reason": "69 anchors minus retracted P060–CL06.",
+      "params": {}
+    },
+    {
+      "id": "players",
+      "sql": "SELECT player_code AS c1, full_name AS c2, birth_date AS c3 FROM player ORDER BY player_code",
+      "expected": [
+        [
+          "P001",
+          "Jucător Fictiv 001",
+          "1995-01-01"
+        ],
+        [
+          "P002",
+          "Jucător Fictiv 002",
+          "1995-02-07"
+        ],
+        [
+          "P003",
+          "Jucător Fictiv 003",
+          "1995-03-16"
+        ],
+        [
+          "P004",
+          "Jucător Fictiv 004",
+          "1995-04-22"
+        ],
+        [
+          "P005",
+          "Jucător Fictiv 005",
+          "1995-05-29"
+        ],
+        [
+          "P006",
+          "Jucător Fictiv 006",
+          "1995-07-05"
+        ],
+        [
+          "P007",
+          "Jucător Fictiv 007",
+          "1995-08-11"
+        ],
+        [
+          "P008",
+          "Jucător Fictiv 008",
+          "1995-09-17"
+        ],
+        [
+          "P009",
+          "Jucător Fictiv 009",
+          "1995-10-24"
+        ],
+        [
+          "P010",
+          "Jucător Fictiv 010",
+          "1995-11-30"
+        ],
+        [
+          "P011",
+          "Jucător Fictiv 011",
+          "1996-01-06"
+        ],
+        [
+          "P012",
+          "Jucător Fictiv 012",
+          "1996-02-12"
+        ],
+        [
+          "P013",
+          "Jucător Fictiv 013",
+          "1996-03-20"
+        ],
+        [
+          "P014",
+          "Jucător Fictiv 014",
+          "1996-04-26"
+        ],
+        [
+          "P015",
+          "Jucător Fictiv 015",
+          "1996-06-02"
+        ],
+        [
+          "P016",
+          "Jucător Fictiv 016",
+          "1996-07-09"
+        ],
+        [
+          "P017",
+          "Jucător Fictiv 017",
+          "1996-08-15"
+        ],
+        [
+          "P018",
+          "Jucător Fictiv 018",
+          "1996-09-21"
+        ],
+        [
+          "P019",
+          "Jucător Fictiv 019",
+          "1996-10-28"
+        ],
+        [
+          "P020",
+          "Jucător Fictiv 020",
+          "1996-12-04"
+        ],
+        [
+          "P021",
+          "Jucător Fictiv 021",
+          "1997-01-10"
+        ],
+        [
+          "P022",
+          "Jucător Fictiv 022",
+          "1997-02-16"
+        ],
+        [
+          "P023",
+          "Jucător Fictiv 023",
+          "1997-03-25"
+        ],
+        [
+          "P024",
+          "Jucător Fictiv 024",
+          "1997-05-01"
+        ],
+        [
+          "P025",
+          "Jucător Fictiv 025",
+          "1997-06-07"
+        ],
+        [
+          "P026",
+          "Jucător Fictiv 026",
+          "1997-07-14"
+        ],
+        [
+          "P027",
+          "Jucător Fictiv 027",
+          "1997-08-20"
+        ],
+        [
+          "P028",
+          "Jucător Fictiv 028",
+          "1997-09-26"
+        ],
+        [
+          "P029",
+          "Jucător Fictiv 029",
+          "1997-11-02"
+        ],
+        [
+          "P030",
+          "Jucător Fictiv 030",
+          "1997-12-09"
+        ],
+        [
+          "P031",
+          "Jucător Fictiv 031",
+          "1998-01-15"
+        ],
+        [
+          "P032",
+          "Jucător Fictiv 032",
+          "1998-02-21"
+        ],
+        [
+          "P033",
+          "Jucător Fictiv 033",
+          "1998-03-30"
+        ],
+        [
+          "P034",
+          "Jucător Fictiv 034",
+          "1998-05-06"
+        ],
+        [
+          "P035",
+          "Jucător Fictiv 035",
+          "1998-06-12"
+        ],
+        [
+          "P036",
+          "Jucător Fictiv 036",
+          "1998-07-19"
+        ],
+        [
+          "P037",
+          "Jucător Fictiv 037",
+          "1998-08-25"
+        ],
+        [
+          "P038",
+          "Jucător Fictiv 038",
+          "1998-10-01"
+        ],
+        [
+          "P039",
+          "Jucător Fictiv 039",
+          "1998-11-07"
+        ],
+        [
+          "P040",
+          "Jucător Fictiv 040",
+          "1998-12-14"
+        ],
+        [
+          "P041",
+          "Jucător Fictiv 041",
+          "1999-01-20"
+        ],
+        [
+          "P042",
+          "Jucător Fictiv 042",
+          "1999-02-26"
+        ],
+        [
+          "P043",
+          "Jucător Fictiv 043",
+          "1999-04-04"
+        ],
+        [
+          "P044",
+          "Jucător Fictiv 044",
+          "1999-05-11"
+        ],
+        [
+          "P045",
+          "Jucător Fictiv 045",
+          "1999-06-17"
+        ],
+        [
+          "P046",
+          "Jucător Fictiv 046",
+          "1999-07-24"
+        ],
+        [
+          "P047",
+          "Jucător Fictiv 047",
+          "1999-08-30"
+        ],
+        [
+          "P048",
+          "Jucător Fictiv 048",
+          "1999-10-06"
+        ],
+        [
+          "P049",
+          "Jucător Fictiv 049",
+          "1999-11-12"
+        ],
+        [
+          "P050",
+          "Jucător Fictiv 050",
+          "1999-12-19"
+        ],
+        [
+          "P051",
+          "Jucător Fictiv 051",
+          "2000-01-25"
+        ],
+        [
+          "P052",
+          "Jucător Fictiv 052",
+          "2000-03-02"
+        ],
+        [
+          "P053",
+          "Jucător Fictiv 053",
+          "2000-04-08"
+        ],
+        [
+          "P054",
+          "Jucător Fictiv 054",
+          "2000-05-15"
+        ],
+        [
+          "P055",
+          "Jucător Fictiv 055",
+          "2000-06-21"
+        ],
+        [
+          "P056",
+          "Jucător Fictiv 056",
+          "2000-07-28"
+        ],
+        [
+          "P057",
+          "Jucător Fictiv 057",
+          "2000-09-03"
+        ],
+        [
+          "P058",
+          "Jucător Fictiv 058",
+          "2000-10-10"
+        ],
+        [
+          "P059",
+          "Jucător Fictiv 059",
+          "2000-11-16"
+        ],
+        [
+          "P060",
+          "Jucător Fictiv 060",
+          "2000-12-23"
+        ]
+      ],
+      "reason": "Deterministic people specified in section 4; materialized literals, no database input.",
+      "params": {}
+    },
+    {
+      "id": "coaches",
+      "sql": "SELECT coach_code AS c1,full_name AS c2,birth_date AS c3 FROM coach ORDER BY coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu",
+          "1970-01-01"
+        ],
+        [
+          "H02",
+          "Mihai Popescu",
+          "1971-01-01"
+        ],
+        [
+          "H03",
+          "Radu Marin",
+          "1972-01-01"
+        ],
+        [
+          "H04",
+          "Vlad Stan",
+          "1973-01-01"
+        ],
+        [
+          "H05",
+          "Sorin Dima",
+          "1974-01-01"
+        ],
+        [
+          "H06",
+          "Dan Rusu",
+          "1975-01-01"
+        ],
+        [
+          "H07",
+          "Paul Muntean",
+          "1976-01-01"
+        ],
+        [
+          "H08",
+          "Alex Matei",
+          "1977-01-01"
+        ]
+      ],
+      "reason": "Eight fixed fictional identities.",
+      "params": {}
+    },
+    {
+      "id": "seasons",
+      "sql": "SELECT season_name AS c1,period_start AS c2,period_end AS c3 FROM season ORDER BY period_start",
+      "expected": [
+        [
+          "2025/2026",
+          "2025-07-01",
+          "2026-07-01"
+        ],
+        [
+          "2026/2027",
+          "2026-07-01",
+          "2027-07-01"
+        ]
+      ],
+      "reason": "Two exact reference seasons.",
+      "params": {}
+    },
+    {
+      "id": "params_final",
+      "sql": "SELECT q.params_id AS c1,q.valid_at AS c2,DATE_FORMAT(q.known_at,'%Y-%m-%d %H:%i:%s.%f') AS c3,q.period_start AS c4,q.period_end AS c5,c.club_code AS c6 FROM query_params q LEFT JOIN club c ON c.club_id=q.subject_id ORDER BY q.params_id",
+      "expected": [
+        [
+          "1",
+          "2026-03-02",
+          "2026-03-16 12:00:00.000000",
+          "2025-07-01",
+          "2026-07-01",
+          "CL01"
+        ]
+      ],
+      "reason": "subject_id resolves to the real CL01 identifier; never assumes ID=1.",
+      "params": {}
+    },
+    {
+      "id": "event_counts",
+      "sql": "SELECT event_code AS c1,COUNT(DISTINCT tx_id) AS c2 FROM tx_event_tag GROUP BY event_code ORDER BY event_code",
+      "expected": [
+        [
+          "E1",
+          "1"
+        ],
+        [
+          "E2",
+          "13"
+        ],
+        [
+          "E3",
+          "18"
+        ],
+        [
+          "E4",
+          "5"
+        ],
+        [
+          "E5",
+          "6"
+        ],
+        [
+          "E6",
+          "4"
+        ],
+        [
+          "E7",
+          "3"
+        ],
+        [
+          "E8",
+          "1"
+        ],
+        [
+          "E9",
+          "2"
+        ]
+      ],
+      "reason": "Distinct logical changes per tag, including multiple tags per change.",
+      "params": {}
+    },
+    {
+      "id": "e1_versions",
+      "sql": "SELECT u.source_table AS c1,COUNT(*) AS c2 FROM (SELECT 'club_version' AS source_table,tx_id,tx_from,tx_to FROM club_version UNION ALL SELECT 'contract_version' AS source_table,tx_id,tx_from,tx_to FROM contract_version UNION ALL SELECT 'head_coach_role_version' AS source_table,tx_id,tx_from,tx_to FROM head_coach_role_version) u JOIN tx_registry r ON r.tx_id=u.tx_id WHERE LEFT(r.reason,3)='T01' GROUP BY u.source_table ORDER BY u.source_table",
+      "expected": [
+        [
+          "club_version",
+          "6"
+        ],
+        [
+          "contract_version",
+          "60"
+        ],
+        [
+          "head_coach_role_version",
+          "7"
+        ]
+      ],
+      "reason": "E1 produces exactly 73 versions, including two adjacent CL04 tenures.",
+      "params": {}
+    },
+    {
+      "id": "I1",
+      "sql": "SELECT COUNT(*) AS c1 FROM v_integrity_violations WHERE invariant_code='I1'",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Final Q0 must report no violations.",
+      "params": {}
+    },
+    {
+      "id": "I2",
+      "sql": "SELECT COUNT(*) AS c1 FROM v_integrity_violations WHERE invariant_code='I2'",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Final Q0 must report no violations.",
+      "params": {}
+    },
+    {
+      "id": "I3",
+      "sql": "SELECT COUNT(*) AS c1 FROM v_integrity_violations WHERE invariant_code='I3'",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Final Q0 must report no violations.",
+      "params": {}
+    },
+    {
+      "id": "q0_all",
+      "sql": "SELECT COUNT(*) AS c1 FROM v_integrity_violations WHERE 1=1",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Volum literal din plan, secțiunea 8.",
+      "params": {}
+    },
+    {
+      "id": "registry_times",
+      "sql": "SELECT COUNT(*) AS c1 FROM (SELECT 'club_version' AS source_table,tx_id,tx_from,tx_to FROM club_version UNION ALL SELECT 'contract_version' AS source_table,tx_id,tx_from,tx_to FROM contract_version UNION ALL SELECT 'head_coach_role_version' AS source_table,tx_id,tx_from,tx_to FROM head_coach_role_version) u LEFT JOIN tx_registry r ON r.tx_id=u.tx_id WHERE r.tx_id IS NULL OR u.tx_from<>r.tx_time OR (u.tx_to<>'9999-12-31 23:59:59.999999' AND NOT EXISTS (SELECT 1 FROM tx_registry z WHERE z.tx_time=u.tx_to))",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Each opening and finite closing refers to a registered change; does not claim to prove I4.",
+      "params": {}
+    },
+    {
+      "id": "perspective_1",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-05 12:00:00.000000' AND '2026-03-05 12:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-05 12:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "perspective_2",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-12 12:00:00.000000' AND '2026-03-12 12:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H02",
+          "Mihai Popescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-12 12:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "perspective_3",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-16 12:00:00.000000' AND '2026-03-16 12:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-16 12:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t18_before",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-10 13:59:59.999999' AND '2026-03-10 13:59:59.999999' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-10 13:59:59.999999",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t18_exact",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-10 14:00:00.000000' AND '2026-03-10 14:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H02",
+          "Mihai Popescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-10 14:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t18_after",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-10 14:00:00.000001' AND '2026-03-10 14:00:00.000001' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H02",
+          "Mihai Popescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-10 14:00:00.000001",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t19_before",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-15 10:59:59.999999' AND '2026-03-15 10:59:59.999999' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H02",
+          "Mihai Popescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-15 10:59:59.999999",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t19_exact",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-15 11:00:00.000000' AND '2026-03-15 11:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-15 11:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "t19_after",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-02' AND '2026-03-02' < v.valid_to AND v.tx_from <= '2026-03-15 11:00:00.000001' AND '2026-03-15 11:00:00.000001' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H01",
+          "Andrei Ionescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-02",
+        "known_at": "2026-03-15 11:00:00.000001",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "cl01_vt_boundary",
+      "sql": "SELECT h.coach_code AS c1,h.full_name AS c2 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL01' AND v.valid_from <= '2026-03-03' AND '2026-03-03' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to ORDER BY h.coach_code",
+      "expected": [
+        [
+          "H02",
+          "Mihai Popescu"
+        ]
+      ],
+      "reason": "CL01 A → B → A; half-open VT and TT.",
+      "params": {
+        "valid_at": "2026-03-03",
+        "known_at": "2026-09-21 12:00:00.000000",
+        "club_code": "CL01"
+      }
+    },
+    {
+      "id": "cl01_five_versions",
+      "sql": "SELECT h.coach_code AS c1,v.valid_from AS c2,v.valid_to AS c3,LEFT(r.reason,3) AS c4,DATE_FORMAT(v.tx_to,'%Y-%m-%d %H:%i:%s.%f') AS c5 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE c.club_code='CL01' ORDER BY v.tx_from,v.valid_from",
+      "expected": [
+        [
+          "H01",
+          "2025-07-01",
+          "9999-12-31",
+          "T01",
+          "2026-03-10 14:00:00.000000"
+        ],
+        [
+          "H01",
+          "2025-07-01",
+          "2026-03-01",
+          "T18",
+          "2026-03-15 11:00:00.000000"
+        ],
+        [
+          "H02",
+          "2026-03-01",
+          "9999-12-31",
+          "T18",
+          "2026-03-15 11:00:00.000000"
+        ],
+        [
+          "H01",
+          "2025-07-01",
+          "2026-03-03",
+          "T19",
+          "9999-12-31 23:59:59.999999"
+        ],
+        [
+          "H02",
+          "2026-03-03",
+          "9999-12-31",
+          "T19",
+          "9999-12-31 23:59:59.999999"
+        ]
+      ],
+      "reason": "Five preserved beliefs; T19 corrects both boundaries.",
+      "params": {}
+    },
+    {
+      "id": "cl04_raw",
+      "sql": "SELECT h.coach_code AS c1,v.valid_from AS c2,v.valid_to AS c3 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL04' AND v.tx_to='9999-12-31 23:59:59.999999' ORDER BY v.valid_from",
+      "expected": [
+        [
+          "H05",
+          "2025-07-01",
+          "2026-07-01"
+        ],
+        [
+          "H05",
+          "2026-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Two current rows, same coach, adjacent seasons.",
+      "params": {}
+    },
+    {
+      "id": "cl04_coalesced",
+      "sql": "WITH s AS (SELECT h.coach_code,v.valid_from,v.valid_to,MAX(v.valid_to) OVER (PARTITION BY h.coach_code ORDER BY v.valid_from ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS prior_end FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id WHERE c.club_code='CL04' AND v.tx_to='9999-12-31 23:59:59.999999'), m AS (SELECT *,SUM(CASE WHEN prior_end IS NULL OR prior_end<valid_from THEN 1 ELSE 0 END) OVER (PARTITION BY coach_code ORDER BY valid_from) AS island FROM s) SELECT coach_code AS c1,MIN(valid_from) AS c2,MAX(valid_to) AS c3 FROM m GROUP BY coach_code,island ORDER BY c1,c2",
+      "expected": [
+        [
+          "H05",
+          "2025-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Running endpoint coalescing merges adjacency, not DISTINCT.",
+      "params": {}
+    },
+    {
+      "id": "p001_before",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P001' AND v.valid_from <= '2025-09-01' AND '2025-09-01' < v.valid_to AND v.tx_from <= '2025-09-05 12:00:00' AND '2025-09-05 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL01",
+          "PERMANENT",
+          "1010.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P001",
+        "club_code": null,
+        "valid_at": "2025-09-01",
+        "known_at": "2025-09-05 12:00:00"
+      }
+    },
+    {
+      "id": "p001_after",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P001' AND v.valid_from <= '2025-09-01' AND '2025-09-01' < v.valid_to AND v.tx_from <= '2025-09-12 12:00:00' AND '2025-09-12 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL06",
+          "PERMANENT",
+          "1510.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P001",
+        "club_code": null,
+        "valid_at": "2025-09-01",
+        "known_at": "2025-09-12 12:00:00"
+      }
+    },
+    {
+      "id": "p001_transfer_boundary",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P001' AND v.valid_from <= '2025-08-31' AND '2025-08-31' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL06",
+          "PERMANENT",
+          "1510.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P001",
+        "club_code": null,
+        "valid_at": "2025-08-31",
+        "known_at": "2026-09-21 12:00:00.000000"
+      }
+    },
+    {
+      "id": "loan_before",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P006' AND c.club_code='CL02' AND v.valid_from <= '2026-07-15' AND '2026-07-15' < v.valid_to AND v.tx_from <= '2026-06-12 12:00:00' AND '2026-06-12 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL02",
+          "LOAN",
+          "600.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P006",
+        "club_code": "CL02",
+        "valid_at": "2026-07-15",
+        "known_at": "2026-06-12 12:00:00"
+      }
+    },
+    {
+      "id": "loan_after",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P006' AND c.club_code='CL02' AND v.valid_from <= '2026-07-15' AND '2026-07-15' < v.valid_to AND v.tx_from <= '2026-07-06 12:00:00' AND '2026-07-06 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P006",
+        "club_code": "CL02",
+        "valid_at": "2026-07-15",
+        "known_at": "2026-07-06 12:00:00"
+      }
+    },
+    {
+      "id": "retract_before",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P060' AND c.club_code='CL06' AND v.valid_from <= '2026-04-15' AND '2026-04-15' < v.valid_to AND v.tx_from <= '2026-04-12 12:00:00' AND '2026-04-12 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL06",
+          "LOAN",
+          "600.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P060",
+        "club_code": "CL06",
+        "valid_at": "2026-04-15",
+        "known_at": "2026-04-12 12:00:00"
+      }
+    },
+    {
+      "id": "retract_after",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P060' AND c.club_code='CL06' AND v.valid_from <= '2026-04-15' AND '2026-04-15' < v.valid_to AND v.tx_from <= '2026-04-26 12:00:00' AND '2026-04-26 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P060",
+        "club_code": "CL06",
+        "valid_at": "2026-04-15",
+        "known_at": "2026-04-26 12:00:00"
+      }
+    },
+    {
+      "id": "salary_before",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P025' AND c.club_code='CL03' AND v.valid_from <= '2026-05-05' AND '2026-05-05' < v.valid_to AND v.tx_from <= '2026-05-06 12:00:00' AND '2026-05-06 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL03",
+          "PERMANENT",
+          "1450.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P025",
+        "club_code": "CL03",
+        "valid_at": "2026-05-05",
+        "known_at": "2026-05-06 12:00:00"
+      }
+    },
+    {
+      "id": "salary_after",
+      "sql": "SELECT c.club_code AS c1,v.agreement_kind AS c2,v.salary_eur AS c3 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P025' AND c.club_code='CL03' AND v.valid_from <= '2026-05-05' AND '2026-05-05' < v.valid_to AND v.tx_from <= '2026-05-11 12:00:00' AND '2026-05-11 12:00:00' < v.tx_to ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL03",
+          "PERMANENT",
+          "1455.00"
+        ]
+      ],
+      "reason": "Literal as-of result from section 9; empty rows mean absence.",
+      "params": {
+        "player_code": "P025",
+        "club_code": "CL03",
+        "valid_at": "2026-05-05",
+        "known_at": "2026-05-11 12:00:00"
+      }
+    },
+    {
+      "id": "cl06_budget_2026-10-15",
+      "sql": "SELECT v.budget_eur AS c1 FROM club_version v JOIN club c ON c.club_id=v.club_id WHERE c.club_code='CL06' AND v.valid_from <= '2026-10-15' AND '2026-10-15' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to",
+      "expected": [
+        [
+          "1500000.00"
+        ]
+      ],
+      "reason": "T37 is known before November; prefix preserved.",
+      "params": {
+        "valid_at": "2026-10-15",
+        "known_at": "2026-09-21 12:00:00.000000"
+      }
+    },
+    {
+      "id": "cl06_budget_2026-11-01",
+      "sql": "SELECT v.budget_eur AS c1 FROM club_version v JOIN club c ON c.club_id=v.club_id WHERE c.club_code='CL06' AND v.valid_from <= '2026-11-01' AND '2026-11-01' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to",
+      "expected": [
+        [
+          "1650000.00"
+        ]
+      ],
+      "reason": "T37 is known before November; prefix preserved.",
+      "params": {
+        "valid_at": "2026-11-01",
+        "known_at": "2026-09-21 12:00:00.000000"
+      }
+    },
+    {
+      "id": "cl06_zero_july",
+      "sql": "SELECT COUNT(*) AS c1 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE c.club_code='CL06' AND v.tx_to='9999-12-31 23:59:59.999999' AND v.valid_from<'2025-08-01' AND '2025-07-01'<v.valid_to",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Zero contracts overlapping all of July, including loans.",
+      "params": {}
+    },
+    {
+      "id": "cl06_exists_july",
+      "sql": "SELECT COUNT(*) AS c1 FROM club_version v JOIN club c ON c.club_id=v.club_id WHERE c.club_code='CL06' AND v.tx_to='9999-12-31 23:59:59.999999' AND v.valid_from<='2025-07-01' AND v.valid_to>='2025-08-01'",
+      "expected": [
+        [
+          "1"
+        ]
+      ],
+      "reason": "The empty month belongs to an existing club.",
+      "params": {}
+    },
+    {
+      "id": "overlap_containment",
+      "sql": "SELECT p.player_code AS c1,c.club_code AS c2,(v.valid_from<'2026-07-01' AND '2025-07-01'<v.valid_to) AS c3,(v.valid_from<='2025-07-01' AND '2026-07-01'<=v.valid_to) AS c4 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE v.tx_to='9999-12-31 23:59:59.999999' AND ((p.player_code='P018' AND c.club_code='CL02') OR (p.player_code='P001' AND c.club_code='CL06')) ORDER BY c1",
+      "expected": [
+        [
+          "P001",
+          "CL06",
+          "1",
+          "0"
+        ],
+        [
+          "P018",
+          "CL02",
+          "1",
+          "1"
+        ]
+      ],
+      "reason": "Q4 overlap and containment are different predicates.",
+      "params": {}
+    },
+    {
+      "id": "gaps",
+      "sql": "WITH s AS (SELECT p.player_code,c.club_code,v.valid_from,MAX(v.valid_to) OVER (PARTITION BY a.contract_id ORDER BY v.valid_from,v.version_id ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS prior_end FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE v.tx_to='9999-12-31 23:59:59.999999') SELECT player_code AS c1,club_code AS c2,prior_end AS c3,valid_from AS c4,DATEDIFF(valid_from,prior_end) AS c5 FROM s WHERE prior_end<valid_from ORDER BY player_code,club_code,valid_from",
+      "expected": [
+        [
+          "P006",
+          "CL02",
+          "2026-07-01",
+          "2026-10-01",
+          "92"
+        ],
+        [
+          "P013",
+          "CL02",
+          "2025-12-01",
+          "2026-02-01",
+          "62"
+        ],
+        [
+          "P014",
+          "CL02",
+          "2025-12-15",
+          "2026-03-01",
+          "76"
+        ],
+        [
+          "P015",
+          "CL02",
+          "2025-12-20",
+          "2026-03-10",
+          "80"
+        ]
+      ],
+      "reason": "All four gaps, same anchor; adjacent salary slices excluded.",
+      "params": {}
+    },
+    {
+      "id": "history_P006",
+      "sql": "SELECT v.valid_from AS c1,v.valid_to AS c2,v.salary_eur AS c3,LEFT(r.reason,3) AS c4,DATE_FORMAT(v.tx_to,'%Y-%m-%d %H:%i:%s.%f') AS c5 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE p.player_code='P006' AND c.club_code='CL02' ORDER BY v.tx_from,v.valid_from",
+      "expected": [
+        [
+          "2026-06-01",
+          "2026-09-01",
+          "600.00",
+          "T28",
+          "2026-07-05 10:00:00.000000"
+        ],
+        [
+          "2026-06-01",
+          "2026-07-01",
+          "600.00",
+          "T32",
+          "9999-12-31 23:59:59.999999"
+        ],
+        [
+          "2026-10-01",
+          "2026-12-01",
+          "650.00",
+          "T38",
+          "9999-12-31 23:59:59.999999"
+        ]
+      ],
+      "reason": "History remains intact; finite TT is not finite VT.",
+      "params": {}
+    },
+    {
+      "id": "history_P060",
+      "sql": "SELECT v.valid_from AS c1,v.valid_to AS c2,v.salary_eur AS c3,LEFT(r.reason,3) AS c4,DATE_FORMAT(v.tx_to,'%Y-%m-%d %H:%i:%s.%f') AS c5 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE p.player_code='P060' AND c.club_code='CL06' ORDER BY v.tx_from,v.valid_from",
+      "expected": [
+        [
+          "2026-04-01",
+          "2026-05-01",
+          "600.00",
+          "T21",
+          "2026-04-25 10:00:00.000000"
+        ]
+      ],
+      "reason": "History remains intact; finite TT is not finite VT.",
+      "params": {}
+    },
+    {
+      "id": "t25_no_replacement",
+      "sql": "SELECT COUNT(*) AS c1 FROM (SELECT 'club_version' AS source_table,tx_id,tx_from,tx_to FROM club_version UNION ALL SELECT 'contract_version' AS source_table,tx_id,tx_from,tx_to FROM contract_version UNION ALL SELECT 'head_coach_role_version' AS source_table,tx_id,tx_from,tx_to FROM head_coach_role_version) u JOIN tx_registry r ON r.tx_id=u.tx_id WHERE LEFT(r.reason,3)='T25'",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "Retracting transaction has no new versions in any business table.",
+      "params": {}
+    },
+    {
+      "id": "two_season_fact",
+      "sql": "SELECT p.player_code AS c1,c.club_code AS c2,v.valid_from AS c3,v.valid_to AS c4 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P018' AND c.club_code='CL02' AND v.tx_to='9999-12-31 23:59:59.999999'",
+      "expected": [
+        [
+          "P018",
+          "CL02",
+          "2025-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Actual relationship spans both seasons, exceeding twelve months.",
+      "params": {}
+    },
+    {
+      "id": "adjacent_parent_union",
+      "sql": "SELECT c.club_code AS c1,v.valid_from AS c2,v.valid_to AS c3 FROM club_version v JOIN club c ON c.club_id=v.club_id WHERE c.club_code='CL02' AND v.tx_to='9999-12-31 23:59:59.999999' ORDER BY v.valid_from",
+      "expected": [
+        [
+          "CL02",
+          "2025-07-01",
+          "2025-12-01"
+        ],
+        [
+          "CL02",
+          "2025-12-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Together cover P018 contract; neither individually covers it.",
+      "params": {}
+    },
+    {
+      "id": "no_single_parent",
+      "sql": "SELECT COUNT(*) AS c1 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE p.player_code='P018' AND c.club_code='CL02' AND v.tx_to='9999-12-31 23:59:59.999999' AND EXISTS(SELECT 1 FROM club_version b WHERE b.club_id=c.club_id AND b.tx_to='9999-12-31 23:59:59.999999' AND b.valid_from<=v.valid_from AND v.valid_to<=b.valid_to)",
+      "expected": [
+        [
+          "0"
+        ]
+      ],
+      "reason": "I2 succeeds through the adjacent union, not a single covering parent.",
+      "params": {}
+    },
+    {
+      "id": "e1_club_values",
+      "sql": "SELECT c.club_code AS c1,v.club_name AS c2,v.budget_eur AS c3,v.valid_from AS c4,v.valid_to AS c5 FROM club_version v JOIN club c ON c.club_id=v.club_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE LEFT(r.reason,3)='T01' ORDER BY c.club_code",
+      "expected": [
+        [
+          "CL01",
+          "FC Someș",
+          "1000000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL02",
+          "FC Ardeal",
+          "1100000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL03",
+          "FC Mureș",
+          "1200000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL04",
+          "FC Apuseni",
+          "1300000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL05",
+          "FC Criș",
+          "1400000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL06",
+          "FC Târnava",
+          "1500000.00",
+          "2025-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Six literal initial names and budgets, retained in history.",
+      "params": {}
+    },
+    {
+      "id": "e1_contract_values",
+      "sql": "SELECT p.player_code AS c1,c.club_code AS c2,v.agreement_kind AS c3,v.salary_eur AS c4,v.valid_from AS c5,v.valid_to AS c6 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE LEFT(r.reason,3)='T01' ORDER BY p.player_code",
+      "expected": [
+        [
+          "P001",
+          "CL01",
+          "PERMANENT",
+          "1010.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P002",
+          "CL01",
+          "PERMANENT",
+          "1020.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P003",
+          "CL01",
+          "PERMANENT",
+          "1030.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P004",
+          "CL01",
+          "PERMANENT",
+          "1040.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P005",
+          "CL01",
+          "PERMANENT",
+          "1050.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P006",
+          "CL01",
+          "PERMANENT",
+          "1060.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P007",
+          "CL01",
+          "PERMANENT",
+          "1070.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P008",
+          "CL01",
+          "PERMANENT",
+          "1080.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P009",
+          "CL01",
+          "PERMANENT",
+          "1090.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P010",
+          "CL01",
+          "PERMANENT",
+          "1100.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P011",
+          "CL01",
+          "PERMANENT",
+          "1110.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P012",
+          "CL01",
+          "PERMANENT",
+          "1120.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P013",
+          "CL02",
+          "PERMANENT",
+          "1130.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P014",
+          "CL02",
+          "PERMANENT",
+          "1140.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P015",
+          "CL02",
+          "PERMANENT",
+          "1150.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P016",
+          "CL02",
+          "PERMANENT",
+          "1160.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P017",
+          "CL02",
+          "PERMANENT",
+          "1170.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P018",
+          "CL02",
+          "PERMANENT",
+          "1180.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P019",
+          "CL02",
+          "PERMANENT",
+          "1190.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P020",
+          "CL02",
+          "PERMANENT",
+          "1200.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P021",
+          "CL02",
+          "PERMANENT",
+          "1210.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P022",
+          "CL02",
+          "PERMANENT",
+          "1220.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P023",
+          "CL02",
+          "PERMANENT",
+          "1230.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P024",
+          "CL02",
+          "PERMANENT",
+          "1240.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P025",
+          "CL03",
+          "PERMANENT",
+          "1250.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P026",
+          "CL03",
+          "PERMANENT",
+          "1260.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P027",
+          "CL03",
+          "PERMANENT",
+          "1270.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P028",
+          "CL03",
+          "PERMANENT",
+          "1280.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P029",
+          "CL03",
+          "PERMANENT",
+          "1290.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P030",
+          "CL03",
+          "PERMANENT",
+          "1300.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P031",
+          "CL03",
+          "PERMANENT",
+          "1310.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P032",
+          "CL03",
+          "PERMANENT",
+          "1320.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P033",
+          "CL03",
+          "PERMANENT",
+          "1330.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P034",
+          "CL03",
+          "PERMANENT",
+          "1340.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P035",
+          "CL03",
+          "PERMANENT",
+          "1350.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P036",
+          "CL03",
+          "PERMANENT",
+          "1360.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P037",
+          "CL04",
+          "PERMANENT",
+          "1370.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P038",
+          "CL04",
+          "PERMANENT",
+          "1380.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P039",
+          "CL04",
+          "PERMANENT",
+          "1390.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P040",
+          "CL04",
+          "PERMANENT",
+          "1400.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P041",
+          "CL04",
+          "PERMANENT",
+          "1410.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P042",
+          "CL04",
+          "PERMANENT",
+          "1420.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P043",
+          "CL04",
+          "PERMANENT",
+          "1430.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P044",
+          "CL04",
+          "PERMANENT",
+          "1440.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P045",
+          "CL04",
+          "PERMANENT",
+          "1450.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P046",
+          "CL04",
+          "PERMANENT",
+          "1460.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P047",
+          "CL04",
+          "PERMANENT",
+          "1470.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P048",
+          "CL04",
+          "PERMANENT",
+          "1480.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P049",
+          "CL05",
+          "PERMANENT",
+          "1490.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P050",
+          "CL05",
+          "PERMANENT",
+          "1500.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P051",
+          "CL05",
+          "PERMANENT",
+          "1510.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P052",
+          "CL05",
+          "PERMANENT",
+          "1520.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P053",
+          "CL05",
+          "PERMANENT",
+          "1530.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P054",
+          "CL05",
+          "PERMANENT",
+          "1540.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P055",
+          "CL05",
+          "PERMANENT",
+          "1550.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P056",
+          "CL05",
+          "PERMANENT",
+          "1560.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P057",
+          "CL05",
+          "PERMANENT",
+          "1570.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P058",
+          "CL05",
+          "PERMANENT",
+          "1580.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P059",
+          "CL05",
+          "PERMANENT",
+          "1590.00",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "P060",
+          "CL05",
+          "PERMANENT",
+          "1600.00",
+          "2025-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Initial distribution and salary formula from section 4, before later changes.",
+      "params": {}
+    },
+    {
+      "id": "e1_role_values",
+      "sql": "SELECT c.club_code AS c1,h.coach_code AS c2,v.valid_from AS c3,v.valid_to AS c4 FROM head_coach_role_version v JOIN head_coach_role a ON a.role_id=v.role_id JOIN club c ON c.club_id=a.club_id JOIN coach h ON h.coach_id=v.coach_id JOIN tx_registry r ON r.tx_id=v.tx_id WHERE LEFT(r.reason,3)='T01' ORDER BY c.club_code,v.valid_from",
+      "expected": [
+        [
+          "CL01",
+          "H01",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL02",
+          "H03",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL03",
+          "H04",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL04",
+          "H05",
+          "2025-07-01",
+          "2026-07-01"
+        ],
+        [
+          "CL04",
+          "H05",
+          "2026-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL05",
+          "H06",
+          "2025-07-01",
+          "9999-12-31"
+        ],
+        [
+          "CL06",
+          "H07",
+          "2025-07-01",
+          "9999-12-31"
+        ]
+      ],
+      "reason": "Seven original role assertions, not seven changes of coach.",
+      "params": {}
+    },
+    {
+      "id": "active_contracts_2026-09-21",
+      "sql": "SELECT COUNT(*) AS c1,COUNT(DISTINCT v.contract_id) AS c2 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE v.valid_from <= '2026-09-21' AND '2026-09-21' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to",
+      "expected": [
+        [
+          "58",
+          "58"
+        ]
+      ],
+      "reason": "60 initial permanent relations, transfers preserve total, two ended without restart; October adds restarted P006 loan.",
+      "params": {
+        "valid_at": "2026-09-21",
+        "known_at": "2026-09-21 12:00:00.000000"
+      }
+    },
+    {
+      "id": "active_contracts_2026-10-15",
+      "sql": "SELECT COUNT(*) AS c1,COUNT(DISTINCT v.contract_id) AS c2 FROM contract_version v JOIN contract a ON a.contract_id=v.contract_id JOIN player p ON p.player_id=a.player_id JOIN club c ON c.club_id=a.club_id WHERE v.valid_from <= '2026-10-15' AND '2026-10-15' < v.valid_to AND v.tx_from <= '2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000' < v.tx_to",
+      "expected": [
+        [
+          "59",
+          "59"
+        ]
+      ],
+      "reason": "60 initial permanent relations, transfers preserve total, two ended without restart; October adds restarted P006 loan.",
+      "params": {
+        "valid_at": "2026-10-15",
+        "known_at": "2026-09-21 12:00:00.000000"
+      }
+    }
+  ]
+}

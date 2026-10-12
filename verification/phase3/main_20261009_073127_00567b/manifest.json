@@ -1,0 +1,66 @@
+{
+  "mode": "main",
+  "status": "PASS",
+  "databases": [
+    "two_clocks_cabd"
+  ],
+  "steps": [
+    {
+      "label": "server",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "main_04",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_05",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_preset",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    }
+  ],
+  "files": {
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "04_views.sql": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+    "05_tests.sql": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+    "docs/query_expected_results.json": "262868986c5c207f26aa26c031491ad14c16a0a7edf896fe6c15c59a60aa92d3",
+    "scripts/phase3_runner.py": "063b2a94514abd2647010ca91fe3cead16c64bd8f0ca3a19b22e1fc7e0b48335"
+  },
+  "backup": {
+    "path": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/exports/two_clocks_cabd_before_phase3_20261009_073127_00567b.sql",
+    "sha256": "12b8d1624c77e1a4c8ab7780c58c07bc4bb4bdc087bc7dac6a53990aba61f8f9"
+  },
+  "test_verdicts": {
+    "main_05": "PASS\t52\t2026-10-09"
+  },
+  "business_before_sha256": "74d4a44650b438f64ef7f010e9bce2893b68ac7483072a9ca2483e08aaa520c8",
+  "business_after_sha256": "74d4a44650b438f64ef7f010e9bce2893b68ac7483072a9ca2483e08aaa520c8",
+  "business_identical": true,
+  "views": [
+    "v_integrity_violations",
+    "v_p3_contract_facts",
+    "v_q1_current_contracts",
+    "v_q2_coach_tenures",
+    "v_p3_audit_facts",
+    "v_p3_audit_events",
+    "v_p3_audit_components",
+    "v_p3_audit_old",
+    "v_p3_audit_candidates",
+    "v_p3_audit_dates",
+    "v_q3_event_audit",
+    "v_q4_period_relationships",
+    "v_q5_contracts_as_known",
+    "v_q6_bitemporal_point",
+    "v_q7_monthly_relationships",
+    "v_q8_relationship_gaps"
+  ]
+}

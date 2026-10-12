@@ -1,0 +1,18 @@
+{
+  "prior_files_unchanged": true,
+  "verified_files_unchanged": true,
+  "required_files_nonempty": true,
+  "hashes": {
+    "04_views.sql": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+    "05_tests.sql": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+    "scripts/verify_queries.sh": "69a741e475941d7335dbc1cc26161b145a2e66a8e6b805e16e86380f42d37363",
+    "scripts/install_views_main.sh": "f7631f5789da3489d167944d7304b18fc553975d51959f12a4332e7cfb893f50",
+    "scripts/compare_q6_index.sh": "fc8ebdeef9d9590de72b29cb44f5dfa0959f61d916078a47ad08ad86368c63f1",
+    "docs/query_catalog.md": "9a565cdeae04916005608a76baa6f1a29ecc55d8d0cb40febe14dd87c5652cd3",
+    "docs/query_expected_results.json": "262868986c5c207f26aa26c031491ad14c16a0a7edf896fe6c15c59a60aa92d3",
+    "verification/phase3_summary.md": "e916a0b274bd295b520cceca12d65662e3333e871bf591b2bd012a3d43824572",
+    "exports/phase3_views.sql": "a2404f0fdbc05f3c95386ba7b01fb12614a05d243e7bc454b2e31f01bd911af2",
+    "README.md": "edd7138f0af224e795c47d89d6f1569db75e73e9abbb83c117caa0e20bef5035",
+    "docs/requirements_matrix.md": "5a1149c57db9a5e8e4dcea125380ca75fee702e1ac1075e2c0ca60d499d7ca99"
+  }
+}

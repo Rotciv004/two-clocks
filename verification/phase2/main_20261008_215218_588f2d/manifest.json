@@ -1,0 +1,73 @@
+{
+  "mode": "main",
+  "started_utc": "20261008_215218_588f2d",
+  "status": "PASS",
+  "databases": [
+    "two_clocks_cabd"
+  ],
+  "steps": [
+    {
+      "step": "server",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "step": "main_02_data",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "step": "main_03_timeline",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "step": "main_dataset_sql_audit",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "step": "main_final_inspection",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    }
+  ],
+  "initial_files": {
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "tests/03_dataset_assertions.sql": "516a4f3cb46230e5d60a12288f629e484287dbf69ce888a817c7a935d8ab5a6a",
+    "tests/04_timeline_assertions.sql": "df2c7687feccceb1e5648643e556689a309802fa9597a365bbeae1c8c2e406f5",
+    "docs/expected_results.json": "8c56d25d7562830288b705014bfca59e4afc3b2d8479534e7b7a4d971740fabc",
+    "docs/timeline_plan.json": "03ab798e5c050dfa9dac9d1f622d6901af3617db5a421b2ec2918c1d08dd8836",
+    "scripts/phase2_runner.py": "0e14a9d9f07657435c98676da9359abb2b2630bd3d496096be9e81778c896559",
+    "scripts/verify_dataset.sh": "8f89e9639681ed95fbc3cb3641a6bdb4532da08a7d09492937b605ce58100318",
+    "scripts/populate_main.sh": "330b0c0dc430530bfa2876e4382417e12c50b4169c2f36a416a7303d9a995453"
+  },
+  "backup": {
+    "path": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/exports/two_clocks_cabd_before_phase2_20261008_215218_588f2d.sql",
+    "sha256": "ea4c6c9af677d1ea1c26f1668e7cae537375738f8a743e1d995f29f041ba42e9"
+  },
+  "verified_files": {
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "tests/03_dataset_assertions.sql": "516a4f3cb46230e5d60a12288f629e484287dbf69ce888a817c7a935d8ab5a6a",
+    "tests/04_timeline_assertions.sql": "df2c7687feccceb1e5648643e556689a309802fa9597a365bbeae1c8c2e406f5",
+    "docs/expected_results.json": "8c56d25d7562830288b705014bfca59e4afc3b2d8479534e7b7a4d971740fabc",
+    "docs/timeline_plan.json": "03ab798e5c050dfa9dac9d1f622d6901af3617db5a421b2ec2918c1d08dd8836",
+    "scripts/phase2_runner.py": "0e14a9d9f07657435c98676da9359abb2b2630bd3d496096be9e81778c896559",
+    "scripts/verify_dataset.sh": "8f89e9639681ed95fbc3cb3641a6bdb4532da08a7d09492937b605ce58100318",
+    "scripts/populate_main.sh": "330b0c0dc430530bfa2876e4382417e12c50b4169c2f36a416a7303d9a995453"
+  },
+  "export": {
+    "path": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/exports/two_clocks_cabd_phase2.sql",
+    "sha256": "c71e01a0a206a3ea3654e20ba232c0e574e7b6c25199bfefaf878183586eb703",
+    "restore_tested": false,
+    "replay_tested": true,
+    "contains_use": false,
+    "qualified_source_view": false
+  },
+  "main_action": "populated without schema reset",
+  "equal_to_verified_replay": true
+}

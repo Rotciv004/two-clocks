@@ -1,0 +1,8 @@
+Table	Create Table
+head_coach_role	CREATE TABLE `head_coach_role` (
+  `role_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `club_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`role_id`),
+  UNIQUE KEY `uq_head_coach_role_club` (`club_id`),
+  CONSTRAINT `fk_head_coach_role_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

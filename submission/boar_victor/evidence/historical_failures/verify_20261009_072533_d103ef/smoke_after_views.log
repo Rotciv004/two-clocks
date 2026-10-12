@@ -1,0 +1,69 @@
+verdict	assertion
+PASS	12 expected tables
+verdict	assertion
+PASS	club_version period types
+verdict	assertion
+PASS	club_version valid_to default
+verdict	assertion
+PASS	club_version tx_to default
+verdict	assertion
+PASS	club_version PK
+verdict	assertion
+PASS	club_version period checks
+verdict	assertion
+PASS	club_version anchor and registry FKs
+verdict	assertion
+PASS	club_version asof index
+verdict	assertion
+PASS	club_version all columns NOT NULL
+verdict	assertion
+PASS	club_version transactional storage
+verdict	assertion
+PASS	club_version guards
+verdict	assertion
+PASS	contract_version period types
+verdict	assertion
+PASS	contract_version valid_to default
+verdict	assertion
+PASS	contract_version tx_to default
+verdict	assertion
+PASS	contract_version PK
+verdict	assertion
+PASS	contract_version period checks
+verdict	assertion
+PASS	contract_version anchor and registry FKs
+verdict	assertion
+PASS	contract_version asof index
+verdict	assertion
+PASS	contract_version all columns NOT NULL
+verdict	assertion
+PASS	contract_version transactional storage
+verdict	assertion
+PASS	contract_version guards
+verdict	assertion
+PASS	head_coach_role_version period types
+verdict	assertion
+PASS	head_coach_role_version valid_to default
+verdict	assertion
+PASS	head_coach_role_version tx_to default
+verdict	assertion
+PASS	head_coach_role_version PK
+verdict	assertion
+PASS	head_coach_role_version period checks
+verdict	assertion
+PASS	head_coach_role_version anchor and registry FKs
+verdict	assertion
+PASS	head_coach_role_version asof index
+verdict	assertion
+PASS	head_coach_role_version all columns NOT NULL
+verdict	assertion
+PASS	head_coach_role_version transactional storage
+verdict	assertion
+PASS	head_coach_role_version guards
+verdict	assertion
+PASS	integrity view
+--------------
+
+--------------
+
+ERROR 1644 (45000) at line 964: SMOKE_ASSERT: exactly three bitemporal tables

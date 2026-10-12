@@ -1,0 +1,13 @@
+{
+  "player": 60,
+  "coach": 8,
+  "club": 6,
+  "season": 2,
+  "contract": 69,
+  "head_coach_role": 6,
+  "tx_registry": 38,
+  "tx_event_tag": 53,
+  "club_version": 18,
+  "contract_version": 98,
+  "head_coach_role_version": 15
+}

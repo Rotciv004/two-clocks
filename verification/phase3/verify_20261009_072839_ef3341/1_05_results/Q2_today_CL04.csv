@@ -1,0 +1,2 @@
+role_id,club_code,coach_code,coach_name,tenure_from,tenure_to,tenure_days,elapsed_days,tenure_status,evaluation_date
+4,CL04,H05,Sorin Dima,2025-07-01,9999-12-31,NULL,465,ACTIVE,2026-10-09

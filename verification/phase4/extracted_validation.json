@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "archive_sha256": "e090106cd54d632347d74696edc222f259b39c7da4be241545137e86ee04f410",
+  "file_count": 192,
+  "manifest_pass_after_build": true,
+  "no_credentials_or_caches": true,
+  "runtime_files_identical_to_successful_replay": [
+    "01_schema.sql",
+    "02_data.sql",
+    "03_timeline.sql",
+    "04_views.sql",
+    "05_tests.sql",
+    "scripts/verify_submission.py",
+    "scripts/verify_submission.sh",
+    "tests/03_dataset_assertions.sql",
+    "tests/04_timeline_assertions.sql",
+    "evidence/business_normalized_reference.json",
+    "evidence/query_normalized_reference.json"
+  ],
+  "working_directory": "/tmp",
+  "extracted_package": "/tmp/cabd-submission-extracted-vp02ogz5/boar_victor",
+  "report_rebuilt_offline_from_extracted_inputs": true,
+  "report_sha256": "4401ff057c83d1e03dc0e0802de3ff529b100fd369e8bc1b84af5aae9b91800e",
+  "identical_to_visually_checked_final": true,
+  "build_command": [
+    "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/.report-venv/bin/python",
+    "/tmp/cabd-submission-extracted-vp02ogz5/boar_victor/scripts/build_report.py",
+    "--evidence-root",
+    "/tmp/cabd-submission-extracted-vp02ogz5/boar_victor/evidence/replay",
+    "--output",
+    "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/verification/phase4/extracted_report.pdf",
+    "--audit-dir",
+    "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/verification/phase4/extracted_report_build"
+  ],
+  "build_stdout": "PASS: five-page report, tables checked against CSV, all fonts ≥8 pt: /home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/verification/phase4/extracted_report.pdf\n",
+  "database_replay_source": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/submission/boar_victor",
+  "database_replay_not_repeated_after_doc_only_changes": true
+}

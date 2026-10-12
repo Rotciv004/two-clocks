@@ -1,0 +1,234 @@
+{
+  "method": "Phase2 literal timeline simulator only, no DB or view output; final TT relations deduplicated by pair",
+  "pass": true,
+  "months": [
+    {
+      "month": "2025-07-01",
+      "independent_from_literal_history": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        0
+      ],
+      "prompt_expected": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        0
+      ]
+    },
+    {
+      "month": "2025-08-01",
+      "independent_from_literal_history": [
+        12,
+        13,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        12,
+        13,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2025-09-01",
+      "independent_from_literal_history": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2025-10-01",
+      "independent_from_literal_history": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2025-11-01",
+      "independent_from_literal_history": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        13,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2025-12-01",
+      "independent_from_literal_history": [
+        7,
+        12,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        12,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-01-01",
+      "independent_from_literal_history": [
+        7,
+        9,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        9,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-02-01",
+      "independent_from_literal_history": [
+        7,
+        9,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        9,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-03-01",
+      "independent_from_literal_history": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-04-01",
+      "independent_from_literal_history": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-05-01",
+      "independent_from_literal_history": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        11,
+        13,
+        13,
+        13,
+        1
+      ]
+    },
+    {
+      "month": "2026-06-01",
+      "independent_from_literal_history": [
+        7,
+        12,
+        14,
+        14,
+        13,
+        1
+      ],
+      "prompt_expected": [
+        7,
+        12,
+        14,
+        14,
+        13,
+        1
+      ]
+    }
+  ]
+}

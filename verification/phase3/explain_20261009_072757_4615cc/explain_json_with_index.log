@@ -1,0 +1,127 @@
+EXPLAIN
+{
+  "query_block": {
+    "select_id": 1,
+    "cost": 0.077629443,
+    "nested_loop": [
+      {
+        "read_sorted_file": {
+          "filesort": {
+            "sort_key": "v_q6_bitemporal_point.subject_code, v_q6_bitemporal_point.valid_from, v_q6_bitemporal_point.version_id",
+            "table": {
+              "table_name": "<derived2>",
+              "access_type": "ALL",
+              "loops": 1,
+              "rows": 98,
+              "cost": 0.014379091,
+              "filtered": 100,
+              "attached_condition": "v_q6_bitemporal_point.fact_kind = 'CONTRACT'",
+              "materialized": {
+                "query_block": {
+                  "union_result": {
+                    "query_specifications": [
+                      {
+                        "query_block": {
+                          "select_id": 2,
+                          "table": {
+                            "message": "Impossible WHERE"
+                          }
+                        }
+                      },
+                      {
+                        "query_block": {
+                          "select_id": 3,
+                          "operation": "UNION",
+                          "cost": 0.20377744,
+                          "nested_loop": [
+                            {
+                              "table": {
+                                "table_name": "p",
+                                "access_type": "const",
+                                "possible_keys": ["PRIMARY"],
+                                "key": "PRIMARY",
+                                "key_length": "1",
+                                "used_key_parts": ["params_id"],
+                                "ref": ["const"],
+                                "rows": 1,
+                                "filtered": 100
+                              }
+                            },
+                            {
+                              "table": {
+                                "table_name": "c",
+                                "access_type": "const",
+                                "possible_keys": ["PRIMARY"],
+                                "key": "PRIMARY",
+                                "key_length": "8",
+                                "used_key_parts": ["club_id"],
+                                "ref": ["const"],
+                                "rows": 1,
+                                "filtered": 100
+                              }
+                            },
+                            {
+                              "table": {
+                                "table_name": "v",
+                                "access_type": "ALL",
+                                "possible_keys": ["ix_contract_version_asof"],
+                                "loops": 1,
+                                "rows": 98,
+                                "cost": 0.0268288,
+                                "filtered": 100,
+                                "attached_condition": "v.valid_from <= '2026-05-05' and '2026-05-05' < v.valid_to and v.tx_from <= '2026-05-11 12:00:00.000000' and '2026-05-11 12:00:00.000000' < v.tx_to"
+                              }
+                            },
+                            {
+                              "table": {
+                                "table_name": "a",
+                                "access_type": "eq_ref",
+                                "possible_keys": [
+                                  "PRIMARY",
+                                  "uq_contract_pair",
+                                  "ix_contract_club"
+                                ],
+                                "key": "PRIMARY",
+                                "key_length": "8",
+                                "used_key_parts": ["contract_id"],
+                                "ref": [
+                                  "two_clocks_cabd_verify_p3_20261009_072757_4615cc_explain.v.contract_id"
+                                ],
+                                "loops": 98,
+                                "rows": 1,
+                                "cost": 0.08847432,
+                                "filtered": 100,
+                                "attached_condition": "a.club_id = 3"
+                              }
+                            },
+                            {
+                              "table": {
+                                "table_name": "p",
+                                "access_type": "eq_ref",
+                                "possible_keys": ["PRIMARY"],
+                                "key": "PRIMARY",
+                                "key_length": "8",
+                                "used_key_parts": ["player_id"],
+                                "ref": [
+                                  "two_clocks_cabd_verify_p3_20261009_072757_4615cc_explain.a.player_id"
+                                ],
+                                "loops": 98,
+                                "rows": 1,
+                                "cost": 0.08847432,
+                                "filtered": 100
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+invariant_code,source_table,business_key,version_id,conflicting_version_id,details
+I2,contract_version,77,126,NULL,"contract_id=77: club_id=15 does not cover [2026-01-15,2026-02-15)"

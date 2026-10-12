@@ -1,0 +1,15 @@
+p3_marker
+P3_RESULT_BEGIN:Q0_clean
+params_id	valid_at	known_at	period_start	period_end	subject_id
+1	2026-03-02	2026-09-21 12:00:00.000000	2025-07-01	2026-07-01	9
+violation_count
+0
+p3_marker
+P3_RESULT_END:Q0_clean
+failed_scenario	error_code	error_message
+Q1_today_P006	1146	Table 'two_clocks_cabd_verify_p3_20261009_072839_ef3341_2.v_q1_current_contracts' doesn't exist
+--------------
+
+--------------
+
+ERROR 1146 (42S02) at line 8: Table 'two_clocks_cabd_verify_p3_20261009_072839_ef3341_2.v_q1_current_contracts' doesn't exist

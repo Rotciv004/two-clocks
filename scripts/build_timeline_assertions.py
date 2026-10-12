@@ -1,0 +1,358 @@
+#!/usr/bin/env python3
+"""Emit standalone test SQL from the literal user plan; never reads replay outputs or DB."""
+from pathlib import Path
+INF='9999-12-31 23:59:59.999999'
+END='9999-12-31'
+AUTHOR='Boar Victor — dataset fictiv'
+# Tnn, UTC, tags, semantic effective date (termination uses its END).
+plan='''01|2025-07-01 09:00:00|E1|2025-07-01
+02|2025-09-10 14:00:00|E3|2025-08-31
+03|2025-09-15 14:00:00|E3|2025-08-30
+04|2025-09-22 14:00:00|E3|2025-08-29
+05|2025-10-05 10:00:00|E2|2025-11-01
+06|2025-10-12 14:00:00|E3|2025-08-28
+07|2025-10-20 14:00:00|E3|2025-08-27
+08|2025-11-10 10:00:00|E2|2025-12-01
+09|2025-12-01 10:00:00|E2|2026-01-01
+10|2025-12-03 14:00:00|E5|2025-12-01
+11|2025-12-18 14:00:00|E5|2025-12-15
+12|2025-12-23 14:00:00|E5|2025-12-20
+13|2026-01-08 14:00:00|E3,E5|2026-01-01
+14|2026-01-18 14:00:00|E5|2026-01-15
+15|2026-01-20 10:00:00|E2,E6|2026-02-01
+16|2026-01-20 14:00:00|E3,E7|2026-01-10
+17|2026-02-15 10:00:00|E2,E6|2026-03-01
+18|2026-03-10 14:00:00|E3,E7|2026-03-01
+19|2026-03-15 11:00:00|E3,E4|2026-03-03
+20|2026-03-20 14:00:00|E3,E6|2026-03-10
+21|2026-04-10 14:00:00|E3|2026-04-01
+22|2026-04-15 10:00:00|E2|2026-05-01
+23|2026-04-20 10:00:00|E3,E4|2025-07-01
+24|2026-04-22 10:00:00|E3,E4|2025-07-01
+25|2026-04-25 10:00:00|E8|2026-04-01
+26|2026-05-10 10:00:00|E3,E4|2026-05-01
+27|2026-05-15 10:00:00|E2|2026-06-01
+28|2026-06-10 10:00:00|E3|2026-06-01
+29|2026-06-10 11:00:00|E3|2026-06-01
+30|2026-06-10 12:00:00|E3|2026-06-01
+31|2026-06-15 10:00:00|E2|2026-07-01
+32|2026-07-05 10:00:00|E5|2026-07-01
+33|2026-07-10 10:00:00|E3,E4|2026-07-01
+34|2026-07-15 10:00:00|E2,E9|2026-08-01
+35|2026-08-15 10:00:00|E2,E9|2026-09-01
+36|2026-09-01 10:00:00|E2,E7|2026-10-01
+37|2026-09-10 10:00:00|E2|2026-11-01
+38|2026-09-20 10:00:00|E2,E6|2026-10-01'''
+events={int(n):(f'T{n}',t+'.000000',tags,d) for n,t,tags,d in (l.split('|') for l in plan.splitlines())}
+rows=[]
+def add(kind,key,value,amount,start,end,tx,close=None):
+ rows.append(dict(kind=kind,key=key,value=value,amount=amount,start=start,end=end,tx=tx,close=close))
+def current(kind,key):
+ return [r for r in rows if r['kind']==kind and r['key']==key and r['close'] is None]
+def split(kind,key,tx,value=None,amount=None):
+ date=events[tx][3]
+ old=next(r for r in current(kind,key) if r['start']<date<r['end'])
+ old['close']=tx
+ add(kind,key,old['value'],old['amount'],old['start'],date,tx)
+ add(kind,key,value if value is not None else old['value'],amount if amount is not None else old['amount'],date,old['end'],tx)
+def replace(kind,key,tx,amount=None,end=None):
+ old=next(r for r in current(kind,key) if r['start']<=events[tx][3]<r['end'])
+ old['close']=tx
+ add(kind,key,old['value'],amount if amount is not None else old['amount'],old['start'],end or old['end'],tx)
+names=['FC Someș','FC Ardeal','FC Mureș','FC Apuseni','FC Criș','FC Târnava']
+for c in range(1,7):
+ add('club',f'CL{c:02}',names[c-1],900000+c*100000,'2025-07-01',END,1)
+ h=[1,3,4,5,6,7][c-1]
+ add('role',f'CL{c:02}',f'H{h:02}',0,'2025-07-01','2026-07-01' if c==4 else END,1)
+ if c==4: add('role','CL04','H05',0,'2026-07-01',END,1)
+for p in range(1,61): add('contract',f'P{p:03}/CL{(p-1)//12+1:02}','PERMANENT',1000+10*p,'2025-07-01',END,1)
+for tx,p,c in [(2,1,6),(3,2,2),(4,3,3),(6,4,4),(7,5,5)]:
+ replace('contract',f'P{p:03}/CL01',tx,end=events[tx][3])
+ add('contract',f'P{p:03}/CL{c:02}','PERMANENT',1500+10*p,events[tx][3],END,tx)
+for tx,c,a in [(5,1,1100000),(8,2,1200000),(9,3,1300000)]: split('club',f'CL{c:02}',tx,amount=a)
+for tx,p in [(10,13),(11,14),(12,15),(13,16),(14,17)]: replace('contract',f'P{p:03}/CL02',tx,end=events[tx][3])
+for tx,p in [(15,13),(17,14),(20,15)]: add('contract',f'P{p:03}/CL02','PERMANENT',1000+10*p,events[tx][3],END,tx)
+split('role','CL02',16,value='H08')
+split('role','CL01',18,value='H02')
+for r in current('role','CL01'): r['close']=19
+add('role','CL01','H01',0,'2025-07-01','2026-03-03',19)
+add('role','CL01','H02',0,'2026-03-03',END,19)
+add('contract','P060/CL06','LOAN',600,'2026-04-01','2026-05-01',21,25)
+split('contract','P025/CL03',22,amount=1450)
+replace('contract','P026/CL03',23,amount=1280)
+replace('contract','P027/CL03',24,amount=1290)
+replace('contract','P025/CL03',26,amount=1455)
+split('contract','P026/CL03',27,amount=1480)
+for tx,p,c in [(28,6,2),(29,7,3),(30,8,4)]: add('contract',f'P{p:03}/CL{c:02}','LOAN',p*100,'2026-06-01','2026-09-01',tx)
+split('contract','P027/CL03',31,amount=1490)
+replace('contract','P006/CL02',32,end='2026-07-01')
+replace('contract','P027/CL03',33,amount=1495)
+for tx,c,p,b,s in [(34,4,37,1430000,1570),(35,5,49,1540000,1740)]:
+ split('club',f'CL{c:02}',tx,amount=b)
+ split('contract',f'P{p:03}/CL{c:02}',tx,amount=s)
+split('role','CL03',36,value='H01')
+split('club','CL06',37,amount=1650000)
+add('contract','P006/CL02','LOAN',650,'2026-10-01','2026-12-01',38)
+def q(x): return "'"+str(x).replace("'","''")+"'"
+out=[]
+def emit(s): out.append(s)
+def check(name,predicate): emit(f"CALL tc_tl_assert({q(name)}, ({predicate}));")
+emit('''-- Generated by scripts/build_timeline_assertions.py from the literal T01-T38 plan.
+-- Standalone AFTER 01 -> 02 -> 03, TEST DATABASE ONLY; never run with --force.
+-- Dedicated connection, no active caller transaction. SQL is not executed by the generator.
+-- Helper DDL is outside fixture transactions; all negative DML ends in ROLLBACK.
+-- AUTO_INCREMENT gaps can remain after rollback; no counter is reset.
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+SET SESSION time_zone = '+00:00';
+DELIMITER $$
+BEGIN NOT ATOMIC
+ IF DATABASE() IS NULL OR DATABASE() = 'two_clocks_cabd'
+    OR DATABASE() NOT REGEXP '^two_clocks_cabd_.*(test|verify|phase2|replay|restore)'
+ THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='TEST_DB_ONLY: select an isolated Two Clocks test database'; END IF;
+ IF @@in_transaction = 1 THEN
+ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='TEST_DB_ONLY: dedicated connection without active transaction required'; END IF;
+END$$
+DELIMITER ;
+DROP PROCEDURE IF EXISTS tc_tl_assert;
+DROP PROCEDURE IF EXISTS tc_tl_negative;
+DROP PROCEDURE IF EXISTS tc_tl_e9_rollback;
+CREATE TEMPORARY TABLE tc_tl_results (name VARCHAR(160) PRIMARY KEY, ok TINYINT NOT NULL) ENGINE=MEMORY;
+DELIMITER $$
+CREATE PROCEDURE tc_tl_assert(IN label_text VARCHAR(160), IN passed BOOLEAN)
+BEGIN
+ IF passed IS NULL OR passed <> 1 THEN
+ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT=label_text;
+ END IF;
+ INSERT INTO tc_tl_results VALUES(label_text,1);
+END$$
+DELIMITER ;
+CREATE TEMPORARY TABLE tc_tl_events (
+ ref CHAR(3) PRIMARY KEY, t DATETIME(6) NOT NULL, tags VARCHAR(20) NOT NULL, effective_date DATE NOT NULL
+);
+INSERT INTO tc_tl_events VALUES''')
+emit(',\n'.join('('+','.join(map(q,e))+')' for e in events.values())+';')
+emit('''CREATE TEMPORARY TABLE tc_tl_expected (
+ kind VARCHAR(10), business_key VARCHAR(40), val VARCHAR(120), amount DECIMAL(14,2),
+ valid_from DATE, valid_to DATE, tx_from DATETIME(6), tx_to DATETIME(6), ref CHAR(3)
+);
+INSERT INTO tc_tl_expected VALUES''')
+emit(',\n'.join('('+','.join(map(q,[r['kind'],r['key'],r['value'],r['amount'],r['start'],r['end'],events[r['tx']][1],events[r['close']][1] if r['close'] else INF,events[r['tx']][0]]))+')' for r in rows)+';')
+actual='''SELECT 'club' kind, c.club_code business_key, v.club_name val, v.budget_eur amount,
+ v.valid_from,v.valid_to,v.tx_from,v.tx_to,LEFT(r.reason,3) ref, v.version_id, v.tx_id,c.club_id
+ FROM club_version v JOIN club c USING(club_id) JOIN tx_registry r USING(tx_id)
+UNION ALL
+SELECT 'contract',CONCAT(p.player_code,'/',c.club_code),v.agreement_kind,v.salary_eur,
+ v.valid_from,v.valid_to,v.tx_from,v.tx_to,LEFT(r.reason,3),v.version_id,v.tx_id,c.club_id
+ FROM contract_version v JOIN contract a USING(contract_id) JOIN player p USING(player_id)
+ JOIN club c USING(club_id) JOIN tx_registry r USING(tx_id)
+UNION ALL
+SELECT 'role',c.club_code,h.coach_code,0,v.valid_from,v.valid_to,v.tx_from,v.tx_to,
+ LEFT(r.reason,3),v.version_id,v.tx_id,c.club_id
+ FROM head_coach_role_version v JOIN head_coach_role a USING(role_id)
+ JOIN club c USING(club_id) JOIN coach h USING(coach_id) JOIN tx_registry r USING(tx_id)'''
+emit('CREATE TEMPORARY TABLE tc_tl_actual AS '+actual+';')
+check('38 exact registries; 53 exact tags', '(SELECT COUNT(*) FROM tx_registry)=38 AND (SELECT COUNT(*) FROM tx_event_tag)=53')
+for n,(ref,t,tags,d) in events.items():
+ check(ref+' exact UTC, reason prefix, author and tag set',f"(SELECT COUNT(*) FROM tx_registry r WHERE BINARY LEFT(r.reason,3)=BINARY {q(ref)} AND r.tx_time={q(t)} AND BINARY r.author=BINARY {q(AUTHOR)} AND (SELECT GROUP_CONCAT(e.event_code ORDER BY e.event_code SEPARATOR ',') FROM tx_event_tag e WHERE e.tx_id=r.tx_id)={q(tags)})=1")
+ if 'E2' in tags or 'E3' in tags:
+  comparison=f"CAST(e.effective_date AS DATETIME)>e.t" if 'E2' in tags else 'DATEDIFF(e.t,e.effective_date)>=7'
+  # End events use the actual finite valid_to; corrections use the corrected suffix/start.
+  bound='a.valid_to=e.effective_date' if n==13 else 'a.valid_from=e.effective_date'
+  check(ref+' semantic effective date '+('E2' if 'E2' in tags else 'E3'),f"EXISTS(SELECT 1 FROM tc_tl_events e JOIN tc_tl_actual a ON a.ref=e.ref WHERE e.ref={q(ref)} AND {comparison} AND {bound})")
+match=' AND '.join(f'a.{c}=e.{c}' if c not in ['val','business_key','ref'] else f'BINARY a.{c}=BINARY e.{c}' for c in ['kind','business_key','val','amount','valid_from','valid_to','tx_from','tx_to','ref'])
+check('131 exact historical versions with old/new values, VT, TT and originating Tnn',f"(SELECT COUNT(*) FROM tc_tl_actual)=131 AND NOT EXISTS(SELECT 1 FROM tc_tl_expected e WHERE (SELECT COUNT(*) FROM tc_tl_actual a WHERE {match})<>1)")
+check('tx_from equals originating registry', 'NOT EXISTS(SELECT 1 FROM tc_tl_actual a JOIN tx_registry r ON r.tx_id=a.tx_id WHERE a.tx_from<>r.tx_time)')
+check('every finite tx_to has exactly one closing registry',f"NOT EXISTS(SELECT 1 FROM tc_tl_actual a WHERE a.tx_to<>{q(INF)} AND (SELECT COUNT(*) FROM tx_registry r WHERE r.tx_time=a.tx_to)<>1)")
+# All actual TT boundaries, including E8 without replacement; expected predicates are independent.
+for n,(ref,t,_,_) in events.items():
+ for offset in [-1,0,1]:
+  known=f'DATE_ADD({q(t)}, INTERVAL {offset} MICROSECOND)'
+  check(f'{ref} TT {offset:+}us exact visible version set',f"(SELECT COUNT(*) FROM tc_tl_actual WHERE tx_from<={known} AND {known}<tx_to)=(SELECT COUNT(*) FROM tc_tl_expected WHERE tx_from<={known} AND {known}<tx_to) AND NOT EXISTS(SELECT 1 FROM tc_tl_expected e WHERE e.tx_from<={known} AND {known}<e.tx_to AND NOT EXISTS(SELECT 1 FROM tc_tl_actual a WHERE {match} AND a.tx_from<={known} AND {known}<a.tx_to))")
+emit('''-- Historical I1/I2/I3: every parent and child uses the SAME known_at.
+-- Running MAX merges adjacency and nested coverage; no current-parent shortcut.
+CREATE TEMPORARY TABLE tc_tl_historical_violations AS
+WITH snapshots AS (
+ SELECT e.ref snapshot_ref,e.t known_at,a.* FROM tc_tl_events e
+ JOIN tc_tl_actual a ON a.tx_from<=e.t AND e.t<a.tx_to
+), parent_scan AS (
+ SELECT *,MAX(valid_to) OVER(PARTITION BY snapshot_ref,club_id ORDER BY valid_from,version_id
+ ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) prior_end
+ FROM snapshots WHERE kind='club'
+), marked AS (
+ SELECT *,CASE WHEN prior_end IS NULL OR prior_end<valid_from THEN 1 ELSE 0 END new_island FROM parent_scan
+), numbered AS (
+ SELECT *,SUM(new_island) OVER(PARTITION BY snapshot_ref,club_id ORDER BY valid_from,version_id
+ ROWS UNBOUNDED PRECEDING) island_id FROM marked
+), parent_union AS (
+ SELECT snapshot_ref,club_id,island_id,MIN(valid_from) valid_from,MAX(valid_to) valid_to
+ FROM numbered GROUP BY snapshot_ref,club_id,island_id
+)
+SELECT a.snapshot_ref,'I1' invariant_code,a.kind,a.version_id
+ FROM snapshots a JOIN snapshots b ON a.snapshot_ref=b.snapshot_ref AND a.kind=b.kind
+ AND a.business_key=b.business_key AND a.version_id<b.version_id
+ AND a.valid_from<b.valid_to AND b.valid_from<a.valid_to
+UNION ALL
+SELECT a.snapshot_ref,'I2',a.kind,a.version_id FROM snapshots a
+ WHERE a.kind IN ('contract','role') AND NOT EXISTS(
+ SELECT 1 FROM parent_union p WHERE p.snapshot_ref=a.snapshot_ref AND p.club_id=a.club_id
+ AND p.valid_from<=a.valid_from AND a.valid_to<=p.valid_to)
+UNION ALL
+SELECT a.snapshot_ref,'I3',a.kind,a.version_id FROM snapshots a JOIN snapshots b
+ ON a.snapshot_ref=b.snapshot_ref AND a.kind='role' AND b.kind='role'
+ AND a.club_id=b.club_id AND a.version_id<b.version_id
+ AND a.valid_from<b.valid_to AND b.valid_from<a.valid_to;
+''')
+for ref,_,_,_ in events.values():
+ for inv in ['I1','I2','I3']: check(ref+' historical '+inv,f"NOT EXISTS(SELECT 1 FROM tc_tl_historical_violations WHERE snapshot_ref={q(ref)} AND invariant_code={q(inv)})")
+check('final Q0', '(SELECT COUNT(*) FROM v_integrity_violations)=0')
+check('T25 E8 no replacement in any table', "NOT EXISTS(SELECT 1 FROM tc_tl_actual WHERE ref='T25') AND (SELECT COUNT(*) FROM tc_tl_actual WHERE business_key='P060/CL06')=1")
+for ref in ['T34','T35']:
+ check(ref+' E9 same registry and time in both tables',f"(SELECT COUNT(DISTINCT kind) FROM tc_tl_actual WHERE ref={q(ref)})=2 AND (SELECT COUNT(DISTINCT tx_id) FROM tc_tl_actual WHERE ref={q(ref)})=1 AND (SELECT COUNT(DISTINCT tx_from) FROM tc_tl_actual WHERE ref={q(ref)})=1")
+# Explicit event checks complement the full historical oracle.
+for tx in [19,23,24,26,33]:
+ ref,t,_,_=events[tx]
+ old=[r for r in rows if r['close']==tx]
+ new=[r for r in rows if r['tx']==tx]
+ check(ref+' E4 exact closed and corrected row counts',f"(SELECT COUNT(*) FROM tc_tl_actual WHERE tx_to={q(t)})={len(old)} AND (SELECT COUNT(*) FROM tc_tl_actual WHERE ref={q(ref)})={len(new)}")
+for tx,club,old_holder,new_holder in [(16,'CL02','H03','H08'),(18,'CL01','H01','H02'),(36,'CL03','H04','H01')]:
+ ref,t,_,d=events[tx]
+ check(ref+' E7 old and new holder at effective boundary',f"(SELECT COUNT(*) FROM tc_tl_actual WHERE kind='role' AND business_key={q(club)} AND val={q(old_holder)} AND tx_to={q(t)} AND valid_from<={q(d)} AND {q(d)}<valid_to)=1 AND (SELECT COUNT(*) FROM tc_tl_actual WHERE kind='role' AND business_key={q(club)} AND ref={q(ref)} AND val={q(new_holder)} AND valid_from={q(d)})=1")
+for key,start,end,days in [('P013/CL02','2025-12-01','2026-02-01',62),('P014/CL02','2025-12-15','2026-03-01',76),('P015/CL02','2025-12-20','2026-03-10',80),('P006/CL02','2026-07-01','2026-10-01',92)]:
+ check(key+' E6 same anchor gap',f"EXISTS(SELECT 1 FROM contract_version a JOIN contract_version b ON a.contract_id=b.contract_id JOIN contract k ON k.contract_id=a.contract_id JOIN player p ON p.player_id=k.player_id JOIN club c ON c.club_id=k.club_id WHERE CONCAT(p.player_code,'/',c.club_code)={q(key)} AND a.tx_to={q(INF)} AND b.tx_to={q(INF)} AND a.valid_to={q(start)} AND b.valid_from={q(end)} AND DATEDIFF(b.valid_from,a.valid_to)={days})")
+# Every oracle VT boundary is tested as a point at the final known_at.
+for kind,key in sorted({(r['kind'],r['key']) for r in rows if r['tx']>1}):
+ boundaries=sorted({d for r in rows if r['kind']==kind and r['key']==key for d in [r['start'],r['end']] if d!=END})
+ for d in boundaries:
+  expected=[r for r in rows if r['kind']==kind and r['key']==key and r['close'] is None and r['start']<=d<r['end']]
+  predicate=f"kind={q(kind)} AND business_key={q(key)} AND tx_from<='2026-09-21 12:00:00.000000' AND '2026-09-21 12:00:00.000000'<tx_to AND valid_from<={q(d)} AND {q(d)}<valid_to"
+  check(f'{kind} {key} VT boundary {d}',f"(SELECT COUNT(*) FROM tc_tl_actual WHERE {predicate})={len(expected)}" + (f" AND (SELECT COUNT(*) FROM tc_tl_actual WHERE {predicate} AND BINARY val=BINARY {q(expected[0]['value'])} AND amount={expected[0]['amount']})=1" if expected else ''))
+
+# Guard negative DML and compare complete persistent tables after every ROLLBACK.
+for table in ['club_version','contract_version','head_coach_role_version','tx_registry','tx_event_tag','query_params']:
+ emit(f'CREATE TEMPORARY TABLE tc_tl_before_{table} AS SELECT * FROM {table};')
+emit('''DELIMITER $$
+CREATE PROCEDURE tc_tl_negative(IN case_name VARCHAR(160), IN sql_text TEXT, IN expected_message VARCHAR(128))
+BEGIN
+ DECLARE got_errno INT DEFAULT 0;
+ DECLARE got_message TEXT DEFAULT '';
+ DECLARE prepared_ok BOOLEAN DEFAULT FALSE;
+ DECLARE EXIT HANDLER FOR SQLEXCEPTION
+ BEGIN
+  ROLLBACK;
+  IF prepared_ok THEN DEALLOCATE PREPARE tc_tl_stmt; END IF;
+  SET @sim_now=NULL,@write_tx_id=NULL,@tc_tl_sql=NULL;
+  RESIGNAL;
+ END;
+ START TRANSACTION;
+ SET @tc_tl_sql=sql_text;
+ PREPARE tc_tl_stmt FROM @tc_tl_sql;
+ SET prepared_ok=TRUE;
+ BEGIN
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+   GET DIAGNOSTICS CONDITION 1 got_errno=MYSQL_ERRNO,got_message=MESSAGE_TEXT;
+  EXECUTE tc_tl_stmt;
+ END;
+ DEALLOCATE PREPARE tc_tl_stmt;
+ SET prepared_ok=FALSE;
+ ROLLBACK;
+ SET @tc_tl_sql=NULL;
+ CALL tc_tl_assert(case_name,got_errno=1644 AND BINARY got_message=BINARY expected_message);
+END$$
+DELIMITER ;''')
+columns={
+'club_version':['version_id','club_id','club_name','budget_eur','valid_from','valid_to','tx_from','tx_to','tx_id'],
+'contract_version':['version_id','contract_id','agreement_kind','salary_eur','valid_from','valid_to','tx_from','tx_to','tx_id'],
+'head_coach_role_version':['version_id','role_id','coach_id','valid_from','valid_to','tx_from','tx_to','tx_id'],
+ 'tx_registry':['tx_id','tx_time','author','reason'], 'tx_event_tag':['tx_id','event_code'],
+ 'query_params':['params_id','valid_at','known_at','period_start','period_end','subject_id']}
+def unchanged(label):
+ for table,cols in columns.items():
+  cond=' AND '.join(f'BINARY a.{c}<=>BINARY b.{c}' for c in cols)
+  check(label+' unchanged '+table,f'(SELECT COUNT(*) FROM {table})=(SELECT COUNT(*) FROM tc_tl_before_{table}) AND NOT EXISTS(SELECT 1 FROM tc_tl_before_{table} b WHERE NOT EXISTS(SELECT 1 FROM {table} a WHERE {cond}))')
+for table,change in [('club_version','budget_eur=budget_eur+1'),('contract_version','salary_eur=salary_eur+1'),('head_coach_role_version','valid_from=DATE_ADD(valid_from, INTERVAL 1 DAY)')]:
+ for closed in [False,True]:
+  condition=f'tx_to {"<>" if closed else "="} {q(INF)} ORDER BY version_id LIMIT 1'
+  for operation in ['UPDATE','DELETE']:
+   sql=f'UPDATE {table} SET {change} WHERE {condition}' if operation=='UPDATE' else f'DELETE FROM {table} WHERE {condition}'
+   label=f'{table} {"closed" if closed else "open"} {operation}'
+   message='TC_DELETE: physical deletion forbidden' if operation=='DELETE' else ('TC_CLOSED: history is immutable' if closed else 'TC_COLUMNS: only tx_to may change')
+   emit(f'CALL tc_tl_negative({q(label)},{q(sql)},{q(message)});')
+   unchanged(label)
+emit('''-- E9: successful club closure+replacement; contract closure succeeds;
+-- second-table INSERT deliberately fails in the real insert-time trigger.
+DELIMITER $$
+CREATE PROCEDURE tc_tl_e9_rollback()
+BEGIN
+ DECLARE club_vid BIGINT UNSIGNED;
+ DECLARE contract_vid BIGINT UNSIGNED;
+ DECLARE fixture_tx BIGINT UNSIGNED;
+ DECLARE fixture_t DATETIME(6);
+ DECLARE got_errno INT DEFAULT 0;
+ DECLARE got_message TEXT DEFAULT '';
+ DECLARE reached_second_half BOOLEAN DEFAULT FALSE;
+ DECLARE lock_id BIGINT UNSIGNED;
+ DECLARE EXIT HANDLER FOR SQLEXCEPTION
+ BEGIN ROLLBACK; SET @sim_now=NULL,@write_tx_id=NULL; RESIGNAL; END;
+ START TRANSACTION;
+ SELECT club_id INTO lock_id FROM club WHERE club_code='CL04' FOR UPDATE;
+ SELECT p.player_id INTO lock_id FROM player p WHERE p.player_code='P037' FOR UPDATE;
+ SELECT a.contract_id INTO lock_id FROM contract a JOIN player p USING(player_id)
+ JOIN club c USING(club_id) WHERE p.player_code='P037' AND c.club_code='CL04' FOR UPDATE;
+ SELECT v.version_id INTO club_vid FROM club_version v JOIN club c USING(club_id)
+ WHERE c.club_code='CL04' AND v.valid_from='2026-08-01' AND v.tx_to='9999-12-31 23:59:59.999999';
+ SELECT v.version_id INTO contract_vid FROM contract_version v JOIN contract a USING(contract_id)
+ JOIN player p USING(player_id) JOIN club c USING(club_id)
+ WHERE p.player_code='P037' AND c.club_code='CL04' AND v.valid_from='2026-08-01'
+ AND v.tx_to='9999-12-31 23:59:59.999999';
+ CALL tc_tl_assert('E9 existing dataset fixture selected',club_vid IS NOT NULL AND contract_vid IS NOT NULL);
+ SET @sim_now='2026-09-21 12:00:00.000000';
+ SET fixture_t=fn_effective_time();
+ INSERT INTO tx_registry(tx_time,author,reason) VALUES(fixture_t,'timeline test','ROLLBACK ONLY E9 second half');
+ SET @write_tx_id=LAST_INSERT_ID();
+ SET fixture_tx=@write_tx_id;
+ INSERT INTO tx_event_tag VALUES(fixture_tx,'E2'),(fixture_tx,'E9');
+ UPDATE club_version SET tx_to=fixture_t WHERE version_id=club_vid;
+ CALL tc_tl_assert('E9 first closure reached',ROW_COUNT()=1);
+ INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_to,tx_id)
+ SELECT club_id,club_name,budget_eur+1,valid_from,valid_to,fixture_t,'9999-12-31 23:59:59.999999',fixture_tx
+ FROM club_version WHERE version_id=club_vid;
+ CALL tc_tl_assert('E9 first insert reached',ROW_COUNT()=1);
+ UPDATE contract_version SET tx_to=fixture_t WHERE version_id=contract_vid;
+ CALL tc_tl_assert('E9 second closure reached',ROW_COUNT()=1);
+ SET reached_second_half=TRUE;
+ BEGIN
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+   GET DIAGNOSTICS CONDITION 1 got_errno=MYSQL_ERRNO,got_message=MESSAGE_TEXT;
+  INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_to,tx_id)
+  SELECT contract_id,agreement_kind,salary_eur+1,valid_from,valid_to,
+   DATE_SUB(fixture_t,INTERVAL 1 MICROSECOND),'9999-12-31 23:59:59.999999',fixture_tx
+  FROM contract_version WHERE version_id=contract_vid;
+ END;
+ -- A statement error is not a transaction rollback. Explicitly undo the entire E9.
+ ROLLBACK;
+ SET @sim_now=NULL,@write_tx_id=NULL;
+ CALL tc_tl_assert('E9 second half exact errno and message',reached_second_half AND got_errno=1644
+  AND BINARY got_message=BINARY 'TC_INSERT_TIME: tx_from must match registry');
+ CALL tc_tl_assert('E9 registry and tags removed',
+  NOT EXISTS(SELECT 1 FROM tx_registry WHERE tx_id=fixture_tx)
+  AND NOT EXISTS(SELECT 1 FROM tx_event_tag WHERE tx_id=fixture_tx));
+ CALL tc_tl_assert('E9 inserts removed in both tables',
+  NOT EXISTS(SELECT 1 FROM club_version WHERE tx_id=fixture_tx)
+  AND NOT EXISTS(SELECT 1 FROM contract_version WHERE tx_id=fixture_tx));
+ CALL tc_tl_assert('E9 both original closures undone',
+  (SELECT tx_to FROM club_version WHERE version_id=club_vid)='9999-12-31 23:59:59.999999'
+  AND (SELECT tx_to FROM contract_version WHERE version_id=contract_vid)='9999-12-31 23:59:59.999999');
+END$$
+DELIMITER ;
+CALL tc_tl_e9_rollback();''')
+unchanged('E9 complete rollback')
+emit('''SET @sim_now=NULL,@write_tx_id=NULL,@tc_tl_sql=NULL;
+SELECT name,ok FROM tc_tl_results ORDER BY name;
+SELECT COUNT(*) AS timeline_assertions_passed FROM tc_tl_results;
+-- All fixture transactions have ended before this helper DDL.
+DROP PROCEDURE tc_tl_e9_rollback;
+DROP PROCEDURE tc_tl_negative;
+DROP PROCEDURE tc_tl_assert;''')
+for table in columns: emit(f'DROP TEMPORARY TABLE tc_tl_before_{table};')
+for name in ['historical_violations','actual','expected','events','results']: emit(f'DROP TEMPORARY TABLE tc_tl_{name};')
+Path(__file__).resolve().parents[1].joinpath('tests/04_timeline_assertions.sql').write_text('\n\n'.join(out)+'\n',encoding='utf-8')

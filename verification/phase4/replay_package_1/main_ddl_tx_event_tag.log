@@ -1,0 +1,8 @@
+Table	Create Table
+tx_event_tag	CREATE TABLE `tx_event_tag` (
+  `tx_id` bigint(20) unsigned NOT NULL,
+  `event_code` char(2) NOT NULL,
+  PRIMARY KEY (`tx_id`,`event_code`),
+  CONSTRAINT `fk_tx_event_tag_tx_id` FOREIGN KEY (`tx_id`) REFERENCES `tx_registry` (`tx_id`),
+  CONSTRAINT `ck_tx_event_tag_code` CHECK (`event_code` in ('E1','E2','E3','E4','E5','E6','E7','E8','E9'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

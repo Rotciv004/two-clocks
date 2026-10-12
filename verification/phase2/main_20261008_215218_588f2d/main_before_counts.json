@@ -1,0 +1,13 @@
+{
+  "player": 0,
+  "coach": 0,
+  "club": 0,
+  "season": 0,
+  "contract": 0,
+  "head_coach_role": 0,
+  "tx_registry": 0,
+  "tx_event_tag": 0,
+  "club_version": 0,
+  "contract_version": 0,
+  "head_coach_role_version": 0
+}

@@ -1,0 +1,7 @@
+failed_event	error_code	error_message	last_committed_event
+T02	1644	P2_ASSERT: T02 requires exactly prefix T01-T01; no automatic resume	T38
+--------------
+
+--------------
+
+ERROR 1644 (45000) at line 25: P2_ASSERT: T02 requires exactly prefix T01-T01; no automatic resume

@@ -1,0 +1,12 @@
+Read-only inspection, 2026-10-07
+User: uid=1000 RotcivRaob
+Host-visible: VictorPC, Fedora 44 KDE; kernel 7.2.7-200.fc44.x86_64
+Sandbox systemd-detect-virt: container-other (host socket needs escalation)
+Installed client: mariadb 11.8.8
+RPM mariadb-server: 11.8.8-3.fc44.x86_64
+RPM dbeaver-ce: 26.2.1-stable.x86_64
+RPM plasma-workspace: 6.7.5-1.fc44.x86_64
+Project initially empty, no Git repository, no applicable AGENTS.md found on ancestor path.
+No server/datadir configuration changed.
+Initial socket access: ERROR 2002 sandbox permission. Escalated local login: ERROR 1045 for RotcivRaob without password. sudo -n: password required. pkexec authentication requested.
+Server version pending SELECT VERSION(), do not confuse RPM with running server.

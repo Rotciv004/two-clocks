@@ -1,0 +1,241 @@
+{
+  "status": "PASS",
+  "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+  "package_root": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/submission/boar_victor",
+  "cwd": "/root",
+  "steps": [
+    {
+      "label": "server",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "main_read_only_inspection",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_player",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_coach",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_club",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_season",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_contract",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_head_coach_role",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_club_version",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_contract_version",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_head_coach_role_version",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_tx_registry",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_tx_event_tag",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_ddl_query_params",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_integrity_violations",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_candidates",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_components",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_dates",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_events",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_facts",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_audit_old",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_p3_contract_facts",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q1_current_contracts",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q2_coach_tenures",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q3_event_audit",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q4_period_relationships",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q5_contracts_as_known",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q6_bitemporal_point",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q7_monthly_relationships",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "main_view_v_q8_relationship_gaps",
+      "database": "two_clocks_cabd",
+      "exit_code": 0
+    },
+    {
+      "label": "create_new_database",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "01_schema",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "02_data",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "03_timeline",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "04_views",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "05_tests",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "q0_after_rollbacks",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "dataset_assertions",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    },
+    {
+      "label": "timeline_assertions",
+      "database": "two_clocks_cabd_verify_p3_submission_20261010_185944_56a7d1a9",
+      "exit_code": 0
+    }
+  ],
+  "main_read_only": true,
+  "files": {
+    "README.md": "43523ed3adaa4f9ac8d60da2466934b480f1d6f308cac03a22e2cd26d159d739",
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "04_views.sql": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+    "05_tests.sql": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+    "scripts/verify_submission.py": "5e6f9d12c38e515bcbe771310039aa6a24865fcb4d6ad575729b8be4fd29fff0",
+    "scripts/verify_submission.sh": "c79299a2ee3a69d27f0fe2811290777c3f028fcd286f3618bb71fc029926d0bf",
+    "tests/03_dataset_assertions.sql": "516a4f3cb46230e5d60a12288f629e484287dbf69ce888a817c7a935d8ab5a6a",
+    "tests/04_timeline_assertions.sql": "df2c7687feccceb1e5648643e556689a309802fa9597a365bbeae1c8c2e406f5",
+    "evidence/business_normalized_reference.json": "124aa0837bdb2a772b35cba0845180d191bcebb202945f4a11d5ee2d783ce00e",
+    "evidence/query_normalized_reference.json": "7cb92517ca00503b0102df80a06e821865f804f4bd392c9b3c63a8a2fdede556"
+  },
+  "counts": {
+    "player": 60,
+    "coach": 8,
+    "club": 6,
+    "season": 2,
+    "contract": 69,
+    "head_coach_role": 6,
+    "club_version": 18,
+    "contract_version": 98,
+    "head_coach_role_version": 15,
+    "tx_registry": 38,
+    "tx_event_tag": 53
+  },
+  "version": "11.8.8-MariaDB",
+  "positive_scenarios": 52,
+  "q0_extra_checks": 4,
+  "normalized_business_equal": true,
+  "normalized_queries_equal": true,
+  "fixtures_rolled_back": true,
+  "params_restored": true,
+  "main_business_before_sha256": "74d4a44650b438f64ef7f010e9bce2893b68ac7483072a9ca2483e08aaa520c8",
+  "main_business_after_sha256": "74d4a44650b438f64ef7f010e9bce2893b68ac7483072a9ca2483e08aaa520c8",
+  "main_unchanged": true
+}

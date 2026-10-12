@@ -1,0 +1,99 @@
+{
+  "mode": "verify",
+  "status": "FAIL",
+  "databases": [
+    "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+    "two_clocks_cabd_verify_p3_20261009_072639_80742f_2"
+  ],
+  "steps": [
+    {
+      "label": "server",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "create_1",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "1_01",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_02",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_03",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_04",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_05",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_04_repeat",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_05_repeat",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_phase2_dataset",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_phase2_timeline",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 0
+    },
+    {
+      "label": "1_guard_wrong_database",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_1",
+      "exit_code": 1
+    },
+    {
+      "label": "create_2",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "2_01",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_2",
+      "exit_code": 0
+    },
+    {
+      "label": "2_phase1_smoke",
+      "database": "two_clocks_cabd_verify_p3_20261009_072639_80742f_2",
+      "exit_code": 1
+    }
+  ],
+  "files": {
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "04_views.sql": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+    "05_tests.sql": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+    "docs/query_expected_results.json": "262868986c5c207f26aa26c031491ad14c16a0a7edf896fe6c15c59a60aa92d3",
+    "scripts/phase3_runner.py": "2590057222df6fc15d842c3da90851805675160a4d39c5ad0fa9bcf4bc19502d"
+  },
+  "test_verdicts": {
+    "1_05": "PASS\t56\t2026-10-09",
+    "1_05_repeat": "PASS\t56\t2026-10-09"
+  },
+  "error": "2_phase1_smoke: --------------\n\n--------------\n\nERROR 1267 (HY000) at line 964: Illegal mix of collations (utf8mb4_uca1400_ai_ci,COERCIBLE) and (utf8mb4_unicode_ci,COERCIBLE) for operation '='\n"
+}

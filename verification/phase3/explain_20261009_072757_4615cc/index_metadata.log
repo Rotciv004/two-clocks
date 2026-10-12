@@ -1,0 +1,31 @@
+Table	Non_unique	Key_name	Seq_in_index	Column_name	Collation	Cardinality	Sub_part	Packed	Null	Index_type	Comment	Index_comment	Ignored
+contract_version	0	PRIMARY	1	version_id	A	3	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	1	contract_id	A	3	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	2	tx_to	A	3	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_asof	3	valid_from	A	3	NULL	NULL		BTREE			NO
+contract_version	1	ix_contract_version_tx	1	tx_id	A	1	NULL	NULL		BTREE			NO
+Table	Create Table
+contract_version	CREATE TABLE `contract_version` (
+  `version_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `contract_id` bigint(20) unsigned NOT NULL,
+  `agreement_kind` varchar(9) NOT NULL,
+  `salary_eur` decimal(12,2) NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date NOT NULL DEFAULT '9999-12-31',
+  `tx_from` datetime(6) NOT NULL,
+  `tx_to` datetime(6) NOT NULL DEFAULT '9999-12-31 23:59:59.999999',
+  `tx_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`version_id`),
+  KEY `ix_contract_version_asof` (`contract_id`,`tx_to`,`valid_from`),
+  KEY `ix_contract_version_tx` (`tx_id`),
+  CONSTRAINT `fk_contract_version_contract_id` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`contract_id`),
+  CONSTRAINT `fk_contract_version_tx_id` FOREIGN KEY (`tx_id`) REFERENCES `tx_registry` (`tx_id`),
+  CONSTRAINT `ck_contract_version_valid` CHECK (`valid_from` < `valid_to`),
+  CONSTRAINT `ck_contract_version_tx` CHECK (`tx_from` < `tx_to`),
+  CONSTRAINT `ck_contract_version_kind` CHECK (`agreement_kind` in ('PERMANENT','LOAN')),
+  CONSTRAINT `ck_contract_version_salary` CHECK (`salary_eur` >= 0)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+VERSION()
+11.8.8-MariaDB
+params_id	valid_at	known_at	period_start	period_end	subject_id
+1	2026-05-05	2026-05-11 12:00:00.000000	2025-07-01	2026-07-01	3

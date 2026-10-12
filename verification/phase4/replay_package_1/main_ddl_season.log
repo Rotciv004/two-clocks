@@ -1,0 +1,10 @@
+Table	Create Table
+season	CREATE TABLE `season` (
+  `season_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `season_name` varchar(32) NOT NULL,
+  `period_start` date NOT NULL,
+  `period_end` date NOT NULL,
+  PRIMARY KEY (`season_id`),
+  UNIQUE KEY `uq_season_name` (`season_name`),
+  CONSTRAINT `ck_season_period` CHECK (`period_start` < `period_end`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

@@ -1,0 +1,134 @@
+{
+  "files": {
+    "01_schema.sql": {
+      "sha256": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+      "matches_phase3_success": true
+    },
+    "02_data.sql": {
+      "sha256": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+      "matches_phase3_success": true
+    },
+    "03_timeline.sql": {
+      "sha256": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+      "matches_phase3_success": true
+    },
+    "04_views.sql": {
+      "sha256": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+      "matches_phase3_success": true
+    },
+    "05_tests.sql": {
+      "sha256": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+      "matches_phase3_success": true
+    },
+    "docs/query_expected_results.json": {
+      "sha256": "262868986c5c207f26aa26c031491ad14c16a0a7edf896fe6c15c59a60aa92d3",
+      "matches_phase3_success": true
+    },
+    "scripts/phase3_runner.py": {
+      "sha256": "063b2a94514abd2647010ca91fe3cead16c64bd8f0ca3a19b22e1fc7e0b48335",
+      "matches_phase3_success": true
+    }
+  },
+  "reference_pdfs": {
+    "Course1.pdf": {
+      "sha256": "2e89a5899e480d722af53239019ae730528b8acc8738ff0bd0efd1b97f1e8980",
+      "matches_original": true
+    },
+    "Assignment1.pdf": {
+      "sha256": "791fee459208673646cc6aaf8450ab03aea6a0629d7f849c0353ea48cccf473d",
+      "matches_original": true
+    }
+  },
+  "tables": [
+    "player",
+    "coach",
+    "club",
+    "season",
+    "contract",
+    "head_coach_role",
+    "tx_registry",
+    "tx_event_tag",
+    "club_version",
+    "contract_version",
+    "head_coach_role_version",
+    "query_params"
+  ],
+  "fk_relations": [
+    {
+      "parent": "player",
+      "child": "contract",
+      "column": "player_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "club",
+      "child": "contract",
+      "column": "club_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "club",
+      "child": "head_coach_role",
+      "column": "club_id",
+      "cardinality": "1 → 0..1"
+    },
+    {
+      "parent": "tx_registry",
+      "child": "tx_event_tag",
+      "column": "tx_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "club",
+      "child": "club_version",
+      "column": "club_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "tx_registry",
+      "child": "club_version",
+      "column": "tx_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "contract",
+      "child": "contract_version",
+      "column": "contract_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "tx_registry",
+      "child": "contract_version",
+      "column": "tx_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "head_coach_role",
+      "child": "head_coach_role_version",
+      "column": "role_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "tx_registry",
+      "child": "head_coach_role_version",
+      "column": "tx_id",
+      "cardinality": "1 → 0..N"
+    },
+    {
+      "parent": "coach",
+      "child": "head_coach_role_version",
+      "column": "coach_id",
+      "cardinality": "1 → 0..N"
+    }
+  ],
+  "runtime_dependencies": {
+    "01_schema.sql": [],
+    "02_data.sql": [],
+    "03_timeline.sql": [],
+    "04_views.sql": [],
+    "05_tests.sql": []
+  },
+  "diagram_static_match": true,
+  "timeline_events_reviewed": 37,
+  "main_fingerprint_method": "phase3_runner.business: SELECT * ORDER BY 1,2; json.dumps(data, ensure_ascii=False, sort_keys=True); SHA256; query_params excluded"
+}

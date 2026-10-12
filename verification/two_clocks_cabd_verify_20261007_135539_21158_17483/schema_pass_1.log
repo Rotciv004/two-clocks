@@ -1,0 +1,26 @@
+Note (Code 4092): Unknown VIEW: 'two_clocks_cabd_verify_20261007_135539_21158_17483.v_integrity_violations'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.tx_event_tag'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.head_coach_role_version'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.contract_version'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.club_version'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.query_params'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.head_coach_role'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.contract'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.season'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.club'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.coach'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.player'
+Note (Code 1051): Unknown table 'two_clocks_cabd_verify_20261007_135539_21158_17483.tx_registry'
+Note (Code 1305): FUNCTION two_clocks_cabd_verify_20261007_135539_21158_17483.fn_effective_time does not exist
+Warning (Code 1280): Name 'pk_player' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_coach' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_club' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_season' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_contract' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_head_coach_role' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_tx_registry' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_tx_event_tag' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_club_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_contract_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_head_coach_role_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_query_params' ignored for PRIMARY key.

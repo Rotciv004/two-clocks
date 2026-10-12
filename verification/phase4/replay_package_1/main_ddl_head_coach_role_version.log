@@ -1,0 +1,20 @@
+Table	Create Table
+head_coach_role_version	CREATE TABLE `head_coach_role_version` (
+  `version_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) unsigned NOT NULL,
+  `coach_id` bigint(20) unsigned NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date NOT NULL DEFAULT '9999-12-31',
+  `tx_from` datetime(6) NOT NULL,
+  `tx_to` datetime(6) NOT NULL DEFAULT '9999-12-31 23:59:59.999999',
+  `tx_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`version_id`),
+  KEY `ix_head_coach_role_version_asof` (`role_id`,`tx_to`,`valid_from`),
+  KEY `ix_head_coach_role_version_tx` (`tx_id`),
+  KEY `ix_head_coach_role_version_coach` (`coach_id`),
+  CONSTRAINT `fk_head_coach_role_version_coach_id` FOREIGN KEY (`coach_id`) REFERENCES `coach` (`coach_id`),
+  CONSTRAINT `fk_head_coach_role_version_role_id` FOREIGN KEY (`role_id`) REFERENCES `head_coach_role` (`role_id`),
+  CONSTRAINT `fk_head_coach_role_version_tx_id` FOREIGN KEY (`tx_id`) REFERENCES `tx_registry` (`tx_id`),
+  CONSTRAINT `ck_head_coach_role_version_valid` CHECK (`valid_from` < `valid_to`),
+  CONSTRAINT `ck_head_coach_role_version_tx` CHECK (`tx_from` < `tx_to`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

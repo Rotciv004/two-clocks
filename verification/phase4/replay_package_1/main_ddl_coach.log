@@ -1,0 +1,9 @@
+Table	Create Table
+coach	CREATE TABLE `coach` (
+  `coach_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `coach_code` varchar(32) NOT NULL,
+  `full_name` varchar(120) NOT NULL,
+  `birth_date` date NOT NULL,
+  PRIMARY KEY (`coach_id`),
+  UNIQUE KEY `uq_coach_code` (`coach_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

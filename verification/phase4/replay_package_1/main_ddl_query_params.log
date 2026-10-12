@@ -1,0 +1,12 @@
+Table	Create Table
+query_params	CREATE TABLE `query_params` (
+  `params_id` tinyint(3) unsigned NOT NULL,
+  `valid_at` date NOT NULL,
+  `known_at` datetime(6) NOT NULL,
+  `period_start` date NOT NULL,
+  `period_end` date NOT NULL,
+  `subject_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`params_id`),
+  CONSTRAINT `ck_query_params_singleton` CHECK (`params_id` = 1),
+  CONSTRAINT `ck_query_params_period` CHECK (`period_start` < `period_end`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

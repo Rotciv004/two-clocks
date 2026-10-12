@@ -1,0 +1,2 @@
+View	Create View	character_set_client	collation_connection
+v_p3_audit_components	CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY INVOKER VIEW `v_p3_audit_components` AS select distinct `e`.`tx_id` AS `tx_id`,`f`.`fact_family` AS `fact_family`,`f`.`subject_code` AS `subject_code` from (`v_p3_audit_events` `e` join `v_p3_audit_facts` `f` on(`f`.`tx_id` = `e`.`tx_id`))	utf8mb4	utf8mb4_unicode_ci

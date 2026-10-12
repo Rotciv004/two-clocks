@@ -1,0 +1,101 @@
+{
+  "mode": "explain",
+  "status": "PASS",
+  "databases": [
+    "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain"
+  ],
+  "steps": [
+    {
+      "label": "server",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "create_explain",
+      "database": null,
+      "exit_code": 0
+    },
+    {
+      "label": "explain_01",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_02",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_03",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_04",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "index_metadata",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "results_with_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_with_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_json_with_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "drop_asof_keep_fk",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "results_without_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_without_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "explain_json_without_index",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    },
+    {
+      "label": "restore_asof",
+      "database": "two_clocks_cabd_verify_p3_20261009_073306_d03aa8_explain",
+      "exit_code": 0
+    }
+  ],
+  "files": {
+    "01_schema.sql": "1e86e95ca20f5d88a04253aa5e34ec16c4d1a132b18267286e8203d9072fae7c",
+    "02_data.sql": "5e1d37d900a472632017be807067f0c59e2d45c8f953219a7b6676c9665f7928",
+    "03_timeline.sql": "18018e50bf779154e173efcdd46d3edd3b2320be94c57d8e991aab5f6abb8700",
+    "04_views.sql": "1b9d3127ba80d3daec6d19c612e5dbe8d9ff1ec0e76fbab5224ccccc20ff00c4",
+    "05_tests.sql": "185dac624073753e0d9b60d8c32691de033b6ae2e16ae4c9fcbba3f1dc4f4669",
+    "docs/query_expected_results.json": "262868986c5c207f26aa26c031491ad14c16a0a7edf896fe6c15c59a60aa92d3",
+    "scripts/phase3_runner.py": "063b2a94514abd2647010ca91fe3cead16c64bd8f0ca3a19b22e1fc7e0b48335"
+  },
+  "results_equal": true,
+  "index_restored": true,
+  "index_name": "ix_contract_version_asof",
+  "index_columns": [
+    "contract_id",
+    "tx_to",
+    "valid_from"
+  ]
+}

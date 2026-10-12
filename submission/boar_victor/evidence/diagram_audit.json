@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "actual_metadata_source": "replay_package_1/main_structure_before.json",
+  "table_count": 12,
+  "all_columns_equal": true,
+  "fk_count": 11,
+  "pk_uq_fk_checked": true,
+  "non_temporal_tables": 9,
+  "bitemporal_tables": 3,
+  "crowfoot": "|| / o< / o|",
+  "query_params_subject_id_no_fk": true,
+  "source_sha256": "600e7457d6ad15cf78846a2369062117fe0dcebca156e45dc5bf2906f8c60734",
+  "pdf_sha256": "1a37cd1302ebbb4ee10a0390ffa97e5ce98bf0a95f0df51e6ffe746aa5da616b",
+  "png_sha256": "d2ff2229a4eb6ae4ecca69274b91971c632d7621e818fa032a946eb37f378551",
+  "visual_inspection": "PNG and PDF rendering inspected: labels readable, complete, no clipped text; technical cluster label moved below crossing paths"
+}

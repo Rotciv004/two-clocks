@@ -1,0 +1,18 @@
+--------------
+CREATE OR REPLACE SQL SECURITY INVOKER VIEW v_p3_audit_dates AS
+SELECT c.tx_id,c.fact_family,c.subject_code,
+ CASE WHEN c.fact_family='HEAD_COACH' AND e.is_correction=1 THEN MAX(n.valid_from)
+ ELSE COALESCE(
+ MIN(CASE WHEN NOT EXISTS (SELECT 1 FROM v_p3_audit_old o WHERE o.closing_tx_id=c.tx_id
+ AND o.fact_family=c.fact_family AND o.subject_code=c.subject_code AND o.business_key=n.business_key
+ AND o.fact_value=n.fact_value AND (o.agreement_kind <=> n.agreement_kind)
+ AND o.valid_from<=n.valid_from AND n.valid_from<o.valid_to) THEN n.valid_from END),
+ MIN(CASE WHEN EXISTS (SELECT 1 FROM v_p3_audit_old o WHERE o.closing_tx_id=c.tx_id
+ AND o.fact_family=c.fact_family AND o.subject_code=c.subject_code AND o.business_key=n.business_key
+ AND n.valid_to<o.valid_to) THEN n.valid_to END)) END effective_date
+FROM v_p3_audit_components c JOIN v_p3_audit_events e ON e.tx_id=c.tx_id
+JOIN v_p3_audit_facts n ON n.tx_id=c.tx_id AND n.fact_family=c.fact_family AND n.subject_code=c.subject_code
+GROUP BY c.tx_id,c.fact_family,c.subject_code,e.is_correction
+--------------
+
+ERROR 1111 (HY000) at line 134: Invalid use of group function

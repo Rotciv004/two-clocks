@@ -1,0 +1,13 @@
+{
+  "zip": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/submission/boar_victor_assignment1.zip",
+  "sha256": "e090106cd54d632347d74696edc222f259b39c7da4be241545137e86ee04f410",
+  "extracted_to": "/tmp/cabd-submission-extracted-vp02ogz5/boar_victor",
+  "file_count": 192,
+  "crc_pass": true,
+  "manifest_pass": true,
+  "all_files_identical": true,
+  "runtime_identical_to_tested_package": true,
+  "runtime_status": "PASS",
+  "report_sha256": "4401ff057c83d1e03dc0e0802de3ff529b100fd369e8bc1b84af5aae9b91800e",
+  "er_pdf_sha256": "1a37cd1302ebbb4ee10a0390ffa97e5ce98bf0a95f0df51e6ffe746aa5da616b"
+}

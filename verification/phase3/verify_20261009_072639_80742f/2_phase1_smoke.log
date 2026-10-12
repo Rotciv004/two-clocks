@@ -1,0 +1,327 @@
+verdict	assertion
+PASS	12 expected tables
+verdict	assertion
+PASS	club_version period types
+verdict	assertion
+PASS	club_version valid_to default
+verdict	assertion
+PASS	club_version tx_to default
+verdict	assertion
+PASS	club_version PK
+verdict	assertion
+PASS	club_version period checks
+verdict	assertion
+PASS	club_version anchor and registry FKs
+verdict	assertion
+PASS	club_version asof index
+verdict	assertion
+PASS	club_version all columns NOT NULL
+verdict	assertion
+PASS	club_version transactional storage
+verdict	assertion
+PASS	club_version guards
+verdict	assertion
+PASS	contract_version period types
+verdict	assertion
+PASS	contract_version valid_to default
+verdict	assertion
+PASS	contract_version tx_to default
+verdict	assertion
+PASS	contract_version PK
+verdict	assertion
+PASS	contract_version period checks
+verdict	assertion
+PASS	contract_version anchor and registry FKs
+verdict	assertion
+PASS	contract_version asof index
+verdict	assertion
+PASS	contract_version all columns NOT NULL
+verdict	assertion
+PASS	contract_version transactional storage
+verdict	assertion
+PASS	contract_version guards
+verdict	assertion
+PASS	head_coach_role_version period types
+verdict	assertion
+PASS	head_coach_role_version valid_to default
+verdict	assertion
+PASS	head_coach_role_version tx_to default
+verdict	assertion
+PASS	head_coach_role_version PK
+verdict	assertion
+PASS	head_coach_role_version period checks
+verdict	assertion
+PASS	head_coach_role_version anchor and registry FKs
+verdict	assertion
+PASS	head_coach_role_version asof index
+verdict	assertion
+PASS	head_coach_role_version all columns NOT NULL
+verdict	assertion
+PASS	head_coach_role_version transactional storage
+verdict	assertion
+PASS	head_coach_role_version guards
+verdict	assertion
+PASS	integrity view
+verdict	assertion
+PASS	exactly three bitemporal tables
+verdict	assertion
+PASS	all twelve tables InnoDB
+verdict	assertion
+PASS	all domain identifiers BIGINT UNSIGNED
+verdict	assertion
+PASS	all foreign keys RESTRICT
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOCK: invalid or future @sim_now	SET @clock_result=fn_effective_time()
+verdict	assertion
+PASS	clock precision 0
+verdict	assertion
+PASS	clock precision 1
+verdict	assertion
+PASS	clock precision 2
+verdict	assertion
+PASS	clock precision 3
+verdict	assertion
+PASS	clock precision 4
+verdict	assertion
+PASS	clock precision 5
+verdict	assertion
+PASS	clock precision 6
+verdict	assertion
+PASS	NULL/unset clock uses UTC
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_REGISTRY_TIME: expected effective UTC time	INSERT INTO tx_registry(tx_time,author,reason) VALUES('2026-01-01','x','x')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_REGISTRY_TIME: expected effective UTC time	INSERT INTO tx_registry(tx_time,author,reason) VALUES('9999-12-31 23:59:59.999999','x','x')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_METADATA: immutable tx_registry	UPDATE tx_registry SET author='changed' WHERE tx_id=@initial_tx
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_METADATA: immutable tx_registry	DELETE FROM tx_registry WHERE tx_id=@initial_tx
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_METADATA: immutable tx_event_tag	UPDATE tx_event_tag SET event_code='E2' WHERE tx_id=@initial_tx
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_METADATA: immutable tx_event_tag	DELETE FROM tx_event_tag WHERE tx_id=@initial_tx
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_tx_event_tag_code` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`tx_event_tag`	INSERT INTO tx_event_tag VALUES(@initial_tx,'EX')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',100,'2026-01-02','9999-12-31',@t,0)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',100,'2026-01-02','9999-12-31',DATE_SUB(@t,INTERVAL 1 MICROSECOND),@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_OPEN: new belief must be open	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id,tx_to) VALUES(@club,'Smoke',100,'2026-01-02','9999-12-31',@t,@write_tx_id,'2026-02-01')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_FUTURE: invalid effective time	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',100,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',100,'2026-01-02','9999-12-31',@t,0)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',100,'2026-01-02','9999-12-31',DATE_SUB(@t,INTERVAL 1 MICROSECOND),@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_OPEN: new belief must be open	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id,tx_to) VALUES(@contract,'PERMANENT',100,'2026-01-02','9999-12-31',@t,@write_tx_id,'2026-02-01')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_FUTURE: invalid effective time	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',100,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,@ionescu,'2026-01-02','9999-12-31',@t,0)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_TIME: tx_from must match registry	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,@ionescu,'2026-01-02','9999-12-31',DATE_SUB(@t,INTERVAL 1 MICROSECOND),@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_OPEN: new belief must be open	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id,tx_to) VALUES(@role,@ionescu,'2026-01-02','9999-12-31',@t,@write_tx_id,'2026-02-01')
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_INSERT_FUTURE: invalid effective time	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,@ionescu,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_club_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`club_version`	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',100,'2026-02-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_club_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`club_version`	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',100,'2026-03-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1452	Cannot add or update a child row: a foreign key constraint fails (`two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`club_version`, CONSTRAINT `fk_club_version_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`))	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(0,'Smoke',100,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_contract_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`contract_version`	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',100,'2026-02-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_contract_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`contract_version`	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',100,'2026-03-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1452	Cannot add or update a child row: a foreign key constraint fails (`two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`contract_version`, CONSTRAINT `fk_contract_version_contract_id` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`contract_id`))	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(0,'PERMANENT',100,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_head_coach_role_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`head_coach_role_version`	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,@ionescu,'2026-02-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_head_coach_role_version_valid` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`head_coach_role_version`	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,@ionescu,'2026-03-01','2026-02-01',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1452	Cannot add or update a child row: a foreign key constraint fails (`two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`head_coach_role_version`, CONSTRAINT `fk_head_coach_role_version_role_id` FOREIGN KEY (`role_id`) REFERENCES `head_coach_role` (`role_id`))	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(0,@ionescu,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_club_version_budget` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`club_version`	INSERT INTO club_version(club_id,club_name,budget_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@club,'Smoke',-1,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_contract_version_salary` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`contract_version`	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'PERMANENT',-1,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	4025	CONSTRAINT `ck_contract_version_kind` failed for `two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`contract_version`	INSERT INTO contract_version(contract_id,agreement_kind,salary_eur,valid_from,valid_to,tx_from,tx_id) VALUES(@contract,'INVALID',100,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1452	Cannot add or update a child row: a foreign key constraint fails (`two_clocks_cabd_verify_p3_20261009_072639_80742f_2`.`head_coach_role_version`, CONSTRAINT `fk_head_coach_role_version_coach_id` FOREIGN KEY (`coach_id`) REFERENCES `coach` (`coach_id`))	INSERT INTO head_coach_role_version(role_id,coach_id,valid_from,valid_to,tx_from,tx_id) VALUES(@role,0,'2026-01-02','9999-12-31',@t,@write_tx_id)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET version_id=version_id+1000000 WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET club_id=club_id+1000000 WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET club_name='Changed' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET budget_eur=101 WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET valid_from='2026-01-03' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET valid_to='2027-01-01' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET tx_from=DATE_ADD(tx_from,INTERVAL 1 MICROSECOND) WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET tx_id=tx_id+1000000 WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET version_id=version_id+1000000 WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET contract_id=contract_id+1000000 WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET agreement_kind='LOAN' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET salary_eur=101 WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET valid_from='2026-01-03' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET valid_to='2027-01-01' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET tx_from=DATE_ADD(tx_from,INTERVAL 1 MICROSECOND) WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET tx_id=tx_id+1000000 WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET version_id=version_id+1000000 WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET role_id=role_id+1000000 WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET coach_id=@popescu WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET valid_from='2026-01-03' WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET valid_to='2027-01-01' WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET tx_from=DATE_ADD(tx_from,INTERVAL 1 MICROSECOND) WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE head_coach_role_version SET tx_id=tx_id+1000000 WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET club_name='smoke' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET club_name='Smoke ' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE club_version SET club_name='Smóke' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_COLUMNS: only tx_to may change	UPDATE contract_version SET agreement_kind='permanent' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE club_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE club_version SET tx_to=@initial_time WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE club_version SET tx_to=DATE_SUB(@initial_time,INTERVAL 1 MICROSECOND) WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_FUTURE: closure beyond effective time	UPDATE club_version SET tx_to=DATE_ADD(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE club_version SET tx_to=@t WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE club_version SET tx_to=@t WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE club_version SET tx_to=@t WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE club_version SET tx_to=DATE_SUB(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@club_version_id
+verdict	assertion
+PASS	club_version legitimate close preserves provenance
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE contract_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE contract_version SET tx_to=@initial_time WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE contract_version SET tx_to=DATE_SUB(@initial_time,INTERVAL 1 MICROSECOND) WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_FUTURE: closure beyond effective time	UPDATE contract_version SET tx_to=DATE_ADD(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE contract_version SET tx_to=@t WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE contract_version SET tx_to=@t WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE contract_version SET tx_to=@t WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE contract_version SET tx_to=DATE_SUB(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@contract_version_id
+verdict	assertion
+PASS	contract_version legitimate close preserves provenance
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE head_coach_role_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE head_coach_role_version SET tx_to=@initial_time WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_ORDER: closure must follow opening	UPDATE head_coach_role_version SET tx_to=DATE_SUB(@initial_time,INTERVAL 1 MICROSECOND) WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_FUTURE: closure beyond effective time	UPDATE head_coach_role_version SET tx_to=DATE_ADD(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE head_coach_role_version SET tx_to=@t WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE head_coach_role_version SET tx_to=@t WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE head_coach_role_version SET tx_to=@t WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSE_REGISTRY: use @write_tx_id and its time	UPDATE head_coach_role_version SET tx_to=DATE_SUB(@t,INTERVAL 1 MICROSECOND) WHERE version_id=@head_coach_role_version_id
+verdict	assertion
+PASS	head_coach_role_version legitimate close preserves provenance
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE club_version SET tx_to=@t WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE club_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE club_version SET club_name='Changed' WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM club_version WHERE version_id=@club_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM club_version WHERE version_id=@open_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE contract_version SET tx_to=@t WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE contract_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE contract_version SET agreement_kind='LOAN' WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM contract_version WHERE version_id=@contract_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM contract_version WHERE version_id=@open_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE head_coach_role_version SET tx_to=@t WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE head_coach_role_version SET tx_to='9999-12-31 23:59:59.999999' WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_CLOSED: history is immutable	UPDATE head_coach_role_version SET coach_id=@popescu WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM head_coach_role_version WHERE version_id=@head_coach_role_version_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_DELETE: physical deletion forbidden	DELETE FROM head_coach_role_version WHERE version_id=@open_id
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_ANCHOR: stable identity	UPDATE contract SET contract_id=contract_id+1000000 WHERE contract_id=@contract
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_ANCHOR: stable identity	UPDATE contract SET player_id=player_id+1000000 WHERE contract_id=@contract
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_ANCHOR: stable identity	UPDATE contract SET club_id=club_id+1000000 WHERE contract_id=@contract
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_ANCHOR: stable identity	UPDATE head_coach_role SET role_id=role_id+1000000 WHERE role_id=@role
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1644	TC_ANCHOR: stable identity	UPDATE head_coach_role SET club_id=club_id+1000000 WHERE role_id=@role
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1062	Duplicate entry '1-1' for key 'uq_contract_pair'	INSERT INTO contract(player_id,club_id) VALUES(@player,@club)
+verdict	actual_errno	actual_message	rejected_sql
+PASS expected rejection	1062	Duplicate entry '1' for key 'uq_head_coach_role_club'	INSERT INTO head_coach_role(club_id) VALUES(@club)
+--------------
+
+--------------
+
+ERROR 1267 (HY000) at line 964: Illegal mix of collations (utf8mb4_uca1400_ai_ci,COERCIBLE) and (utf8mb4_unicode_ci,COERCIBLE) for operation '='

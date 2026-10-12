@@ -1,0 +1,2 @@
+invariant_code,source_table,business_key,version_id,conflicting_version_id,details
+I1,contract_version,25,44,127,contract_id=25: overlapping current valid periods

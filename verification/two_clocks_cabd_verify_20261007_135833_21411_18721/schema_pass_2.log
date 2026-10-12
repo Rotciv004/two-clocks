@@ -1,0 +1,12 @@
+Warning (Code 1280): Name 'pk_player' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_coach' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_club' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_season' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_contract' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_head_coach_role' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_tx_registry' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_tx_event_tag' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_club_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_contract_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_head_coach_role_version' ignored for PRIMARY key.
+Warning (Code 1280): Name 'pk_query_params' ignored for PRIMARY key.

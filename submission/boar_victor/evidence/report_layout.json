@@ -1,0 +1,527 @@
+{
+  "sources": {
+    "results/Q1_today_P006.csv": "bbf3874b5376aaa0ce393ef060f20d26b4c2b63abdb88f404d767307f5e811cd",
+    "results/Q2_today_CL04.csv": "5701ee1c205bba299c806e2dafd024c2d8e839a3fd777ee39df1a3bda2b5d0a1",
+    "results/Q3_all_events.csv": "7ce0ca16fa5dc88c4068a504bf9af8ba6fc3d1bc1b8da70a35864fdf255c6f71",
+    "results/Q5_final.csv": "0b689fa2a9894447b76c0c0674a256e4b0a6e68a4434590652b148102bf7856d",
+    "results/Q7_season1.csv": "59b3b0e82d3ff8cb4ef37999eb8a0c460b1a55dad920febcceebc1a0c112dfb6",
+    "results/Q8_all_gaps.csv": "620a1f10712cbde7e633743f8978b21583428be703d3f7d7418333830ac65627",
+    "results/Q0_negative_I1.csv": "6d07b05b95a4e8c24840d605aaf21d5c84c17532d1d8fbe0f20e9de81e36114d",
+    "results/Q0_negative_I3.csv": "29ea74b3d574526a33cae0fab5c634e6a0a1ab2e827fe7ea26353dea04c97aab",
+    "results/Q0_negative_I2.csv": "0b8b04c08ae038042573a98ac396308c424d0498f03baa57bc5ab85cd737c0f2",
+    "results/Q6_perspective_1.csv": "c38a29e5c13f77dfa7c351dbf9b8d1b3f81bcafd1aab044852db6da4040d4b75",
+    "results/Q6_perspective_2.csv": "99ac4e3b9d6b74a1ff46654ea5f60d843070cedcf3427a02574c569c1b2b3262",
+    "results/Q6_perspective_3.csv": "bcaf9c38e2d942bf4e77de379e5ef7cdd4ef7f13d3f21a2c17d38399dccccdfa",
+    "results/Q6_T18_before.csv": "c38a29e5c13f77dfa7c351dbf9b8d1b3f81bcafd1aab044852db6da4040d4b75",
+    "results/Q6_T18_exact.csv": "99ac4e3b9d6b74a1ff46654ea5f60d843070cedcf3427a02574c569c1b2b3262",
+    "results/Q6_T18_after.csv": "99ac4e3b9d6b74a1ff46654ea5f60d843070cedcf3427a02574c569c1b2b3262",
+    "results/Q6_T19_before.csv": "99ac4e3b9d6b74a1ff46654ea5f60d843070cedcf3427a02574c569c1b2b3262",
+    "results/Q6_T19_exact.csv": "bcaf9c38e2d942bf4e77de379e5ef7cdd4ef7f13d3f21a2c17d38399dccccdfa",
+    "results/Q6_T19_after.csv": "bcaf9c38e2d942bf4e77de379e5ef7cdd4ef7f13d3f21a2c17d38399dccccdfa",
+    "results/Q4_season1.csv": "cef18c027552800e3444ae32580dcb35252acee8b482ac4150a492d3735bb29e",
+    "results/Q4_exact_loan.csv": "6c163a957276f013428908bd4924218183a2432111c59a63419d6beb937b07e8",
+    "results/Q4_touch_loan.csv": "2be60dc3bf54fbb11649cd9d82011c7c342013c4ea44e099090dbbda8a370f8d",
+    "explain/explain_with_index.log": "fec662bfc4530cd312b24cd9dd93d772f5d78700aa951f8e0ebedbbf74092796",
+    "explain/explain_without_index.log": "b212c9113ace67d161c4a13d94b5b40b53579e5e0d394a64ad97779a054bc54d"
+  },
+  "tables": {
+    "Q1": 2,
+    "Q2": 1,
+    "Q3_components": 33,
+    "Q3_events": 31,
+    "Q5": 77,
+    "Q7_values": 72,
+    "Q8": 4,
+    "EXPLAIN_rows_per_plan": 7
+  },
+  "font_sizes": {
+    "body": 10.1,
+    "table": 8,
+    "code": 8.1
+  },
+  "pages": [
+    {
+      "page": 1,
+      "content_bottom": 95.89,
+      "objects": [
+        {
+          "text": "# Two Clocks — o ligă fictivă cu memorie bitemporală",
+          "top": 811.89,
+          "height": 18,
+          "width": 529.28
+        },
+        {
+          "text": "Boar Victor · Advanced Database Chapters and Cloud Databases · MariaDB",
+          "top": 786.89,
+          "height": 12.1,
+          "width": 529.28
+        },
+        {
+          "text": "## 1. Domeniu și importanța timpului",
+          "top": 770.79,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "Liga fictivă urmărește jucători, cluburi și antrenori, contracte perma",
+          "top": 751.79,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "Întrebarea centrală este „Cine antrena FC Someș (CL01) la 2 martie 202",
+          "top": 699.39,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "Același mecanism explică transferul P001: noua relație devine valabilă",
+          "top": 634.89,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "Împrumuturile pot coexista cu relația permanentă de origine. Pentru P0",
+          "top": 582.49,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "Pentru audit este necesară atât situația reală reconstruită cu toate c",
+          "top": 517.99,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "Datasetul final verificat conține 60 jucători, 8 antrenori, 6 cluburi,",
+          "top": 465.59,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "## 2. Decizii de modelare",
+          "top": 413.19,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "VT folosește `DATE`, deoarece contractele și mandatele au granularitat",
+          "top": 394.19,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "Ambele axe sunt semi-deschise `[start,end)`, cu CHECK strict `from < t",
+          "top": 329.69,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "Șase ancore netemporale separă identitățile de cele trei versiuni bite",
+          "top": 277.29,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "`tx_registry(tx_id,tx_time,author,reason)` păstrează un moment comun p",
+          "top": 212.79,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "Core track folosește modelul manual acceptat de assignment, cu `fn_eff",
+          "top": 160.39,
+          "height": 60.5,
+          "width": 529.28
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "content_bottom": 41.84,
+      "objects": [
+        {
+          "text": "## 3. Protocol de scriere — E3, E4 și E8",
+          "top": 811.89,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "Fragmentele sunt din T18/T19/T25, pentru clone de replay aflate exact ",
+          "top": 792.89,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "Fiecare bloc are START TRANSACTION și handler EXIT cu ROLLBACK/RESIGNA",
+          "top": 728.39,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "{{sql_common}}",
+          "top": 675.99,
+          "height": 54.9,
+          "width": 529.28
+        },
+        {
+          "text": "### E3/T18 — înlocuirea înregistrată târziu",
+          "top": 618.09,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "La TT `2026-03-10 14:00:00` UTC, H02 îl înlocuiește pe H01 de la VT `2",
+          "top": 602.59,
+          "height": 24.2,
+          "width": 529.28
+        },
+        {
+          "text": "{{sql_t18}}",
+          "top": 574.39,
+          "height": 73.2,
+          "width": 529.28
+        },
+        {
+          "text": "### E4/T19 — corecția frontierei 1→3 martie",
+          "top": 498.19,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "La TT `2026-03-15 11:00:00` UTC, se închid ambele credințe afectate și",
+          "top": 482.69,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "{{sql_t19}}",
+          "top": 442.39,
+          "height": 91.5,
+          "width": 529.28
+        },
+        {
+          "text": "### E8/T25 — retractarea „niciodată adevărat”",
+          "top": 347.89,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "La TT `2026-04-25 10:00:00` UTC, `v_old` este împrumutul P060–CL06 `[2",
+          "top": 332.39,
+          "height": 24.2,
+          "width": 529.28
+        },
+        {
+          "text": "{{sql_t25}}",
+          "top": 304.19,
+          "height": 27.45,
+          "width": 529.28
+        },
+        {
+          "text": "Finalul comun verifică integritatea înainte de commit (orice eroare ac",
+          "top": 273.74,
+          "height": 12.1,
+          "width": 529.28
+        },
+        {
+          "text": "{{sql_finish}}",
+          "top": 257.64,
+          "height": 36.6,
+          "width": 529.28
+        },
+        {
+          "text": "E5/T32 exprimă altă semantică: împrumutul P006 s-a încheiat real la 1 ",
+          "top": 218.04,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "## 4. Dificultăți și încercări documentate",
+          "top": 177.74,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "Q3 inițial a eșuat cu ERROR 1111: subinterogările corelate și agregare",
+          "top": 158.74,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "Ipoteza că indexul as-of va fi ales nu s-a confirmat pe aceste date (p",
+          "top": 94.24,
+          "height": 48.4,
+          "width": 529.28
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "content_bottom": 57.59,
+      "objects": [
+        {
+          "text": "## Rezultate Part C — Q0, Q1, Q2 și Q3",
+          "top": 811.89,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "Capturi CLI reale din `evidence/replay/results/`, cu CSV și parametri ",
+          "top": 792.89,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "### Q0 — integritate și rollback",
+          "top": 752.59,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT COUNT(*) FROM v_integrity_violations` → 0 final. Diagnosticele",
+          "top": 737.09,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "{{q0}}",
+          "top": 696.79,
+          "height": 42.4,
+          "width": 529.28
+        },
+        {
+          "text": "### Q1 — fapte VT astăzi și curente TT pentru P006",
+          "top": 651.39,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT player_code,club_code,agreement_kind,salary_eur FROM v_q1_curr",
+          "top": 635.89,
+          "height": 24.2,
+          "width": 529.28
+        },
+        {
+          "text": "{{q1}}",
+          "top": 607.69,
+          "height": 31.8,
+          "width": 529.28
+        },
+        {
+          "text": "### Q2 — mandat coalescat al CL04, as-known-now",
+          "top": 572.89,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT * FROM v_q2_coach_tenures` (CL04) → H05/Sorin Dima, `[2025-07-",
+          "top": 557.39,
+          "height": 24.2,
+          "width": 529.28
+        },
+        {
+          "text": "### Q3 — toate 33 componente / 31 evenimente, proiecție compactă",
+          "top": 529.19,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT event_ref,fact_family,subject_code,event_codes,effective_date,",
+          "top": 513.69,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "{{q3}}",
+          "top": 449.19,
+          "height": 360.4,
+          "width": 529.28
+        },
+        {
+          "text": "T19: H01 `[2025-07-01,2026-03-01)` / H02 `[2026-03-01,∞)` → H01 `[2025",
+          "top": 85.79,
+          "height": 24.2,
+          "width": 529.28
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "content_bottom": 90.39,
+      "objects": [
+        {
+          "text": "## Rezultate Part C — Q4, Q5, Q6 și Q8",
+          "top": 811.89,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "### Q5 — toate cele 77 fapte contractuale la un moment TT",
+          "top": 792.89,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`known_at='2026-09-21 12:00:00.000000'` UTC. `SELECT player_code,club_",
+          "top": 777.39,
+          "height": 72.6,
+          "width": 529.28
+        },
+        {
+          "text": "{{q5}}",
+          "top": 700.79,
+          "height": 286.2,
+          "width": 529
+        },
+        {
+          "text": "### Q4 — overlap versus containment, sezonul 2025/2026",
+          "top": 411.59,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "Proiecție/extras din `SELECT player_code,club_code,at_some_point,throu",
+          "top": 396.09,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "### Q6 — CL01, VT 2026-03-02, cele trei perspective UTC",
+          "top": 331.59,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT subject_code,subject_name FROM v_q6_bitemporal_point WHERE fac",
+          "top": 316.09,
+          "height": 24.2,
+          "width": 529.28
+        },
+        {
+          "text": "{{q6}}",
+          "top": 287.89,
+          "height": 42.4,
+          "width": 529.28
+        },
+        {
+          "text": "Frontiere TT reale, capturi înainte/exact/după cu ±1µs: T18 la 10 mart",
+          "top": 242.49,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "### Q8 — toate cele patru goluri între perioade ale aceleiași perechi",
+          "top": 202.19,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT player_code,club_code,gap_from,gap_to,gap_days FROM v_q8_relat",
+          "top": 186.69,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "{{q8}}",
+          "top": 146.39,
+          "height": 53.0,
+          "width": 529.28
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "content_bottom": 104.79,
+      "objects": [
+        {
+          "text": "## Q7, comparația EXPLAIN și concluzii tehnice",
+          "top": 811.89,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "### Q7 — întreaga matrice 12 luni × 6 cluburi (72 valori)",
+          "top": 792.89,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "`SELECT month_start,club_code,relationship_count FROM v_q7_monthly_rel",
+          "top": 777.39,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "{{q7}}",
+          "top": 724.99,
+          "height": 137.8,
+          "width": 529.28
+        },
+        {
+          "text": "### Part A — cele două planuri reale Q6/CONTRACT",
+          "top": 584.19,
+          "height": 12.5,
+          "width": 529.28
+        },
+        {
+          "text": "CL03, VT `2026-05-05`, TT `2026-05-11 12:00:00` UTC, aceeași clonă/98 ",
+          "top": 568.69,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "{{explain}}",
+          "top": 516.29,
+          "height": 84.8,
+          "width": 529.28
+        },
+        {
+          "text": "Toate 7 rânduri/plan, proiecție type/key/rows/Extra: d2=`<derived2>`, ",
+          "top": 428.49,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "## 5. Concluzii — ce ajută motorul nativ",
+          "top": 363.99,
+          "height": 14,
+          "width": 529.28
+        },
+        {
+          "text": "Course1 pp. 29–37: VT, SYSTEM_TIME și chei temporale; pp. 39–42: concu",
+          "top": 344.99,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "SQL Server system-versioned tables stampilează TT la începutul tranzac",
+          "top": 292.59,
+          "height": 36.3,
+          "width": 529.28
+        },
+        {
+          "text": "PostgreSQL 18: range/multirange, `WITHOUT OVERLAPS`, FK cu `PERIOD`. P",
+          "top": 252.29,
+          "height": 60.5,
+          "width": 529.28
+        },
+        {
+          "text": "MariaDB 11.x: VT, WITHOUT OVERLAPS, SYSTEM VERSIONING (Course1 pp. 31/",
+          "top": 187.79,
+          "height": 48.4,
+          "width": 529.28
+        },
+        {
+          "text": "{{references}}",
+          "top": 135.39,
+          "height": 27.6,
+          "width": 529.28
+        }
+      ]
+    }
+  ],
+  "pdf_sha256": "4401ff057c83d1e03dc0e0802de3ff529b100fd369e8bc1b84af5aae9b91800e",
+  "source_sha256": "517ee3ac93f9e589f8ff914b41aa7415a953350de590a7a97cbc648b9973464e",
+  "evidence_root": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/verification/phase4/replay_package_1"
+}

@@ -1,0 +1,5 @@
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_run does not exist
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_expect_error does not exist
+Note (Code 1305): PROCEDURE two_clocks_cabd_verify_20261007_135539_21158_17483.smoke_assert does not exist
+result	assertions
+PASS: schema smoke; all fixtures rolled back	220

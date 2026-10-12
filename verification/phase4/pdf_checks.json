@@ -1,0 +1,13 @@
+{
+  "pages": 5,
+  "a4": true,
+  "all_five_sections": true,
+  "q0_q8": true,
+  "diacritics_and_symbols": true,
+  "embedded_fonts": true,
+  "text_bounds_pass": true,
+  "sha256": "4401ff057c83d1e03dc0e0802de3ff529b100fd369e8bc1b84af5aae9b91800e",
+  "visual_inspection": "All five rendered pages inspected by the assistant; record in phase4_summary.md",
+  "pdfinfo": "Title:           Two Clocks — Boar Victor\nSubject:         Assignment 1 — core A–D; MariaDB 11.8.8\nKeywords:        \nAuthor:          Boar Victor\nCreator:         anonymous\nProducer:        ReportLab PDF Library - (opensource)\nCreationDate:    Sat Jan  1 02:00:00 2000 EET\nModDate:         Sat Jan  1 02:00:00 2000 EET\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           5\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       83189 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "fonts": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nAAAAAA+NotoSans-Bold                 TrueType          WinAnsi          yes yes yes     16  0\nAAAAAA+NotoSans-Regular              TrueType          WinAnsi          yes yes yes     20  0\nAAAAAA+NotoSansMath-Regular          TrueType          WinAnsi          yes yes yes     24  0\nAAAAAA+NotoSansMono-Regular          TrueType          WinAnsi          yes yes yes     28  0\n"
+}

@@ -1,0 +1,7 @@
+Table	Create Table
+club	CREATE TABLE `club` (
+  `club_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `club_code` varchar(32) NOT NULL,
+  PRIMARY KEY (`club_id`),
+  UNIQUE KEY `uq_club_code` (`club_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

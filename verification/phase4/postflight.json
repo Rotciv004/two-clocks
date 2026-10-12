@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "counts": {
+    "player": 60,
+    "coach": 8,
+    "club": 6,
+    "season": 2,
+    "contract": 69,
+    "head_coach_role": 6,
+    "club_version": 18,
+    "contract_version": 98,
+    "head_coach_role_version": 15,
+    "tx_registry": 38,
+    "tx_event_tag": 53
+  },
+  "event_tag_counts": {
+    "E1": 1,
+    "E2": 13,
+    "E3": 18,
+    "E4": 5,
+    "E5": 6,
+    "E6": 4,
+    "E7": 3,
+    "E8": 1,
+    "E9": 2
+  },
+  "current_tt_contract_facts": 77,
+  "main_hash_method_unchanged": true,
+  "main_fingerprint": "74d4a44650b438f64ef7f010e9bce2893b68ac7483072a9ca2483e08aaa520c8",
+  "main_structure_identical": true,
+  "main_params_identical": true,
+  "working_directory_actual": "/root",
+  "package_root_actual": "/home/RotcivRaob/Data/Documents/Facultate/Master/Anul 1/SEM I/CABD/PROJECTS/Two Clocks/submission/boar_victor",
+  "sql_not_changed": {
+    "01_schema.sql": true,
+    "02_data.sql": true,
+    "03_timeline.sql": true,
+    "04_views.sql": true,
+    "05_tests.sql": true
+  },
+  "historical_tests": "230 schema smoke / 37 writer tests were NOT rerun in phase4; they remain prior evidence"
+}

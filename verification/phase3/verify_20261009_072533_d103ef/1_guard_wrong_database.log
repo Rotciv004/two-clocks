@@ -1,0 +1,7 @@
+failed_scenario	error_code	error_message
+preflight	1644	P3_GUARD: negative fixtures require runner-created matching test database
+--------------
+
+--------------
+
+ERROR 1644 (45000) at line 8: P3_GUARD: negative fixtures require runner-created matching test database

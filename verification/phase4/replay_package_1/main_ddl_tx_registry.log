@@ -1,0 +1,8 @@
+Table	Create Table
+tx_registry	CREATE TABLE `tx_registry` (
+  `tx_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tx_time` datetime(6) NOT NULL,
+  `author` varchar(128) NOT NULL,
+  `reason` text NOT NULL,
+  PRIMARY KEY (`tx_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
